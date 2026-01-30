@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Toy Outpost - Coming Soon</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --dust: #D4A373;
+            --void: #0A0E27;
+            --star: #F4E4C1;
+            --rust: #B85C38;
+        }
+
+        body {
+            font-family: 'Space Mono', monospace;
+            background: var(--void);
+            color: var(--star);
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Starfield background */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            background: var(--star);
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* Dust particles */
+        .dust-particle {
+            position: absolute;
+            background: var(--dust);
+            opacity: 0.1;
+            border-radius: 50%;
+            animation: float 20s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(50px, -30px); }
+            50% { transform: translate(-30px, 50px); }
+            75% { transform: translate(20px, -40px); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 900;
+            letter-spacing: 0.15em;
+            color: var(--star);
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            text-shadow: 
+                0 0 20px rgba(244, 228, 193, 0.5),
+                0 0 40px rgba(244, 228, 193, 0.3),
+                0 0 60px rgba(244, 228, 193, 0.2);
+            animation: fadeInDown 1.2s ease-out;
+        }
+
+        .tagline {
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            color: var(--dust);
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeIn 1.2s ease-out 0.3s forwards;
+        }
+
+        .message {
+            max-width: 600px;
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            line-height: 1.8;
+            color: var(--star);
+            margin-bottom: 4rem;
+            opacity: 0;
+            animation: fadeIn 1.2s ease-out 0.6s forwards;
+        }
+
+        .message .highlight {
+            color: var(--rust);
+            font-weight: 700;
+        }
+
+        .email-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 500px;
+            width: 100%;
+            opacity: 0;
+            animation: fadeInUp 1.2s ease-out 0.9s forwards;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .email-input {
+            width: 100%;
+            padding: 1.2rem 1.5rem;
+            background: rgba(212, 163, 115, 0.1);
+            border: 2px solid var(--dust);
+            border-radius: 0;
+            font-family: 'Space Mono', monospace;
+            font-size: 1rem;
+            color: var(--star);
+            text-align: center;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .email-input::placeholder {
+            color: rgba(244, 228, 193, 0.5);
+            letter-spacing: 0.1em;
+        }
+
+        .email-input:focus {
+            border-color: var(--star);
+            background: rgba(212, 163, 115, 0.15);
+            box-shadow: 
+                0 0 20px rgba(244, 228, 193, 0.2),
+                inset 0 0 20px rgba(244, 228, 193, 0.1);
+        }
+
+        .submit-btn {
+            padding: 1.2rem 2.5rem;
+            background: transparent;
+            border: 2px solid var(--rust);
+            color: var(--rust);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--rust);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .submit-btn:hover {
+            color: var(--void);
+            border-color: var(--rust);
+        }
+
+        .submit-btn:hover::before {
+            left: 0;
+        }
+
+        .submit-btn:active {
+            transform: scale(0.98);
+        }
+
+        .coordinates {
+            position: absolute;
+            bottom: 2rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: rgba(212, 163, 115, 0.5);
+            letter-spacing: 0.2em;
+            opacity: 0;
+            animation: fadeIn 1.2s ease-out 1.2s forwards;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.5rem;
+                letter-spacing: 0.1em;
+            }
+
+            .tagline {
+                font-size: 0.75rem;
+                letter-spacing: 0.2em;
+            }
+
+            .message {
+                font-size: 1rem;
+                margin-bottom: 3rem;
+            }
+
+            .email-input,
+            .submit-btn {
+                padding: 1rem 1.2rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Success message */
+        .success-message {
+            display: none;
+            color: var(--star);
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            text-align: center;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Starfield -->
+    <div class="stars" id="starfield"></div>
+
+    <div class="container">
+        <h1 class="logo">The Toy Outpost</h1>
+        <div class="tagline">Where Legends Never Fade</div>
+        
+        <p class="message">
+            A frontier outpost at the crossroads of <span class="highlight">past and future</span>. 
+            Where classic heroes from distant eras stand alongside tomorrow's legends. 
+            Your next adventure begins here.
+        </p>
+
+        <form class="email-form" id="emailForm" action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSdMFv0k4cBh74frM2yOGU1G-gs_fRha3mLz17TFjRtJFV6CYg/formResponse" method="POST" target="hidden_iframe">
+            <div class="input-wrapper">
+                <input 
+                    type="email" 
+                    class="email-input" 
+                    placeholder="TRANSMIT YOUR COORDINATES"
+                    required
+                    id="emailInput"
+                    name="entry.1388102875"
+                >
+            </div>
+            <button type="submit" class="submit-btn">Join the Expedition</button>
+            <div class="success-message" id="successMessage">
+                ✦ Transmission received. Stand by for launch sequence. ✦
+            </div>
+        </form>
+        <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+
+        <div class="coordinates">SECTOR 7-G // STATUS: INBOUND</div>
+    </div>
+
+    <script>
+        // Create starfield
+        const starfield = document.getElementById('starfield');
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.width = Math.random() * 2 + 1 + 'px';
+            star.style.height = star.style.width;
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            starfield.appendChild(star);
+        }
+
+        // Create dust particles
+        for (let i = 0; i < 30; i++) {
+            const dust = document.createElement('div');
+            dust.className = 'dust-particle';
+            dust.style.width = Math.random() * 3 + 1 + 'px';
+            dust.style.height = dust.style.width;
+            dust.style.left = Math.random() * 100 + '%';
+            dust.style.top = Math.random() * 100 + '%';
+            dust.style.animationDelay = Math.random() * 20 + 's';
+            dust.style.animationDuration = Math.random() * 10 + 15 + 's';
+            starfield.appendChild(dust);
+        }
+
+        // Handle form submission
+        const emailForm = document.getElementById('emailForm');
+        const emailInput = document.getElementById('emailInput');
+        const successMessage = document.getElementById('successMessage');
+
+        emailForm.addEventListener('submit', function(e) {
+            // Allow form to submit to Google Forms
+            // Show success message
+            setTimeout(() => {
+                successMessage.classList.add('show');
+                emailInput.value = '';
+                
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    successMessage.classList.remove('show');
+                }, 5000);
+            }, 100);
+        });
+    </script>
+</body>
+</html>
