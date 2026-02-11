@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>The Toy Outpost - Coming Soon</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="icon" type="image/png" href="favicon.png">
@@ -72,27 +72,28 @@
             position: relative;
             z-index: 10;
             min-height: 100vh;
+            min-height: 100dvh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             padding: 2rem;
+            padding-left: max(1.25rem, env(safe-area-inset-left));
+            padding-right: max(1.25rem, env(safe-area-inset-right));
             text-align: center;
         }
 
         .logo {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(2.5rem, 8vw, 5rem);
-            font-weight: 900;
-            letter-spacing: 0.15em;
-            color: var(--star);
-            text-transform: uppercase;
             margin-bottom: 1rem;
-            text-shadow: 
-                0 0 20px rgba(244, 228, 193, 0.5),
-                0 0 40px rgba(244, 228, 193, 0.3),
-                0 0 60px rgba(244, 228, 193, 0.2);
             animation: fadeInDown 1.2s ease-out;
+        }
+
+        .logo img {
+            display: block;
+            max-width: min(90vw, 520px);
+            height: auto;
+            filter: drop-shadow(0 0 20px rgba(244, 228, 193, 0.5))
+                    drop-shadow(0 0 40px rgba(244, 228, 193, 0.3));
         }
 
         .tagline {
@@ -205,6 +206,7 @@
         .coordinates {
             position: absolute;
             bottom: 2rem;
+            bottom: max(2rem, env(safe-area-inset-bottom));
             font-family: 'Space Mono', monospace;
             font-size: 0.75rem;
             color: rgba(212, 163, 115, 0.5);
@@ -244,10 +246,17 @@
             }
         }
 
+        /* Tablet and below */
         @media (max-width: 768px) {
-            .logo {
-                font-size: 2.5rem;
-                letter-spacing: 0.1em;
+            .container {
+                padding-top: 1.5rem;
+                padding-bottom: 1.5rem;
+                padding-left: max(1.5rem, env(safe-area-inset-left));
+                padding-right: max(1.5rem, env(safe-area-inset-right));
+            }
+
+            .logo img {
+                max-width: 85vw;
             }
 
             .tagline {
@@ -264,6 +273,54 @@
             .submit-btn {
                 padding: 1rem 1.2rem;
                 font-size: 0.9rem;
+            }
+        }
+
+        /* Phone (e.g. iPhone 17 ~402px) – tighter padding, touch-friendly, no zoom on focus */
+        @media (max-width: 430px) {
+            .container {
+                padding-top: 1.25rem;
+                padding-bottom: 1.25rem;
+                padding-left: max(1.25rem, env(safe-area-inset-left));
+                padding-right: max(1.25rem, env(safe-area-inset-right));
+            }
+
+            .logo img {
+                max-width: 88vw;
+            }
+
+            .tagline {
+                font-size: 0.7rem;
+                letter-spacing: 0.15em;
+                margin-bottom: 2rem;
+            }
+
+            .message {
+                font-size: 0.9375rem;
+                line-height: 1.7;
+                margin-bottom: 2.5rem;
+            }
+
+            .email-form {
+                gap: 0.75rem;
+            }
+
+            .email-input {
+                font-size: 1rem;
+                padding: 1rem 1rem;
+                min-height: 48px;
+            }
+
+            .submit-btn {
+                font-size: 0.875rem;
+                padding: 1rem 1.5rem;
+                min-height: 48px;
+                letter-spacing: 0.15em;
+            }
+
+            .coordinates {
+                font-size: 0.65rem;
+                letter-spacing: 0.1em;
             }
         }
 
@@ -287,7 +344,9 @@
     <div class="stars" id="starfield"></div>
 
     <div class="container">
-        <h1 class="logo">The Toy Outpost</h1>
+        <h1 class="logo">
+            <img src="assets/logo-horizontal.png" alt="The Toy Outpost" />
+        </h1>
         <div class="tagline">Where Legends Never Fade</div>
         
         <p class="message">
