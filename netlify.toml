@@ -4,6 +4,16 @@
   publish = "."
   command = ""
 
+# Redirect old thank-you paths to the static file (avoids 404)
+[[redirects]]
+  from = "/thank-you"
+  to = "/thank-you.html"
+  status = 302
+[[redirects]]
+  from = "/thank-you/"
+  to = "/thank-you.html"
+  status = 302
+
 # Optional: uncomment to add security/cache headers
 # [[headers]]
 #   for = "/*"
