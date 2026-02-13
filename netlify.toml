@@ -1,0 +1,12 @@
+# Netlify configuration for Toy Outpost static site
+
+[build]
+  publish = "."
+  command = ""
+
+# Optional: uncomment to add security/cache headers
+# [[headers]]
+#   for = "/*"
+#   [headers.values]
+#     X-Frame-Options = "DENY"
+#     X-Content-Type-Options = "nosniff"

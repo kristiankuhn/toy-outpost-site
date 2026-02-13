@@ -473,19 +473,6 @@
             }
         }
 
-        /* Success message */
-        .success-message {
-            display: none;
-            color: var(--star);
-            font-size: 1.1rem;
-            margin-top: 1rem;
-            text-align: center;
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        .success-message.show {
-            display: block;
-        }
     </style>
 </head>
 <body>
@@ -513,7 +500,8 @@
             Your next adventure begins here.
         </p>
 
-        <form class="email-form" id="emailForm" action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSdMFv0k4cBh74frM2yOGU1G-gs_fRha3mLz17TFjRtJFV6CYg/formResponse" method="POST" target="hidden_iframe">
+        <form class="email-form" id="emailForm" name="signup" method="POST" data-netlify="true" action="/thank-you/">
+            <input type="hidden" name="form-name" value="signup">
             <label for="emailInput" class="email-label">Your email</label>
             <div class="input-wrapper">
                 <input 
@@ -522,15 +510,11 @@
                     placeholder="TRANSMIT YOUR COORDINATES"
                     required
                     id="emailInput"
-                    name="entry.1388102875"
+                    name="email"
                 >
             </div>
             <button type="submit" class="submit-btn">Join the Expedition</button>
-            <div class="success-message" id="successMessage">
-                ✦ Transmission received. Stand by for launch sequence. ✦
-            </div>
         </form>
-        <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
 
         <div class="footer-info">
             <div class="coordinates">SECTOR 7-G // STATUS: INBOUND</div>
@@ -564,24 +548,6 @@
             starfield.appendChild(dust);
         }
 
-        // Handle form submission
-        const emailForm = document.getElementById('emailForm');
-        const emailInput = document.getElementById('emailInput');
-        const successMessage = document.getElementById('successMessage');
-
-        emailForm.addEventListener('submit', function(e) {
-            // Allow form to submit to Google Forms
-            // Show success message
-            setTimeout(() => {
-                successMessage.classList.add('show');
-                emailInput.value = '';
-                
-                // Hide success message after 5 seconds
-                setTimeout(() => {
-                    successMessage.classList.remove('show');
-                }, 5000);
-            }, 100);
-        });
     </script>
 </body>
 </html>

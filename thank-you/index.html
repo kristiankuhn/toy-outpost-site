@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Thank you - The Toy Outpost</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="icon" type="image/png" href="../favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --dust: #D4A373;
+            --void: #0A0E27;
+            --star: #F4E4C1;
+            --rust: #B85C38;
+        }
+
+        body {
+            font-family: 'Space Mono', monospace;
+            background: var(--void);
+            color: var(--star);
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .stars {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            background: var(--star);
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .dust-particle {
+            position: absolute;
+            background: var(--dust);
+            opacity: 0.1;
+            border-radius: 50%;
+            animation: float 20s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(50px, -30px); }
+            50% { transform: translate(-30px, 50px); }
+            75% { transform: translate(20px, -40px); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            padding-left: max(1.25rem, env(safe-area-inset-left));
+            padding-right: max(1.25rem, env(safe-area-inset-right));
+            padding-bottom: max(4rem, env(safe-area-inset-bottom));
+            text-align: center;
+        }
+
+        .logo {
+            margin-bottom: 1rem;
+        }
+
+        .logo img {
+            display: block;
+            max-width: min(90vw, 520px);
+            height: auto;
+            filter: drop-shadow(0 0 12px rgba(244, 228, 193, 0.6))
+                    drop-shadow(0 0 28px rgba(212, 163, 115, 0.35))
+                    drop-shadow(0 0 48px rgba(184, 92, 56, 0.2))
+                    sepia(0.06) saturate(1.08);
+        }
+
+        .tagline {
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            color: var(--dust);
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-bottom: 2.5rem;
+        }
+
+        .thank-you-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            color: var(--star);
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px rgba(244, 228, 193, 0.4);
+        }
+
+        .thank-you-message {
+            max-width: 520px;
+            font-size: clamp(1rem, 2.2vw, 1.2rem);
+            line-height: 1.8;
+            color: var(--star);
+            margin-bottom: 2rem;
+        }
+
+        .thank-you-message .highlight {
+            color: var(--rust);
+            font-weight: 700;
+        }
+
+        .visit-invite {
+            padding: 1rem 1.5rem;
+            border: 2px solid var(--rust);
+            margin-bottom: 1.5rem;
+            max-width: 480px;
+        }
+
+        .visit-invite .when {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.25em;
+            color: var(--rust);
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .visit-invite .copy {
+            font-size: clamp(0.95rem, 2vw, 1.1rem);
+            color: var(--star);
+            line-height: 1.6;
+        }
+
+        .thank-you-address {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        .thank-you-address a {
+            color: var(--star);
+            text-decoration: none;
+            text-shadow: 0 0 12px rgba(244, 228, 193, 0.3);
+        }
+
+        .thank-you-address a:hover {
+            text-decoration: underline;
+            text-shadow: 0 0 16px rgba(244, 228, 193, 0.5);
+        }
+
+        .back-link {
+            display: inline-block;
+            padding: 0.9rem 1.75rem;
+            border: 2px solid var(--dust);
+            color: var(--dust);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--void);
+            background: var(--dust);
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="starfield"></div>
+
+    <div class="container">
+        <a href="/" class="logo">
+            <img src="../assets/logo-horizontal.png" alt="The Toy Outpost" />
+        </a>
+        <div class="tagline">Where Legends Never Fade</div>
+
+        <h2 class="thank-you-title">Transmission received</h2>
+        <p class="thank-you-message">
+            You’re on the list. We’ll send updates as we get closer to launch.
+        </p>
+
+        <div class="visit-invite">
+            <div class="when">Opening Spring 2026</div>
+            <p class="copy">Visit our <span class="highlight">physical store</span> at the outpost—we’d love to see you there.</p>
+        </div>
+
+        <div class="thank-you-address">
+            <a href="https://www.google.com/maps/search/?api=1&query=93+Mayo+Rd+Edgewater+MD+21037" target="_blank" rel="noopener noreferrer">93 Mayo Rd, Edgewater MD 21037</a>
+        </div>
+
+        <a href="/" class="back-link">Back to home</a>
+    </div>
+
+    <script>
+        const starfield = document.getElementById('starfield');
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.width = star.style.height = (Math.random() * 2 + 1) + 'px';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            starfield.appendChild(star);
+        }
+        for (let i = 0; i < 30; i++) {
+            const dust = document.createElement('div');
+            dust.className = 'dust-particle';
+            dust.style.width = dust.style.height = (Math.random() * 3 + 1) + 'px';
+            dust.style.left = Math.random() * 100 + '%';
+            dust.style.top = Math.random() * 100 + '%';
+            dust.style.animationDelay = Math.random() * 20 + 's';
+            dust.style.animationDuration = (Math.random() * 10 + 15) + 's';
+            starfield.appendChild(dust);
+        }
+    </script>
+</body>
+</html>
