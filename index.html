@@ -347,99 +347,6 @@
             }
         }
 
-        /* Thank-you state (in-page, after form submit) */
-        .thank-you-state {
-            display: none;
-        }
-
-        .thank-you-state[data-visible] {
-            display: flex;
-        }
-
-        .thank-you-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(1.25rem, 3vw, 1.75rem);
-            font-weight: 700;
-            letter-spacing: 0.15em;
-            color: var(--star);
-            text-transform: uppercase;
-            margin-bottom: 1rem;
-            text-shadow: 0 0 20px rgba(244, 228, 193, 0.4);
-        }
-
-        .thank-you-message {
-            max-width: 520px;
-            font-size: clamp(1rem, 2.2vw, 1.2rem);
-            line-height: 1.8;
-            color: var(--star);
-            margin-bottom: 2rem;
-        }
-
-        .thank-you-message .highlight {
-            color: var(--rust);
-            font-weight: 700;
-        }
-
-        .thank-you-state .visit-invite {
-            margin-top: 0;
-            padding: 1rem 1.5rem;
-            border: 2px solid var(--rust);
-            margin-bottom: 1.5rem;
-            max-width: 480px;
-        }
-
-        .thank-you-state .visit-invite .when {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 0.25em;
-            color: var(--rust);
-            text-transform: uppercase;
-            margin-bottom: 0.5rem;
-        }
-
-        .thank-you-state .visit-invite .copy {
-            font-size: clamp(0.95rem, 2vw, 1.1rem);
-            color: var(--star);
-            line-height: 1.6;
-        }
-
-        .thank-you-address {
-            font-size: clamp(1rem, 2vw, 1.2rem);
-            font-weight: 700;
-            margin-bottom: 2rem;
-        }
-
-        .thank-you-address a {
-            color: var(--star);
-            text-decoration: none;
-            text-shadow: 0 0 12px rgba(244, 228, 193, 0.3);
-        }
-
-        .thank-you-address a:hover {
-            text-decoration: underline;
-            text-shadow: 0 0 16px rgba(244, 228, 193, 0.5);
-        }
-
-        .back-link {
-            display: inline-block;
-            padding: 0.9rem 1.75rem;
-            border: 2px solid var(--dust);
-            color: var(--dust);
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.9rem;
-            font-weight: 700;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .back-link:hover {
-            color: var(--void);
-            background: var(--dust);
-        }
-
         /* Tablet and below */
         @media (max-width: 768px) {
             .container {
@@ -572,7 +479,7 @@
     <!-- Starfield -->
     <div class="stars" id="starfield"></div>
 
-    <div class="container" id="mainContent">
+    <div class="container">
         <h1 class="logo">
             <img src="assets/logo-horizontal.png" alt="The Toy Outpost" />
         </h1>
@@ -593,7 +500,7 @@
             Your next adventure begins here.
         </p>
 
-        <form class="email-form" id="emailForm" name="signup" method="POST" netlify action="/?thankyou=1">
+        <form class="email-form" id="emailForm" name="signup" method="POST" netlify action="/thank-you.html">
             <input type="hidden" name="form-name" value="signup">
             <label for="emailInput" class="email-label">Your email</label>
             <div class="input-wrapper">
@@ -612,26 +519,6 @@
         <div class="footer-info">
             <div class="coordinates">SECTOR 7-G // STATUS: INBOUND</div>
         </div>
-    </div>
-
-    <!-- Thank-you state (shown after form submit via ?thankyou=1) -->
-    <div class="container thank-you-state" id="thankYouState" hidden>
-        <h1 class="logo">
-            <img src="assets/logo-horizontal.png" alt="The Toy Outpost" />
-        </h1>
-        <div class="tagline">Where Legends Never Fade</div>
-        <h2 class="thank-you-title">Transmission received</h2>
-        <p class="thank-you-message">
-            You're on the list. We'll send updates as we get closer to launch.
-        </p>
-        <div class="visit-invite">
-            <div class="when">Opening Spring 2026</div>
-            <p class="copy">Visit our <span class="highlight">physical store</span> at the outpost—we'd love to see you there.</p>
-        </div>
-        <div class="thank-you-address">
-            <a href="https://www.google.com/maps/search/?api=1&query=93+Mayo+Rd+Edgewater+MD+21037" target="_blank" rel="noopener noreferrer">93 Mayo Rd, Edgewater MD 21037</a>
-        </div>
-        <a href="/" class="back-link">Back to home</a>
     </div>
 
     <script>
@@ -659,20 +546,6 @@
             dust.style.animationDelay = Math.random() * 20 + 's';
             dust.style.animationDuration = Math.random() * 10 + 15 + 's';
             starfield.appendChild(dust);
-        }
-
-        // Thank-you state: show after form submit (URL has ?thankyou=1)
-        const mainContent = document.getElementById('mainContent');
-        const thankYouState = document.getElementById('thankYouState');
-        if (thankYouState && mainContent) {
-            const showThankYou = () => {
-                mainContent.hidden = true;
-                thankYouState.hidden = false;
-                thankYouState.setAttribute('data-visible', '');
-            };
-            if (window.location.search.includes('thankyou=1')) {
-                showThankYou();
-            }
         }
     </script>
 </body>
