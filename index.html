@@ -593,7 +593,7 @@
             Your next adventure begins here.
         </p>
 
-        <form class="email-form" id="emailForm" name="signup" method="POST" netlify action="/">
+        <form class="email-form" id="emailForm" name="signup" method="POST" netlify action="/?thankyou=1">
             <input type="hidden" name="form-name" value="signup">
             <label for="emailInput" class="email-label">Your email</label>
             <div class="input-wrapper">
@@ -672,24 +672,6 @@
             };
             if (window.location.search.includes('thankyou=1')) {
                 showThankYou();
-            }
-
-            // Submit form via fetch so we can redirect to /?thankyou=1 (avoids 404 on separate thank-you page)
-            const form = document.getElementById('emailForm');
-            if (form) {
-                form.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    const formData = new FormData(form);
-                    fetch('/', {
-                        method: 'POST',
-                        body: formData,
-                        headers: { 'Accept': 'application/html' }
-                    }).then(function() {
-                        window.location = window.location.pathname + '?thankyou=1';
-                    }).catch(function() {
-                        window.location = window.location.pathname + '?thankyou=1';
-                    });
-                });
             }
         }
     </script>
