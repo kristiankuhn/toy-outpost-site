@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Privacy Policy & Terms of Service - The Toy Outpost</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --dust: #D4A373;
+            --void: #0A0E27;
+            --star: #F4E4C1;
+            --rust: #B85C38;
+        }
+
+        body {
+            font-family: 'Space Mono', monospace;
+            background: var(--void);
+            color: var(--star);
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .stars {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            background: var(--star);
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .dust-particle {
+            position: absolute;
+            background: var(--dust);
+            opacity: 0.1;
+            border-radius: 50%;
+            animation: float 20s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(50px, -30px); }
+            50% { transform: translate(-30px, 50px); }
+            75% { transform: translate(20px, -40px); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            min-height: 100dvh;
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 4rem;
+            padding-left: max(1.25rem, env(safe-area-inset-left));
+            padding-right: max(1.25rem, env(safe-area-inset-right));
+            padding-bottom: max(4rem, env(safe-area-inset-bottom));
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .logo {
+            display: block;
+            margin-bottom: 0.75rem;
+        }
+
+        .logo img {
+            display: block;
+            max-width: min(90vw, 400px);
+            height: auto;
+            margin: 0 auto;
+            filter: drop-shadow(0 0 12px rgba(244, 228, 193, 0.6))
+                    drop-shadow(0 0 28px rgba(212, 163, 115, 0.35))
+                    sepia(0.06) saturate(1.08);
+        }
+
+        .tagline {
+            font-size: clamp(0.8rem, 2vw, 1rem);
+            color: var(--dust);
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+        }
+
+        .page-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            color: var(--star);
+            text-transform: uppercase;
+            margin-top: 2rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 20px rgba(244, 228, 193, 0.3);
+        }
+
+        .section {
+            margin-bottom: 2.5rem;
+        }
+
+        .section h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(0.95rem, 2vw, 1.1rem);
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            color: var(--rust);
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid rgba(212, 163, 115, 0.3);
+            padding-bottom: 0.5rem;
+        }
+
+        .section p {
+            font-size: clamp(0.9rem, 1.8vw, 1rem);
+            line-height: 1.75;
+            color: var(--star);
+            margin-bottom: 1rem;
+        }
+
+        .section p:last-child {
+            margin-bottom: 0;
+        }
+
+        .section .highlight-box {
+            background: rgba(212, 163, 115, 0.1);
+            border: 1px solid var(--dust);
+            padding: 1rem 1.25rem;
+            margin: 1rem 0;
+        }
+
+        .section .highlight-box p {
+            margin-bottom: 0.5rem;
+        }
+
+        .section .highlight-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .section a {
+            color: var(--dust);
+            text-decoration: underline;
+        }
+
+        .section a:hover {
+            color: var(--star);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.9rem 1.75rem;
+            border: 2px solid var(--dust);
+            color: var(--dust);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--void);
+            background: var(--dust);
+        }
+
+        @media (max-width: 430px) {
+            .container {
+                padding: 1.5rem max(1.25rem, env(safe-area-inset-left)) 3rem;
+            }
+
+            .page-title {
+                font-size: 1rem;
+                letter-spacing: 0.08em;
+            }
+
+            .section h2 {
+                font-size: 0.85rem;
+                letter-spacing: 0.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="starfield"></div>
+
+    <div class="container">
+        <header class="page-header">
+            <a href="/" class="logo">
+                <img src="assets/logo-horizontal.png" alt="The Toy Outpost" />
+            </a>
+            <div class="tagline">Where Legends Never Fade</div>
+            <h1 class="page-title">Privacy Policy & Terms of Service</h1>
+        </header>
+
+        <section class="section" id="privacy">
+            <h2>Privacy Policy</h2>
+            <p>The Toy Outpost Company, LLC (“we,” “us,” or “our”) respects your privacy. This policy describes how we collect, use, and protect information when you sign up for our mailing list, send us text messages to our company phone number, or otherwise interact with our website and communications.</p>
+
+            <div class="highlight-box">
+                <p><strong>Mobile &amp; SMS:</strong> No mobile information will be shared with third parties/affiliates for marketing/promotional purposes. All the above categories exclude text messaging originator opt-in data and consent; this information will not be shared with any third parties.</p>
+                <p>You can opt out at any time by replying &quot;STOP.&quot; Message and data rates may apply.</p>
+            </div>
+
+            <p><strong>Information we collect:</strong> When you sign up for our mailing list, we collect your email address. When you send text messages to our company phone number, we may collect your phone number and the content of your messages. We use this information to send you updates, marketing messages, and to respond to your inquiries.</p>
+
+            <p><strong>Email communications:</strong> By providing your email address, you consent to receive emails from us, including newsletters, promotions, and transactional messages. You may unsubscribe from marketing emails at any time using the link in our emails or by contacting us.</p>
+
+            <p><strong>Security:</strong> We take reasonable steps to protect your personal information. We do not sell your personal information to third parties.</p>
+
+            <p><strong>Updates:</strong> We may update this privacy policy from time to time. The current version will always be posted on this page with an updated effective date.</p>
+
+            <p><strong>Contact:</strong> For privacy-related questions, contact us at <a href="mailto:toyoutpostco@gmail.com">toyoutpostco@gmail.com</a>.</p>
+        </section>
+
+        <section class="section" id="terms">
+            <h2>Terms of Service (SMS &amp; Text Messaging)</h2>
+            <p>By signing up for our mailing list, texting our company phone number, or otherwise opting in to receive messages from us, you agree to the following terms regarding SMS and electronic communications:</p>
+
+            <div class="highlight-box">
+                <p>You agree to receive <strong>CONVERSATIONAL</strong> and <strong>MARKETING</strong> messages from The Toy Outpost Company, LLC. Message frequency varies. Message and data rates may apply. For help, reply &quot;HELP&quot; or email us at <a href="mailto:toyoutpostco@gmail.com">toyoutpostco@gmail.com</a>. You can opt out at any time by replying &quot;STOP&quot;.</p>
+            </div>
+
+            <p>These terms apply to communications sent via our website, email, and text messaging programs. Your use of our website and your consent to receive messages constitutes acceptance of these terms. We reserve the right to modify these terms; continued receipt of messages after changes constitutes acceptance.</p>
+        </section>
+
+        <a href="/" class="back-link">Back to home</a>
+    </div>
+
+    <script>
+        const starfield = document.getElementById('starfield');
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.width = star.style.height = (Math.random() * 2 + 1) + 'px';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            starfield.appendChild(star);
+        }
+        for (let i = 0; i < 30; i++) {
+            const dust = document.createElement('div');
+            dust.className = 'dust-particle';
+            dust.style.width = dust.style.height = (Math.random() * 3 + 1) + 'px';
+            dust.style.left = Math.random() * 100 + '%';
+            dust.style.top = Math.random() * 100 + '%';
+            dust.style.animationDelay = Math.random() * 20 + 's';
+            dust.style.animationDuration = (Math.random() * 10 + 15) + 's';
+            starfield.appendChild(dust);
+        }
+    </script>
+</body>
+</html>
