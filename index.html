@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>The Toy Outpost - Coming Soon</title>
+    <title>The Toy Outpost</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="icon" type="image/png" href="favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -12,6 +12,14 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        @font-face {
+            font-family: 'Rustique';
+            src: url('assets/fonts/Rustique-Regular.otf') format('opentype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
         }
 
         :root {
@@ -104,10 +112,29 @@
             color: var(--dust);
             letter-spacing: 0.3em;
             text-transform: uppercase;
-            margin-bottom: 1rem;
+            margin-bottom: 0.6rem;
             opacity: 0;
             animation: fadeIn 1.2s ease-out 0.3s forwards;
+        
+            font-family: 'Rustique', 'Orbitron', sans-serif;
         }
+
+        .brand-intro {
+            max-width: 760px;
+            text-align: center;
+            font-size: clamp(0.8rem, 1.8vw, 0.95rem);
+            line-height: 1.7;
+            color: rgba(244, 228, 193, 0.9);
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeIn 1.2s ease-out 0.35s forwards;
+        }
+
+        .brand-intro .highlight {
+            color: var(--dust);
+            font-weight: 700;
+        }
+
 
         .opening-block {
             margin-bottom: 3rem;
@@ -120,7 +147,7 @@
         }
 
         .opening-date {
-            font-family: 'Orbitron', sans-serif;
+            font-family: 'Rustique', 'Orbitron', sans-serif;
             font-size: clamp(1rem, 2.5vw, 1.35rem);
             font-weight: 700;
             letter-spacing: 0.2em;
@@ -143,7 +170,7 @@
         }
 
         .address-callout .find-us {
-            font-family: 'Orbitron', sans-serif;
+            font-family: 'Rustique', 'Orbitron', sans-serif;
             font-size: 0.65rem;
             font-weight: 700;
             letter-spacing: 0.3em;
@@ -170,6 +197,92 @@
             transform: scale(1.02);
             text-shadow: 0 0 24px rgba(244, 228, 193, 0.7),
                          0 0 12px rgba(244, 228, 193, 0.5);
+        }
+
+        .event-meta {
+            font-size: clamp(0.78rem, 1.7vw, 0.9rem);
+            line-height: 1.65;
+            color: rgba(244, 228, 193, 0.92);
+            margin-top: 0.35rem;
+        }
+
+        .event-meta strong {
+            color: var(--dust);
+        }
+
+        .event-hosts {
+            margin-top: 0.6rem;
+            font-size: clamp(0.72rem, 1.5vw, 0.82rem);
+            color: rgba(212, 163, 115, 0.9);
+            line-height: 1.55;
+        }
+
+        .event-hosts a {
+            color: var(--dust);
+            text-decoration: underline;
+        }
+
+        .event-hosts a:hover {
+            color: var(--star);
+        }
+
+        .event-link {
+            display: inline-block;
+            margin-top: 0.85rem;
+            padding: 0.55rem 0.9rem;
+            border: 1px solid var(--rust);
+            color: var(--star);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.11em;
+            font-size: 0.72rem;
+            transition: all 0.2s ease;
+        }
+
+        .event-link:hover {
+            color: var(--void);
+            background: var(--rust);
+        }
+
+        .event-guests {
+            margin-top: 0.7rem;
+            padding: 0.55rem 0.75rem;
+            border: 1px dashed rgba(212, 163, 115, 0.55);
+            background: rgba(212, 163, 115, 0.08);
+            font-size: clamp(0.72rem, 1.5vw, 0.82rem);
+            line-height: 1.5;
+            color: rgba(244, 228, 193, 0.95);
+        }
+
+        .event-guests strong {
+            color: var(--dust);
+        }
+
+        .guest-grid {
+            margin-top: 0.65rem;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(120px, 1fr));
+            gap: 0.65rem;
+        }
+
+        .guest-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .guest-card img {
+            width: 100%;
+            max-width: 130px;
+        }
+
+        .guest-card span {
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: rgba(244, 228, 193, 0.92);
+            text-align: center;
         }
 
         .message {
@@ -281,7 +394,7 @@
             background: transparent;
             border: 2px solid var(--rust);
             color: var(--rust);
-            font-family: 'Orbitron', sans-serif;
+            font-family: 'Rustique', 'Orbitron', sans-serif;
             font-size: 1rem;
             font-weight: 700;
             letter-spacing: 0.2em;
@@ -315,6 +428,34 @@
 
         .submit-btn:active {
             transform: scale(0.98);
+        }
+
+        .contact-cta {
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-cta .prompt {
+            max-width: 520px;
+            margin: 0 auto 0.85rem;
+            line-height: 1.7;
+            color: rgba(244, 228, 193, 0.9);
+        }
+
+        .contact-btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            border: 2px solid var(--rust);
+            color: var(--rust);
+            text-decoration: none;
+            font-family: 'Rustique', 'Orbitron', sans-serif;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .contact-btn:hover {
+            color: var(--void);
+            background: var(--rust);
         }
 
         .footer-info {
@@ -366,6 +507,36 @@
         }
 
         .footer-link:hover {
+            color: var(--dust);
+        }
+
+        .footer-contact-link {
+            display: inline-block;
+            margin-top: 0.6rem;
+            font-size: 0.75rem;
+            color: rgba(212, 163, 115, 0.72);
+            letter-spacing: 0.15em;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: color 0.2s ease;
+        }
+
+        .footer-contact-link:hover {
+            color: var(--dust);
+        }
+
+        .secondary-link {
+            display: inline-block;
+            margin-top: 0.6rem;
+            font-size: 0.75rem;
+            color: rgba(212, 163, 115, 0.72);
+            letter-spacing: 0.15em;
+            text-decoration: none;
+            transition: color 0.2s ease;
+            text-transform: uppercase;
+        }
+
+        .secondary-link:hover {
             color: var(--dust);
         }
 
@@ -439,6 +610,11 @@
                 letter-spacing: 0.2em;
             }
 
+            .brand-intro {
+                font-size: 0.8rem;
+                margin-bottom: 1.25rem;
+            }
+
             .opening-block {
                 margin-bottom: 2.5rem;
             }
@@ -491,7 +667,13 @@
             .tagline {
                 font-size: 0.7rem;
                 letter-spacing: 0.15em;
-                margin-bottom: 2rem;
+                margin-bottom: 1rem;
+            }
+
+            .brand-intro {
+                font-size: 0.74rem;
+                line-height: 1.6;
+                margin-bottom: 1rem;
             }
 
             .message {
@@ -547,9 +729,114 @@
             }
         }
 
+
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 30;
+            backdrop-filter: blur(8px);
+            background: rgba(10, 14, 39, 0.82);
+            border-bottom: 1px solid rgba(212, 163, 115, 0.25);
+        }
+
+        .site-nav {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0.85rem 1.25rem;
+            padding-left: max(1.25rem, env(safe-area-inset-left));
+            padding-right: max(1.25rem, env(safe-area-inset-right));
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.9rem;
+        }
+
+        .nav-brand {
+            font-family: 'Rustique', 'Orbitron', sans-serif;
+            color: var(--star);
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-links a {
+            color: rgba(212, 163, 115, 0.9);
+            text-decoration: none;
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--star);
+        }
+
+        .nav-toggle {
+            display: none;
+            border: 1px solid rgba(212, 163, 115, 0.45);
+            background: transparent;
+            color: var(--dust);
+            padding: 0.35rem 0.55rem;
+            font-size: 1rem;
+            line-height: 1;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .nav-toggle {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: calc(100% + 0.45rem);
+                left: max(1.25rem, env(safe-area-inset-left));
+                right: max(1.25rem, env(safe-area-inset-right));
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.7rem;
+                padding: 0.9rem;
+                background: rgba(10, 14, 39, 0.96);
+                border: 1px solid rgba(212, 163, 115, 0.35);
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-links a {
+                width: 100%;
+            }
+        }
+
     </style>
 </head>
 <body>
+
+    <header class="site-header">
+        <nav class="site-nav" aria-label="Main">
+            <a href="/" class="nav-brand">The Toy Outpost</a>
+            <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav-links" aria-label="Toggle navigation">&#9776;</button>
+            <div class="nav-links" id="main-nav-links">
+                <a href="/">Home</a>
+                <a href="/sell-your-toys.html">Sell Your Toys</a>
+                <a href="/contact.html">Contact</a>
+                <a href="/privacy-and-terms.html">Privacy &amp; Terms</a>
+            </div>
+        </nav>
+    </header>
     <!-- Starfield -->
     <div class="stars" id="starfield"></div>
 
@@ -558,65 +845,56 @@
             <img src="assets/logo-horizontal.png" alt="The Toy Outpost" />
         </h1>
         <div class="tagline">Where Legends Never Fade</div>
+        <p class="brand-intro">
+            <span class="highlight">Toy Outpost Co.</span> - Vintage &amp; modern toys and collectibles, new &amp; pre-loved.
+            From childhood classics to today's pop culture favorites, our ever-changing inventory keeps the hunt exciting.
+        </p>
         <div class="opening-block">
-            <div class="opening-date">Opening Spring 2026</div>
+            <div class="opening-date">Grand Opening - April 11, 2026</div>
             <div class="address-callout">
-                <span class="find-us">Find us</span>
+                <span class="find-us">Now Open - Join the Celebration</span>
+                <div class="event-meta">
+                    <strong>Saturday, April 11, 2026</strong><br>
+                    10:00 AM EDT
+                </div>
                 <div class="address">
                     <a href="https://www.google.com/maps/search/?api=1&query=93+Mayo+Rd+Edgewater+MD+21037" target="_blank" rel="noopener noreferrer">93 Mayo Rd, Edgewater MD 21037</a>
                 </div>
+                <div class="event-meta">Public event - anyone on or off Facebook can attend.</div>
+                <div class="event-hosts">
+                    Hosted by
+                    <a href="/" rel="noopener noreferrer">The Toy Outpost</a>,
+                    <a href="https://www.annapolistoyshow.com" target="_blank" rel="noopener noreferrer">Annapolis Toy Show</a>,
+                    <a href="https://www.marylandtradingcardexpo.com" target="_blank" rel="noopener noreferrer">Maryland Trading Card Expo</a>,
+                    <a href="https://www.dominiontoycon.com" target="_blank" rel="noopener noreferrer">Dominion Toy Con</a>, and
+                    <a href="https://www.marylandtoyexpo.com" target="_blank" rel="noopener noreferrer">Maryland Toy Expo</a>.
+                </div>
+                <div class="event-guests">
+                    <strong>Special Guests:</strong> Charm City Ghostbusters and Mel Brown from LEGO Masters.
+                    <div class="guest-grid">
+                        <div class="guest-card">
+                            <img src="assets/mel-brown.png" alt="Mel Brown from LEGO Masters">
+                            <span>Mel Brown<br>LEGO Masters</span>
+                        </div>
+                        <div class="guest-card">
+                            <img src="assets/ghostbusters.png" alt="Charm City Ghostbusters">
+                            <span>Charm City<br>Ghostbusters</span>
+                        </div>
+                    </div>
+                </div>
+                <a class="event-link" href="https://www.facebook.com/events/767679626208519" target="_blank" rel="noopener noreferrer">View Event Details</a>
             </div>
         </div>
         
         <p class="message">
-            A frontier outpost at the crossroads of <span class="highlight">past and future</span>. 
-            Where classic heroes from distant eras stand alongside tomorrow's legends. 
-            Your next adventure begins here.
+            We're open and celebrating in full force. 
+            Come experience The Toy Outpost during our <span class="highlight">Grand Opening Celebration</span> with fellow collectors and fans.
         </p>
 
-        <form class="email-form" id="emailForm" name="signup" method="POST" netlify action="/thank-you.html">
-            <input type="hidden" name="form-name" value="signup">
-            <label for="nameInput" class="email-label">Your name</label>
-            <div class="input-wrapper">
-                <input
-                    type="text"
-                    class="email-input"
-                    placeholder="YOUR NAME"
-                    required
-                    id="nameInput"
-                    name="name"
-                    autocomplete="name"
-                >
-            </div>
-            <label for="emailInput" class="email-label">Your email</label>
-            <div class="input-wrapper">
-                <input
-                    type="email"
-                    class="email-input"
-                    placeholder="TRANSMIT YOUR COORDINATES"
-                    required
-                    id="emailInput"
-                    name="email"
-                    autocomplete="email"
-                >
-            </div>
-            <label for="phoneInput" class="email-label">Phone number <span class="optional">(optional)</span></label>
-            <div class="input-wrapper">
-                <input
-                    type="tel"
-                    class="email-input"
-                    placeholder="YOUR PHONE NUMBER"
-                    id="phoneInput"
-                    name="phone"
-                    autocomplete="tel"
-                >
-            </div>
-            <div class="sms-consent">
-                <input type="checkbox" id="smsOptIn" name="sms_opt_in" value="yes">
-                <label for="smsOptIn" class="sms-consent-label">By checking this box I consent to receive an SMS text message to my cell number provided above for Customer care, Account notification and marketing messages from The Toy Outpost Company, LLC. I understand that I can opt-out of receiving text messages at any time by responding with [STOP] I can reply with [HELP] to get help. Message frequency may vary. I understand that message and data rates may apply. See The Toy Outpost Company LLC's Terms of Service and <a href="/privacy-and-terms.html">Privacy Policy</a>.</label>
-            </div>
-            <button type="submit" class="submit-btn">Join the Expedition</button>
-        </form>
+        <div class="contact-cta">
+            <p class="prompt">Want updates from the outpost? Head to our contact page to sign up for email and optional SMS alerts.</p>
+            <a href="/contact.html" class="contact-btn">Go to Contact Form</a>
+        </div>
 
         <div class="footer-info">
             <div class="coordinates">SECTOR 7-G // STATUS: INBOUND</div>
@@ -624,11 +902,30 @@
                 <a href="https://www.facebook.com/toyoutpostco" target="_blank" rel="noopener noreferrer">Facebook</a>
                 <a href="https://www.instagram.com/toyoutpostco" target="_blank" rel="noopener noreferrer">Instagram</a>
             </nav>
+            <a href="/sell-your-toys.html" class="secondary-link">Sell Your Toys</a>
+            <a href="/contact.html" class="footer-contact-link">Contact</a>
             <a href="/privacy-and-terms.html" class="footer-link">Privacy &amp; Terms</a>
         </div>
     </div>
 
     <script>
+
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        if (navToggle && navLinks) {
+            navToggle.addEventListener('click', () => {
+                const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+                navToggle.setAttribute('aria-expanded', String(!expanded));
+                navLinks.classList.toggle('open');
+            });
+            navLinks.querySelectorAll('a').forEach((link) => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('open');
+                    navToggle.setAttribute('aria-expanded', 'false');
+                });
+            });
+        }
+
         // Create starfield
         const starfield = document.getElementById('starfield');
         for (let i = 0; i < 100; i++) {
