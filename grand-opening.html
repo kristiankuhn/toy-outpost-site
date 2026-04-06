@@ -23,6 +23,12 @@
             --void: #0A0E27;
             --star: #F4E4C1;
             --rust: #B85C38;
+            --text-secondary: rgba(212, 163, 115, 0.9);
+            --text-muted: rgba(244, 228, 193, 0.94);
+        }
+        html {
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
         }
         body {
             font-family: 'Space Mono', monospace;
@@ -30,6 +36,8 @@
             color: var(--star);
             min-height: 100vh;
             position: relative;
+            font-size: 1.0625rem;
+            line-height: 1.65;
         }
         .stars {
             position: fixed;
@@ -85,8 +93,8 @@
                     sepia(0.06) saturate(1.08);
         }
         .tagline {
-            font-size: clamp(0.8rem, 2vw, 1rem);
-            color: var(--dust);
+            font-size: clamp(0.9rem, 2.1vw, 1.05rem);
+            color: #e0bc8c;
             letter-spacing: 0.3em;
             text-transform: uppercase;
             margin-bottom: 0.8rem;
@@ -96,9 +104,9 @@
             max-width: 760px;
             margin: 0 auto;
             text-align: center;
-            font-size: clamp(0.78rem, 1.7vw, 0.92rem);
-            line-height: 1.7;
-            color: rgba(244, 228, 193, 0.9);
+            font-size: clamp(0.95rem, 2vw, 1.02rem);
+            line-height: 1.75;
+            color: var(--text-muted);
         }
         .brand-intro .highlight {
             color: var(--dust);
@@ -107,7 +115,7 @@
         .page-title {
             margin-top: 1.5rem;
             font-family: 'Rustique', 'Orbitron', sans-serif;
-            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-size: clamp(1.35rem, 3.2vw, 2rem);
             letter-spacing: 0.12em;
             text-transform: uppercase;
             color: var(--star);
@@ -115,8 +123,9 @@
         .subtitle {
             max-width: 700px;
             margin: 0.8rem auto 0;
-            line-height: 1.7;
-            color: rgba(244, 228, 193, 0.92);
+            font-size: clamp(0.95rem, 2vw, 1.05rem);
+            line-height: 1.75;
+            color: var(--text-muted);
         }
 
         .opening-block {
@@ -149,9 +158,9 @@
         }
         .address-callout .find-us {
             font-family: 'Rustique', 'Orbitron', sans-serif;
-            font-size: 0.65rem;
+            font-size: 0.78rem;
             font-weight: 700;
-            letter-spacing: 0.3em;
+            letter-spacing: 0.22em;
             color: var(--rust);
             text-transform: uppercase;
             margin-bottom: 0.5rem;
@@ -177,9 +186,9 @@
                          0 0 12px rgba(244, 228, 193, 0.5);
         }
         .event-meta {
-            font-size: clamp(0.78rem, 1.7vw, 0.9rem);
-            line-height: 1.65;
-            color: rgba(244, 228, 193, 0.92);
+            font-size: clamp(0.9rem, 1.9vw, 1rem);
+            line-height: 1.7;
+            color: var(--text-muted);
             margin-top: 0.35rem;
             text-align: center;
         }
@@ -188,9 +197,9 @@
         }
         .event-hosts {
             margin-top: 0.6rem;
-            font-size: clamp(0.72rem, 1.5vw, 0.82rem);
-            color: rgba(212, 163, 115, 0.9);
-            line-height: 1.55;
+            font-size: clamp(0.82rem, 1.65vw, 0.92rem);
+            color: var(--text-secondary);
+            line-height: 1.6;
             text-align: center;
         }
         .event-hosts a {
@@ -209,7 +218,7 @@
             text-decoration: none;
             text-transform: uppercase;
             letter-spacing: 0.11em;
-            font-size: 0.72rem;
+            font-size: 0.8rem;
             transition: all 0.2s ease;
         }
         .event-link:hover {
@@ -221,9 +230,9 @@
             padding: 0.55rem 0.75rem;
             border: 1px dashed rgba(212, 163, 115, 0.55);
             background: rgba(212, 163, 115, 0.08);
-            font-size: clamp(0.72rem, 1.5vw, 0.82rem);
-            line-height: 1.5;
-            color: rgba(244, 228, 193, 0.95);
+            font-size: clamp(0.85rem, 1.65vw, 0.95rem);
+            line-height: 1.6;
+            color: var(--text-muted);
         }
         .event-guests strong {
             color: var(--dust);
@@ -245,10 +254,10 @@
             max-width: 130px;
         }
         .guest-card span {
-            font-size: 0.68rem;
+            font-size: 0.78rem;
             text-transform: uppercase;
             letter-spacing: 0.08em;
-            color: rgba(244, 228, 193, 0.92);
+            color: var(--text-muted);
             text-align: center;
         }
         .event-link-wrap {
@@ -267,18 +276,18 @@
         }
         .parking-heading {
             font-family: 'Rustique', 'Orbitron', sans-serif;
-            font-size: 0.72rem;
+            font-size: 0.82rem;
             font-weight: 700;
-            letter-spacing: 0.28em;
+            letter-spacing: 0.22em;
             color: var(--rust);
             text-transform: uppercase;
             margin-bottom: 0.75rem;
             text-align: center;
         }
         .parking-copy {
-            font-size: clamp(0.78rem, 1.7vw, 0.9rem);
-            line-height: 1.65;
-            color: rgba(244, 228, 193, 0.94);
+            font-size: clamp(0.9rem, 1.9vw, 1rem);
+            line-height: 1.7;
+            color: var(--text-muted);
             margin-bottom: 1rem;
             text-align: left;
         }
@@ -294,16 +303,16 @@
             gap: 0.65rem;
         }
         .parking-list li {
-            font-size: clamp(0.76rem, 1.65vw, 0.86rem);
-            line-height: 1.55;
-            color: rgba(244, 228, 193, 0.92);
+            font-size: clamp(0.88rem, 1.75vw, 0.98rem);
+            line-height: 1.65;
+            color: var(--text-muted);
             padding-left: 0.85rem;
             border-left: 2px solid rgba(184, 92, 56, 0.55);
         }
         .parking-list li strong {
             color: var(--dust);
             display: block;
-            font-size: 0.72rem;
+            font-size: 0.8rem;
             letter-spacing: 0.12em;
             text-transform: uppercase;
             margin-bottom: 0.2rem;
@@ -321,9 +330,9 @@
             min-height: 220px;
         }
         .parking-map-note {
-            font-size: 0.68rem;
-            line-height: 1.5;
-            color: rgba(212, 163, 115, 0.65);
+            font-size: 0.78rem;
+            line-height: 1.55;
+            color: var(--text-secondary);
             text-align: center;
             margin: 0;
         }
@@ -336,7 +345,7 @@
             background: rgba(212, 163, 115, 0.14);
             text-decoration: none;
             font-family: 'Rustique', 'Orbitron', sans-serif;
-            font-size: clamp(0.68rem, 1.6vw, 0.78rem);
+            font-size: clamp(0.78rem, 1.75vw, 0.88rem);
             font-weight: 700;
             letter-spacing: 0.14em;
             text-transform: uppercase;
@@ -360,7 +369,7 @@
         }
         .directions-cta--compact {
             padding: 0.5rem 1rem;
-            font-size: 0.62rem;
+            font-size: 0.72rem;
             letter-spacing: 0.12em;
         }
         .directions-cta.directions-cta--apple {
@@ -386,10 +395,10 @@
             justify-content: center;
             gap: 0.75rem 1.25rem;
             margin-bottom: 0.75rem;
-            font-size: 0.62rem;
+            font-size: 0.72rem;
             letter-spacing: 0.08em;
             text-transform: uppercase;
-            color: rgba(244, 228, 193, 0.75);
+            color: var(--text-muted);
         }
         .parking-legend span {
             display: inline-flex;
@@ -451,7 +460,7 @@
             border: 2px solid var(--dust);
             color: var(--dust);
             font-family: 'Rustique', 'Orbitron', sans-serif;
-            font-size: 0.85rem;
+            font-size: 0.92rem;
             font-weight: 700;
             letter-spacing: 0.15em;
             text-transform: uppercase;
@@ -466,8 +475,8 @@
         .footer-contact-link {
             display: inline-block;
             margin-top: 0.75rem;
-            font-size: 0.75rem;
-            color: rgba(212, 163, 115, 0.72);
+            font-size: 0.8rem;
+            color: var(--text-secondary);
             letter-spacing: 0.15em;
             text-decoration: none;
             text-transform: uppercase;
@@ -479,8 +488,8 @@
         .footer-link {
             display: inline-block;
             margin-top: 0.75rem;
-            font-size: 0.75rem;
-            color: rgba(212, 163, 115, 0.7);
+            font-size: 0.8rem;
+            color: var(--text-secondary);
             letter-spacing: 0.15em;
             text-decoration: none;
             transition: color 0.2s ease;
@@ -491,8 +500,8 @@
         .secondary-link {
             display: inline-block;
             margin-top: 0.6rem;
-            font-size: 0.75rem;
-            color: rgba(212, 163, 115, 0.72);
+            font-size: 0.8rem;
+            color: var(--text-secondary);
             letter-spacing: 0.15em;
             text-decoration: none;
             transition: color 0.2s ease;
@@ -509,8 +518,8 @@
             flex-wrap: wrap;
         }
         .social-links a {
-            font-size: 0.75rem;
-            color: rgba(212, 163, 115, 0.7);
+            font-size: 0.8rem;
+            color: var(--text-secondary);
             letter-spacing: 0.15em;
             text-decoration: none;
             text-transform: uppercase;
@@ -525,8 +534,8 @@
         }
         .coordinates {
             font-family: 'Space Mono', monospace;
-            font-size: 0.75rem;
-            color: rgba(212, 163, 115, 0.5);
+            font-size: 0.8rem;
+            color: rgba(212, 163, 115, 0.72);
             letter-spacing: 0.2em;
         }
 
@@ -554,7 +563,7 @@
             font-family: 'Rustique', 'Orbitron', sans-serif;
             color: var(--star);
             text-decoration: none;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             letter-spacing: 0.12em;
             text-transform: uppercase;
             white-space: nowrap;
@@ -565,9 +574,9 @@
             gap: 1rem;
         }
         .nav-links a {
-            color: rgba(212, 163, 115, 0.9);
+            color: var(--text-secondary);
             text-decoration: none;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             letter-spacing: 0.12em;
             text-transform: uppercase;
             transition: color 0.2s ease;
@@ -587,11 +596,6 @@
             cursor: pointer;
         }
         @media (max-width: 768px) {
-            .opening-date {
-                font-size: 0.85rem;
-                letter-spacing: 0.15em;
-                padding: 0.5rem 1rem;
-            }
             .nav-toggle {
                 display: inline-flex;
                 align-items: center;
@@ -616,6 +620,28 @@
             }
             .nav-links a {
                 width: 100%;
+                font-size: 0.875rem;
+                padding: 0.2rem 0;
+            }
+        }
+
+        @media (max-width: 430px) {
+            .tagline {
+                font-size: 0.92rem;
+            }
+            .brand-intro {
+                font-size: 0.98rem;
+            }
+            .page-title {
+                font-size: clamp(1.28rem, 6.5vw, 1.65rem);
+            }
+            .subtitle {
+                font-size: 0.98rem;
+            }
+            .event-meta,
+            .parking-copy,
+            .parking-list li {
+                font-size: 0.95rem;
             }
         }
     </style>

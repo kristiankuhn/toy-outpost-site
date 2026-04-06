@@ -23,6 +23,13 @@
             --void: #0A0E27;
             --star: #F4E4C1;
             --rust: #B85C38;
+            --text-secondary: rgba(212, 163, 115, 0.9);
+            --text-muted: rgba(244, 228, 193, 0.94);
+        }
+
+        html {
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
         }
 
         body {
@@ -31,6 +38,8 @@
             color: var(--star);
             min-height: 100vh;
             position: relative;
+            font-size: 1.0625rem;
+            line-height: 1.65;
         }
 
         .stars {
@@ -98,8 +107,8 @@
         }
 
         .tagline {
-            font-size: clamp(0.9rem, 2vw, 1.1rem);
-            color: var(--dust);
+            font-size: clamp(0.9rem, 2.1vw, 1.05rem);
+            color: #e0bc8c;
             letter-spacing: 0.3em;
             text-transform: uppercase;
             margin-bottom: 0.8rem;
@@ -110,9 +119,9 @@
         .brand-intro {
             max-width: 760px;
             text-align: center;
-            font-size: clamp(0.8rem, 1.8vw, 0.95rem);
-            line-height: 1.7;
-            color: rgba(244, 228, 193, 0.9);
+            font-size: clamp(0.95rem, 2vw, 1.02rem);
+            line-height: 1.75;
+            color: var(--text-muted);
             margin-bottom: 2rem;
         }
 
@@ -124,7 +133,7 @@
 
         .thank-you-title {
             font-family: 'Rustique', 'Orbitron', sans-serif;
-            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            font-size: clamp(1.35rem, 3.2vw, 1.9rem);
             font-weight: 700;
             letter-spacing: 0.15em;
             color: var(--star);
@@ -135,7 +144,7 @@
 
         .thank-you-message {
             max-width: 520px;
-            font-size: clamp(1rem, 2.2vw, 1.2rem);
+            font-size: clamp(1.05rem, 2.4vw, 1.28rem);
             line-height: 1.8;
             color: var(--star);
             margin-bottom: 2rem;
@@ -155,22 +164,22 @@
 
         .visit-invite .when {
             font-family: 'Rustique', 'Orbitron', sans-serif;
-            font-size: 0.75rem;
+            font-size: 0.82rem;
             font-weight: 700;
-            letter-spacing: 0.25em;
+            letter-spacing: 0.2em;
             color: var(--rust);
             text-transform: uppercase;
             margin-bottom: 0.5rem;
         }
 
         .visit-invite .copy {
-            font-size: clamp(0.95rem, 2vw, 1.1rem);
+            font-size: clamp(1rem, 2.1vw, 1.15rem);
             color: var(--star);
-            line-height: 1.6;
+            line-height: 1.65;
         }
 
         .thank-you-address {
-            font-size: clamp(1rem, 2vw, 1.2rem);
+            font-size: clamp(1.05rem, 2.2vw, 1.28rem);
             font-weight: 700;
             margin-bottom: 2rem;
         }
@@ -192,7 +201,7 @@
             border: 2px solid var(--dust);
             color: var(--dust);
             font-family: 'Rustique', 'Orbitron', sans-serif;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             font-weight: 700;
             letter-spacing: 0.15em;
             text-transform: uppercase;
@@ -208,8 +217,8 @@
         .footer-link {
             display: inline-block;
             margin-top: 1.25rem;
-            font-size: 0.75rem;
-            color: rgba(212, 163, 115, 0.7);
+            font-size: 0.8rem;
+            color: var(--text-secondary);
             letter-spacing: 0.15em;
             text-decoration: none;
             transition: color 0.2s ease;
@@ -222,8 +231,8 @@
         .footer-contact-link {
             display: inline-block;
             margin-top: 0.6rem;
-            font-size: 0.75rem;
-            color: rgba(212, 163, 115, 0.72);
+            font-size: 0.8rem;
+            color: var(--text-secondary);
             letter-spacing: 0.15em;
             text-decoration: none;
             text-transform: uppercase;
@@ -237,8 +246,8 @@
         .secondary-link {
             display: inline-block;
             margin-top: 0.6rem;
-            font-size: 0.75rem;
-            color: rgba(212, 163, 115, 0.72);
+            font-size: 0.8rem;
+            color: var(--text-secondary);
             letter-spacing: 0.15em;
             text-decoration: none;
             transition: color 0.2s ease;
@@ -258,8 +267,8 @@
         }
 
         .social-links a {
-            font-size: 0.75rem;
-            color: rgba(212, 163, 115, 0.7);
+            font-size: 0.8rem;
+            color: var(--text-secondary);
             letter-spacing: 0.15em;
             text-decoration: none;
             text-transform: uppercase;
@@ -278,8 +287,8 @@
 
         .coordinates {
             font-family: 'Space Mono', monospace;
-            font-size: 0.75rem;
-            color: rgba(212, 163, 115, 0.5);
+            font-size: 0.8rem;
+            color: rgba(212, 163, 115, 0.72);
             letter-spacing: 0.2em;
         }
 
@@ -297,6 +306,7 @@
         }
 
         .site-nav {
+            position: relative;
             max-width: 980px;
             margin: 0 auto;
             padding: 0.85rem 1.25rem;
@@ -312,7 +322,7 @@
             font-family: 'Rustique', 'Orbitron', sans-serif;
             color: var(--star);
             text-decoration: none;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             letter-spacing: 0.12em;
             text-transform: uppercase;
             white-space: nowrap;
@@ -325,9 +335,9 @@
         }
 
         .nav-links a {
-            color: rgba(212, 163, 115, 0.9);
+            color: var(--text-secondary);
             text-decoration: none;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             letter-spacing: 0.12em;
             text-transform: uppercase;
             transition: color 0.2s ease;
@@ -358,6 +368,7 @@
             .nav-links {
                 display: none;
                 position: absolute;
+                z-index: 40;
                 top: calc(100% + 0.45rem);
                 left: max(1.25rem, env(safe-area-inset-left));
                 right: max(1.25rem, env(safe-area-inset-right));
@@ -375,6 +386,23 @@
 
             .nav-links a {
                 width: 100%;
+                font-size: 0.875rem;
+                padding: 0.2rem 0;
+            }
+        }
+
+        @media (max-width: 430px) {
+            .tagline {
+                font-size: 0.92rem;
+            }
+            .brand-intro {
+                font-size: 0.98rem;
+            }
+            .thank-you-title {
+                font-size: clamp(1.28rem, 6.5vw, 1.65rem);
+            }
+            .thank-you-message {
+                font-size: 1.05rem;
             }
         }
 

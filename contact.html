@@ -23,6 +23,13 @@
             --void: #0A0E27;
             --star: #F4E4C1;
             --rust: #B85C38;
+            --text-secondary: rgba(212, 163, 115, 0.9);
+            --text-muted: rgba(244, 228, 193, 0.94);
+        }
+
+        html {
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
         }
 
         body {
@@ -31,6 +38,8 @@
             color: var(--star);
             min-height: 100vh;
             position: relative;
+            font-size: 1.0625rem;
+            line-height: 1.65;
         }
 
         .stars {
@@ -79,6 +88,7 @@
         }
 
         .site-nav {
+            position: relative;
             max-width: 980px;
             margin: 0 auto;
             padding: 0.85rem 1.25rem;
@@ -94,7 +104,7 @@
             font-family: 'Rustique', 'Orbitron', sans-serif;
             color: var(--star);
             text-decoration: none;
-            font-size: 0.8rem;
+            font-size: 0.875rem;
             letter-spacing: 0.12em;
             text-transform: uppercase;
             white-space: nowrap;
@@ -107,9 +117,9 @@
         }
 
         .nav-links a {
-            color: rgba(212, 163, 115, 0.9);
+            color: var(--text-secondary);
             text-decoration: none;
-            font-size: 0.75rem;
+            font-size: 0.8125rem;
             letter-spacing: 0.12em;
             text-transform: uppercase;
             transition: color 0.2s ease;
@@ -155,8 +165,8 @@
         }
 
         .tagline {
-            font-size: clamp(0.85rem, 2vw, 1.05rem);
-            color: var(--dust);
+            font-size: clamp(0.9rem, 2.1vw, 1.08rem);
+            color: #e0bc8c;
             letter-spacing: 0.25em;
             text-transform: uppercase;
             margin: 0.7rem 0 0.7rem;
@@ -173,7 +183,7 @@
 
         .message {
             max-width: 620px;
-            font-size: clamp(0.95rem, 2.2vw, 1.1rem);
+            font-size: clamp(1.05rem, 2.4vw, 1.15rem);
             line-height: 1.75;
             margin-bottom: 2rem;
         }
@@ -187,8 +197,8 @@
         }
 
         .email-label {
-            font-size: 0.8rem;
-            color: var(--dust);
+            font-size: 0.875rem;
+            color: #e0bc8c;
             letter-spacing: 0.15em;
             text-transform: uppercase;
             margin-bottom: 0.35rem;
@@ -197,7 +207,7 @@
 
         .email-label .optional {
             font-weight: 400;
-            color: rgba(212, 163, 115, 0.7);
+            color: var(--text-secondary);
             text-transform: none;
             letter-spacing: 0.05em;
         }
@@ -238,9 +248,9 @@
         }
 
         .sms-consent-label {
-            font-size: 0.75rem;
-            line-height: 1.5;
-            color: rgba(244, 228, 193, 0.9);
+            font-size: 0.8125rem;
+            line-height: 1.55;
+            color: var(--text-muted);
             letter-spacing: 0.02em;
         }
 
@@ -274,8 +284,8 @@
 
         .footer-contact-link {
             display: inline-block;
-            font-size: 0.75rem;
-            color: rgba(212, 163, 115, 0.72);
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
             letter-spacing: 0.15em;
             text-decoration: none;
             text-transform: uppercase;
@@ -289,8 +299,8 @@
         .footer-link {
             display: inline-block;
             margin-top: 0.75rem;
-            font-size: 0.75rem;
-            color: rgba(212, 163, 115, 0.7);
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
             letter-spacing: 0.15em;
             text-decoration: none;
             transition: color 0.2s ease;
@@ -303,8 +313,8 @@
         .secondary-link {
             display: inline-block;
             margin-top: 0.6rem;
-            font-size: 0.75rem;
-            color: rgba(212, 163, 115, 0.72);
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
             letter-spacing: 0.15em;
             text-decoration: none;
             transition: color 0.2s ease;
@@ -324,8 +334,8 @@
         }
 
         .social-links a {
-            font-size: 0.75rem;
-            color: rgba(212, 163, 115, 0.7);
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
             letter-spacing: 0.15em;
             text-decoration: none;
             text-transform: uppercase;
@@ -344,9 +354,9 @@
 
         .coordinates {
             font-family: 'Space Mono', monospace;
-            font-size: 0.75rem;
-            color: rgba(212, 163, 115, 0.5);
-            letter-spacing: 0.2em;
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.16em;
         }
 
         @media (max-width: 768px) {
@@ -359,6 +369,7 @@
             .nav-links {
                 display: none;
                 position: absolute;
+                z-index: 40;
                 top: calc(100% + 0.45rem);
                 left: max(1.25rem, env(safe-area-inset-left));
                 right: max(1.25rem, env(safe-area-inset-right));
@@ -372,6 +383,12 @@
 
             .nav-links.open {
                 display: flex;
+            }
+
+            .nav-links a {
+                width: 100%;
+                font-size: 0.875rem;
+                padding: 0.2rem 0;
             }
         }
     </style>

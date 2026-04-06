@@ -27,6 +27,13 @@
             --void: #0A0E27;
             --star: #F4E4C1;
             --rust: #B85C38;
+            --text-secondary: rgba(212, 163, 115, 0.9);
+            --text-muted: rgba(244, 228, 193, 0.94);
+        }
+
+        html {
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
         }
 
         body {
@@ -35,6 +42,8 @@
             color: var(--star);
             min-height: 100vh;
             position: relative;
+            font-size: 1.0625rem;
+            line-height: 1.65;
         }
 
         /* Starfield background */
@@ -129,8 +138,8 @@
         }
 
         .tagline {
-            font-size: clamp(0.9rem, 2vw, 1.1rem);
-            color: var(--dust);
+            font-size: clamp(0.95rem, 2.1vw, 1.15rem);
+            color: #e0bc8c;
             letter-spacing: 0.3em;
             text-transform: uppercase;
             margin-bottom: 0.6rem;
@@ -143,9 +152,9 @@
         .brand-intro {
             max-width: 760px;
             text-align: center;
-            font-size: clamp(0.8rem, 1.8vw, 0.95rem);
-            line-height: 1.7;
-            color: rgba(244, 228, 193, 0.9);
+            font-size: clamp(0.95rem, 2.1vw, 1.05rem);
+            line-height: 1.75;
+            color: var(--text-muted);
             margin-bottom: 1.5rem;
             opacity: 0;
             animation: fadeIn 1.2s ease-out 0.35s forwards;
@@ -180,7 +189,7 @@
 
         .address-callout .find-us {
             font-family: 'Rustique', 'Orbitron', sans-serif;
-            font-size: 0.65rem;
+            font-size: 0.72rem;
             font-weight: 700;
             letter-spacing: 0.3em;
             color: var(--rust);
@@ -219,7 +228,7 @@
 
         .hours-callout .find-us {
             font-family: 'Rustique', 'Orbitron', sans-serif;
-            font-size: 0.65rem;
+            font-size: 0.72rem;
             font-weight: 700;
             letter-spacing: 0.3em;
             color: var(--rust);
@@ -231,9 +240,9 @@
         .hours-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: clamp(0.78rem, 1.7vw, 0.88rem);
-            line-height: 1.5;
-            color: rgba(244, 228, 193, 0.95);
+            font-size: clamp(0.9rem, 1.9vw, 0.98rem);
+            line-height: 1.55;
+            color: var(--text-muted);
         }
 
         .hours-table caption {
@@ -273,7 +282,7 @@
         }
 
         .hours-table .closed {
-            color: rgba(212, 163, 115, 0.75);
+            color: #c9a882;
             font-style: italic;
         }
 
@@ -287,7 +296,7 @@
             font-family: 'Rustique', 'Orbitron', sans-serif;
             letter-spacing: 0.12em;
             text-transform: uppercase;
-            font-size: clamp(0.78rem, 1.8vw, 0.9rem);
+            font-size: clamp(0.85rem, 2vw, 0.95rem);
             font-weight: 700;
             transition: all 0.3s ease;
             text-align: center;
@@ -401,11 +410,11 @@
 
         .store-status-main {
             font-family: 'Rustique', 'Orbitron', sans-serif;
-            font-size: clamp(0.68rem, 1.8vw, 0.78rem);
+            font-size: clamp(0.75rem, 1.9vw, 0.82rem);
             font-weight: 700;
-            letter-spacing: 0.22em;
+            letter-spacing: 0.2em;
             text-transform: uppercase;
-            color: rgba(212, 163, 115, 0.72);
+            color: #c9a882;
             line-height: 1.35;
             transition: color 0.45s ease;
         }
@@ -417,28 +426,28 @@
 
         .store-status-hint {
             font-family: 'Space Mono', monospace;
-            font-size: clamp(0.62rem, 1.6vw, 0.7rem);
-            letter-spacing: 0.05em;
-            color: rgba(244, 228, 193, 0.52);
+            font-size: clamp(0.7rem, 1.75vw, 0.78rem);
+            letter-spacing: 0.04em;
+            color: rgba(244, 228, 193, 0.72);
             line-height: 1.4;
             min-height: 1.4em;
             transition: color 0.45s ease;
         }
 
         .store-status[data-open="true"] .store-status-hint {
-            color: rgba(244, 228, 193, 0.45);
+            color: rgba(244, 228, 193, 0.62);
         }
 
         .store-status[data-open="false"] .store-status-hint:not(:empty) {
-            color: rgba(244, 228, 193, 0.58);
+            color: rgba(244, 228, 193, 0.78);
         }
 
         .store-status-tz {
             font-family: 'Space Mono', monospace;
-            font-size: clamp(0.55rem, 1.4vw, 0.62rem);
-            letter-spacing: 0.12em;
+            font-size: clamp(0.62rem, 1.55vw, 0.7rem);
+            letter-spacing: 0.1em;
             text-transform: uppercase;
-            color: rgba(212, 163, 115, 0.55);
+            color: var(--text-secondary);
             text-align: center;
             padding-top: 0.4rem;
             border-top: 1px solid rgba(212, 163, 115, 0.22);
@@ -479,8 +488,8 @@
 
         .message {
             max-width: 600px;
-            font-size: clamp(1rem, 2.5vw, 1.3rem);
-            line-height: 1.8;
+            font-size: clamp(1.0625rem, 2.6vw, 1.35rem);
+            line-height: 1.78;
             color: var(--star);
             margin-bottom: 4rem;
             opacity: 0;
@@ -518,8 +527,8 @@
         }
 
         .email-label {
-            font-size: 0.8rem;
-            color: var(--dust);
+            font-size: 0.875rem;
+            color: #e0bc8c;
             letter-spacing: 0.15em;
             text-transform: uppercase;
             margin-bottom: 0.35rem;
@@ -577,9 +586,9 @@
         }
 
         .sms-consent-label {
-            font-size: 0.75rem;
-            line-height: 1.5;
-            color: rgba(244, 228, 193, 0.9);
+            font-size: 0.8125rem;
+            line-height: 1.55;
+            color: var(--text-muted);
             letter-spacing: 0.02em;
         }
 
@@ -640,8 +649,9 @@
         .contact-cta .prompt {
             max-width: 520px;
             margin: 0 auto 0.85rem;
-            line-height: 1.7;
-            color: rgba(244, 228, 193, 0.9);
+            font-size: clamp(1rem, 2.4vw, 1.125rem);
+            line-height: 1.72;
+            color: var(--text-muted);
         }
 
         .contact-btn {
@@ -651,7 +661,8 @@
             color: var(--rust);
             text-decoration: none;
             font-family: 'Rustique', 'Orbitron', sans-serif;
-            letter-spacing: 0.14em;
+            font-size: clamp(0.9rem, 2.2vw, 1rem);
+            letter-spacing: 0.12em;
             text-transform: uppercase;
             transition: all 0.3s ease;
         }
@@ -696,16 +707,16 @@
 
         .coordinates {
             font-family: 'Space Mono', monospace;
-            font-size: 0.75rem;
-            color: rgba(212, 163, 115, 0.5);
-            letter-spacing: 0.2em;
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.16em;
         }
 
         .footer-link {
             display: inline-block;
             margin-top: 0.75rem;
-            font-size: 0.75rem;
-            color: rgba(212, 163, 115, 0.7);
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
             letter-spacing: 0.15em;
             text-decoration: none;
             transition: color 0.2s ease;
@@ -718,8 +729,8 @@
         .footer-contact-link {
             display: inline-block;
             margin-top: 0.6rem;
-            font-size: 0.75rem;
-            color: rgba(212, 163, 115, 0.72);
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
             letter-spacing: 0.15em;
             text-decoration: none;
             text-transform: uppercase;
@@ -733,8 +744,8 @@
         .secondary-link {
             display: inline-block;
             margin-top: 0.6rem;
-            font-size: 0.75rem;
-            color: rgba(212, 163, 115, 0.72);
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
             letter-spacing: 0.15em;
             text-decoration: none;
             transition: color 0.2s ease;
@@ -754,8 +765,8 @@
         }
 
         .social-links a {
-            font-size: 0.75rem;
-            color: rgba(212, 163, 115, 0.7);
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
             letter-spacing: 0.15em;
             text-decoration: none;
             text-transform: uppercase;
@@ -816,12 +827,12 @@
             }
 
             .tagline {
-                font-size: 0.75rem;
-                letter-spacing: 0.2em;
+                font-size: 0.875rem;
+                letter-spacing: 0.18em;
             }
 
             .brand-intro {
-                font-size: 0.8rem;
+                font-size: 1rem;
                 margin-bottom: 1.25rem;
             }
 
@@ -839,17 +850,21 @@
 
             .address-callout .find-us,
             .hours-callout .find-us {
-                font-size: 0.6rem;
-                letter-spacing: 0.25em;
+                font-size: 0.7rem;
+                letter-spacing: 0.22em;
             }
 
             .visit-block .address {
-                font-size: 1rem;
+                font-size: 1.1rem;
             }
 
             .message {
-                font-size: 1rem;
+                font-size: 1.0625rem;
                 margin-bottom: 3rem;
+            }
+
+            .hours-table {
+                font-size: 0.95rem;
             }
 
             .email-input,
@@ -877,20 +892,20 @@
             }
 
             .tagline {
-                font-size: 0.7rem;
-                letter-spacing: 0.15em;
+                font-size: 0.8125rem;
+                letter-spacing: 0.14em;
                 margin-bottom: 1rem;
             }
 
             .brand-intro {
-                font-size: 0.74rem;
-                line-height: 1.6;
+                font-size: 1.0625rem;
+                line-height: 1.72;
                 margin-bottom: 1rem;
             }
 
             .message {
-                font-size: 0.9375rem;
-                line-height: 1.7;
+                font-size: 1.125rem;
+                line-height: 1.72;
                 margin-bottom: 2.5rem;
             }
 
@@ -922,30 +937,50 @@
 
             .address-callout .find-us,
             .hours-callout .find-us {
-                font-size: 0.55rem;
-                letter-spacing: 0.2em;
-            }
-
-            .visit-block .address {
-                font-size: 0.9rem;
-            }
-
-            .event-page-cta {
-                padding: 0.85rem 1.25rem;
-                letter-spacing: 0.1em;
-            }
-
-            .store-status-main {
+                font-size: 0.68rem;
                 letter-spacing: 0.18em;
             }
 
+            .visit-block .address {
+                font-size: 1.0625rem;
+            }
+
+            .hours-table {
+                font-size: 1rem;
+            }
+
+            .event-page-cta {
+                padding: 0.9rem 1.35rem;
+                letter-spacing: 0.1em;
+                font-size: 0.875rem;
+            }
+
+            .store-status-main {
+                letter-spacing: 0.16em;
+            }
+
             .store-status-hint {
-                font-size: 0.54rem;
+                font-size: 0.7rem;
+            }
+
+            .store-status-tz {
+                font-size: 0.65rem;
+            }
+
+            .contact-cta .prompt {
+                font-size: 1.0625rem;
             }
 
             .coordinates {
-                font-size: 0.65rem;
-                letter-spacing: 0.1em;
+                font-size: 0.75rem;
+                letter-spacing: 0.12em;
+            }
+
+            .footer-link,
+            .footer-contact-link,
+            .secondary-link,
+            .social-links a {
+                font-size: 0.8125rem;
             }
         }
 
@@ -976,7 +1011,7 @@
             font-family: 'Rustique', 'Orbitron', sans-serif;
             color: var(--star);
             text-decoration: none;
-            font-size: 0.8rem;
+            font-size: 0.875rem;
             letter-spacing: 0.12em;
             text-transform: uppercase;
             white-space: nowrap;
@@ -989,9 +1024,9 @@
         }
 
         .nav-links a {
-            color: rgba(212, 163, 115, 0.9);
+            color: var(--text-secondary);
             text-decoration: none;
-            font-size: 0.75rem;
+            font-size: 0.8125rem;
             letter-spacing: 0.12em;
             text-transform: uppercase;
             transition: color 0.2s ease;
@@ -1040,6 +1075,8 @@
 
             .nav-links a {
                 width: 100%;
+                font-size: 0.875rem;
+                padding: 0.2rem 0;
             }
         }
 
