@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Visit Us — Location &amp; Parking - The Toy Outpost</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        @font-face {
+            font-family: 'Rustique';
+            src: url('assets/fonts/Rustique-Regular.otf') format('opentype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        :root {
+            --dust: #D4A373;
+            --void: #0A0E27;
+            --star: #F4E4C1;
+            --rust: #B85C38;
+            --text-secondary: rgba(212, 163, 115, 0.9);
+            --text-muted: rgba(244, 228, 193, 0.94);
+        }
+        html {
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+        }
+        body {
+            font-family: 'Space Mono', monospace;
+            background: var(--void);
+            color: var(--star);
+            min-height: 100vh;
+            position: relative;
+            font-size: 1.0625rem;
+            line-height: 1.65;
+        }
+        .stars {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+        }
+        .star {
+            position: absolute;
+            background: var(--star);
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+        .dust-particle {
+            position: absolute;
+            background: var(--dust);
+            opacity: 0.1;
+            border-radius: 50%;
+            animation: float 20s infinite;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(50px, -30px); }
+            50% { transform: translate(-30px, 50px); }
+            75% { transform: translate(20px, -40px); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 2rem 1.25rem 4rem;
+            padding-left: max(1.25rem, env(safe-area-inset-left));
+            padding-right: max(1.25rem, env(safe-area-inset-right));
+            padding-bottom: max(4rem, env(safe-area-inset-bottom));
+        }
+        .page-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .logo img {
+            display: block;
+            max-width: min(90vw, 420px);
+            height: auto;
+            margin: 0 auto 0.75rem;
+            filter: drop-shadow(0 0 12px rgba(244, 228, 193, 0.6))
+                    drop-shadow(0 0 28px rgba(212, 163, 115, 0.35))
+                    sepia(0.06) saturate(1.08);
+        }
+        .tagline {
+            font-size: clamp(0.9rem, 2.1vw, 1.05rem);
+            color: #e0bc8c;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-bottom: 0.8rem;
+            font-family: 'Rustique', 'Orbitron', sans-serif;
+        }
+        .brand-intro {
+            max-width: 760px;
+            margin: 0 auto;
+            text-align: center;
+            font-size: clamp(0.95rem, 2vw, 1.02rem);
+            line-height: 1.75;
+            color: var(--text-muted);
+        }
+        .brand-intro .highlight {
+            color: var(--dust);
+            font-weight: 700;
+        }
+        .page-title {
+            margin-top: 1.5rem;
+            font-family: 'Rustique', 'Orbitron', sans-serif;
+            font-size: clamp(1.35rem, 3.2vw, 2rem);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--star);
+        }
+        .subtitle {
+            max-width: 700px;
+            margin: 0.8rem auto 0;
+            font-size: clamp(0.95rem, 2vw, 1.05rem);
+            line-height: 1.75;
+            color: var(--text-muted);
+        }
+
+        .visit-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.25rem;
+        }
+        .address-callout {
+            width: 100%;
+            max-width: 640px;
+            padding: 1rem 1.5rem;
+            background: rgba(212, 163, 115, 0.12);
+            border: 2px solid var(--dust);
+            box-shadow: 0 0 28px rgba(212, 163, 115, 0.2),
+                        inset 0 0 20px rgba(212, 163, 115, 0.06);
+        }
+        .address-callout .find-us {
+            font-family: 'Rustique', 'Orbitron', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.22em;
+            color: var(--rust);
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        .address-callout .address {
+            margin-bottom: 0;
+            font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+            letter-spacing: 0.08em;
+            text-align: center;
+            text-shadow: 0 0 20px rgba(244, 228, 193, 0.5),
+                         0 0 8px rgba(244, 228, 193, 0.4);
+        }
+        .address-callout .address a {
+            color: inherit;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.2s ease, text-shadow 0.2s ease;
+        }
+        .address-callout .address a:hover {
+            transform: scale(1.02);
+            text-shadow: 0 0 24px rgba(244, 228, 193, 0.7),
+                         0 0 12px rgba(244, 228, 193, 0.5);
+        }
+
+        .parking-section {
+            width: 100%;
+            max-width: 640px;
+            margin: 2rem auto 0;
+            padding: 1rem 1.25rem 1.15rem;
+            background: rgba(212, 163, 115, 0.1);
+            border: 2px solid var(--dust);
+            box-shadow: 0 0 28px rgba(212, 163, 115, 0.18),
+                        inset 0 0 20px rgba(212, 163, 115, 0.05);
+        }
+        .parking-heading {
+            font-family: 'Rustique', 'Orbitron', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.22em;
+            color: var(--rust);
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+            text-align: center;
+        }
+        .parking-copy {
+            font-size: clamp(0.9rem, 1.9vw, 1rem);
+            line-height: 1.7;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+        .parking-copy strong {
+            color: var(--dust);
+        }
+        .parking-list {
+            list-style: none;
+            margin: 0 0 1rem;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+        }
+        .parking-list li {
+            font-size: clamp(0.88rem, 1.75vw, 0.98rem);
+            line-height: 1.65;
+            color: var(--text-muted);
+            padding-left: 0.85rem;
+            border-left: 2px solid rgba(184, 92, 56, 0.55);
+        }
+        .parking-list li strong {
+            color: var(--dust);
+            display: block;
+            font-size: 0.8rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 0.2rem;
+        }
+        .parking-map-wrap {
+            position: relative;
+            z-index: 11;
+            border: 1px solid rgba(212, 163, 115, 0.45);
+            background: rgba(10, 14, 39, 0.5);
+            margin-bottom: 0.65rem;
+        }
+        .parking-map {
+            width: 100%;
+            height: min(52vw, 320px);
+            min-height: 220px;
+        }
+        .parking-map-note {
+            font-size: 0.78rem;
+            line-height: 1.55;
+            color: var(--text-secondary);
+            text-align: center;
+            margin: 0;
+        }
+
+        .directions-cta {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--dust);
+            color: var(--star);
+            background: rgba(212, 163, 115, 0.14);
+            text-decoration: none;
+            font-family: 'Rustique', 'Orbitron', sans-serif;
+            font-size: clamp(0.78rem, 1.75vw, 0.88rem);
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+        }
+        .directions-cta:hover {
+            color: var(--void);
+            background: var(--dust);
+            border-color: var(--dust);
+        }
+        .directions-cta-wrap {
+            text-align: center;
+            margin-top: 0.85rem;
+        }
+        .directions-cta-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 0.45rem 0.55rem;
+        }
+        .directions-cta--compact {
+            padding: 0.5rem 1rem;
+            font-size: 0.72rem;
+            letter-spacing: 0.12em;
+        }
+        .directions-cta.directions-cta--apple {
+            display: none;
+            border-color: rgba(244, 228, 193, 0.45);
+            background: rgba(244, 228, 193, 0.06);
+        }
+        html.show-apple-maps .directions-cta.directions-cta--apple {
+            display: inline-block;
+        }
+        .directions-cta--apple:hover {
+            border-color: var(--star);
+            background: var(--star);
+            color: var(--void);
+        }
+        .parking-directions-wrap {
+            text-align: center;
+            margin: 1.1rem 0 0.35rem;
+        }
+        .parking-legend {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.75rem 1.25rem;
+            margin-bottom: 0.75rem;
+            font-size: 0.72rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+        .parking-legend span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+        .parking-legend i {
+            display: inline-block;
+            width: 0.65rem;
+            height: 0.65rem;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .parking-legend .leg-main i {
+            background: #4ade80;
+            box-shadow: 0 0 8px rgba(22, 101, 52, 0.55);
+            outline: 1px solid #166534;
+        }
+        .parking-legend .leg-overflow i {
+            background: #a3e635;
+            box-shadow: 0 0 8px rgba(20, 83, 45, 0.5);
+            outline: 1px solid #14532d;
+        }
+
+        .parking-lot-marker {
+            background: transparent !important;
+            border: none !important;
+        }
+
+        .parking-symbol {
+            width: 32px;
+            height: 32px;
+            filter: drop-shadow(0 2px 6px rgba(10, 14, 39, 0.65));
+            pointer-events: auto;
+        }
+
+        .parking-symbol svg {
+            display: block;
+        }
+
+        .parking-symbol--main .p-sym-bg {
+            fill: var(--void);
+            stroke: #166534;
+        }
+
+        .parking-symbol--overflow .p-sym-bg {
+            fill: var(--void);
+            stroke: #14532d;
+        }
+
+        .parking-symbol .p-sym-letter {
+            fill: var(--star);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.9rem 1.75rem;
+            border: 2px solid var(--dust);
+            color: var(--dust);
+            font-family: 'Rustique', 'Orbitron', sans-serif;
+            font-size: 0.92rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .back-link:hover {
+            color: var(--void);
+            background: var(--dust);
+        }
+
+        .footer-contact-link {
+            display: inline-block;
+            margin-top: 0.75rem;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.15em;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: color 0.2s ease;
+        }
+        .footer-contact-link:hover {
+            color: var(--dust);
+        }
+        .footer-link {
+            display: inline-block;
+            margin-top: 0.75rem;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.15em;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        .footer-link:hover {
+            color: var(--dust);
+        }
+        .secondary-link {
+            display: inline-block;
+            margin-top: 0.6rem;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.15em;
+            text-decoration: none;
+            transition: color 0.2s ease;
+            text-transform: uppercase;
+        }
+        .secondary-link:hover {
+            color: var(--dust);
+        }
+        .social-links {
+            margin-top: 0.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.25rem;
+            flex-wrap: wrap;
+        }
+        .social-links a {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.15em;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: color 0.2s ease;
+        }
+        .social-links a:hover {
+            color: var(--dust);
+        }
+        .footer-info {
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+        .coordinates {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            color: rgba(212, 163, 115, 0.72);
+            letter-spacing: 0.2em;
+        }
+
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 30;
+            backdrop-filter: blur(8px);
+            background: rgba(10, 14, 39, 0.82);
+            border-bottom: 1px solid rgba(212, 163, 115, 0.25);
+        }
+        .site-nav {
+            position: relative;
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0.85rem 1.25rem;
+            padding-left: max(1.25rem, env(safe-area-inset-left));
+            padding-right: max(1.25rem, env(safe-area-inset-right));
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.9rem;
+        }
+        .nav-brand {
+            font-family: 'Rustique', 'Orbitron', sans-serif;
+            color: var(--star);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            transition: color 0.2s ease;
+        }
+        .nav-links a:hover,
+        .nav-links a[aria-current="page"] {
+            color: var(--star);
+        }
+        .nav-toggle {
+            display: none;
+            border: 1px solid rgba(212, 163, 115, 0.45);
+            background: transparent;
+            color: var(--dust);
+            padding: 0.35rem 0.55rem;
+            font-size: 1rem;
+            line-height: 1;
+            cursor: pointer;
+        }
+        @media (max-width: 768px) {
+            .nav-toggle {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .nav-links {
+                display: none;
+                position: absolute;
+                z-index: 40;
+                top: calc(100% + 0.45rem);
+                left: max(1.25rem, env(safe-area-inset-left));
+                right: max(1.25rem, env(safe-area-inset-right));
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.7rem;
+                padding: 0.9rem;
+                background: rgba(10, 14, 39, 0.96);
+                border: 1px solid rgba(212, 163, 115, 0.35);
+            }
+            .nav-links.open {
+                display: flex;
+            }
+            .nav-links a {
+                width: 100%;
+                font-size: 0.875rem;
+                padding: 0.2rem 0;
+            }
+        }
+
+        @media (max-width: 430px) {
+            .tagline {
+                font-size: 0.92rem;
+            }
+            .brand-intro {
+                font-size: 0.98rem;
+            }
+            .page-title {
+                font-size: clamp(1.28rem, 6.5vw, 1.65rem);
+            }
+            .subtitle {
+                font-size: 0.98rem;
+            }
+            .parking-copy,
+            .parking-list li {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+    <script>
+        (function () {
+            function isApplePlatform() {
+                var ua = navigator.userAgent || '';
+                if (/iPhone|iPod/i.test(ua)) return true;
+                if (/iPad/i.test(ua)) return true;
+                if (typeof navigator.maxTouchPoints === 'number' && navigator.maxTouchPoints > 1 && /Macintosh/i.test(ua)) return true;
+                if (/Macintosh|Mac OS X/i.test(ua)) return true;
+                return false;
+            }
+            if (isApplePlatform()) document.documentElement.classList.add('show-apple-maps');
+        })();
+    </script>
+</head>
+<body>
+
+    <header class="site-header">
+        <nav class="site-nav" aria-label="Main">
+            <a href="/" class="nav-brand">The Toy Outpost</a>
+            <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav-links" aria-label="Toggle navigation">&#9776;</button>
+            <div class="nav-links" id="main-nav-links">
+                <a href="/">Home</a>
+                <a href="/visit.html" aria-current="page">Visit</a>
+                <a href="/sell-your-toys.html">Sell Your Toys</a>
+                <a href="/contact.html">Contact</a>
+                <a href="/privacy-and-terms.html">Privacy &amp; Terms</a>
+            </div>
+        </nav>
+    </header>
+    <div class="stars" id="starfield"></div>
+    <div class="container">
+        <header class="page-header">
+            <a href="/" class="logo">
+                <img src="assets/logo-horizontal.png" alt="The Toy Outpost" />
+            </a>
+            <div class="tagline">Where Legends Never Fade</div>
+            <p class="brand-intro">
+                <span class="highlight">Toy Outpost Co.</span> - Vintage &amp; modern toys and collectibles, new &amp; pre-loved.
+                From childhood classics to today's pop culture favorites, our ever-changing inventory keeps the hunt exciting.
+            </p>
+            <h1 class="page-title">Visit us</h1>
+            <p class="subtitle">Woodland Center in Edgewater — get directions here, then scroll for parking.</p>
+        </header>
+
+        <div class="visit-block">
+            <div class="address-callout">
+                <span class="find-us">Find us</span>
+                <div class="address">
+                    <a href="https://www.google.com/maps/search/?api=1&query=93+Mayo+Rd+Edgewater+MD+21037" target="_blank" rel="noopener noreferrer">93 Mayo Rd, Edgewater MD 21037</a>
+                </div>
+                <div class="directions-cta-wrap">
+                    <div class="directions-cta-row">
+                        <a class="directions-cta directions-cta--compact" href="https://www.google.com/maps/dir/?api=1&amp;destination=93+Mayo+Rd%2C+Edgewater%2C+MD+21037" target="_blank" rel="noopener noreferrer" aria-label="Open directions in Google Maps to The Toy Outpost, 93 Mayo Rd, Edgewater, Maryland">Google Maps</a>
+                        <a class="directions-cta directions-cta--compact directions-cta--apple" href="https://maps.apple.com/?daddr=93%20Mayo%20Rd%2C%20Edgewater%2C%20MD%2021037" target="_blank" rel="noopener noreferrer" aria-label="Open directions in Apple Maps to The Toy Outpost, 93 Mayo Rd, Edgewater, Maryland">Apple Maps</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="parking-section" aria-labelledby="parking-heading">
+            <h2 class="parking-heading" id="parking-heading">Parking</h2>
+            <p class="parking-copy">
+                <strong>Woodland Center (93 Mayo Rd)</strong> — Please use the <strong>main parking lot</strong> in front of the shopping center first.
+                If the main lot is full, additional parking is available in the <strong>overflow lot off Whiteford Place</strong>.
+                <strong>On-street parking</strong> is also permitted in the <strong>residential streets behind the shopping center</strong>; be respectful of driveways and neighbors.
+            </p>
+            <ul class="parking-list">
+                <li>
+                    <strong>Main lot</strong>
+                    Primary lot at the center — closest to The Toy Outpost.
+                </li>
+                <li>
+                    <strong>Overflow (Whiteford Place)</strong>
+                    If the main lot is full, follow signage or use the lot accessible from Whiteford Place.
+                </li>
+                <li>
+                    <strong>Residential street parking</strong>
+                    Streets behind the center allow parking where posted; watch for signs and leave driveways clear.
+                </li>
+            </ul>
+            <div class="parking-directions-wrap">
+                <div class="directions-cta-row">
+                    <a class="directions-cta" href="https://www.google.com/maps/dir/?api=1&amp;destination=93+Mayo+Rd%2C+Edgewater%2C+MD+21037" target="_blank" rel="noopener noreferrer" aria-label="Open directions in Google Maps to The Toy Outpost, 93 Mayo Rd, Edgewater, Maryland">Google Maps</a>
+                    <a class="directions-cta directions-cta--apple" href="https://maps.apple.com/?daddr=93%20Mayo%20Rd%2C%20Edgewater%2C%20MD%2021037" target="_blank" rel="noopener noreferrer" aria-label="Open directions in Apple Maps to The Toy Outpost, 93 Mayo Rd, Edgewater, Maryland">Apple Maps</a>
+                </div>
+            </div>
+            <div class="parking-legend" aria-hidden="true">
+                <span class="leg-main"><i></i> Main lot (approx.)</span>
+                <span class="leg-overflow"><i></i> Overflow · Whiteford Pl (approx.)</span>
+            </div>
+            <div class="parking-map-wrap">
+                <div id="parking-map" class="parking-map" role="application" aria-label="Interactive map: store location at 93 Mayo Rd, main and overflow parking"></div>
+            </div>
+            <p class="parking-map-note">
+                The <strong>robot cowboy</strong> marks <strong>The Toy Outpost</strong> at 93 Mayo Rd. <strong>P</strong> marks the center of each parking area. Shaded regions are approximate. Map data © OpenStreetMap contributors.
+            </p>
+        </section>
+
+        <a href="/" class="back-link">Back to home</a>
+        <div class="footer-info">
+            <div class="coordinates">SECTOR 7-G // STATUS: INBOUND</div>
+            <nav class="social-links" aria-label="Social media">
+                <a href="https://www.facebook.com/toyoutpostco" target="_blank" rel="noopener noreferrer">Facebook</a>
+                <a href="https://www.instagram.com/toyoutpostco" target="_blank" rel="noopener noreferrer">Instagram</a>
+            </nav>
+            <a href="/sell-your-toys.html" class="secondary-link">Sell Your Toys</a>
+            <a href="/contact.html" class="footer-contact-link">Contact</a>
+            <a href="/privacy-and-terms.html" class="footer-link">Privacy &amp; Terms</a>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+    <script>
+        (function () {
+            var el = document.getElementById('parking-map');
+            if (!el || typeof L === 'undefined') return;
+
+            var map = L.map(el, {
+                scrollWheelZoom: false,
+                attributionControl: true,
+            }).setView([38.93603753746244, -76.55856827671439], 17);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+                maxZoom: 19,
+            }).addTo(map);
+
+            function ringCentroid(ring) {
+                var sLat = 0;
+                var sLng = 0;
+                for (var i = 0; i < ring.length; i++) {
+                    sLat += ring[i][0];
+                    sLng += ring[i][1];
+                }
+                var n = ring.length;
+                return [sLat / n, sLng / n];
+            }
+
+            function parkingDivIcon(kind) {
+                var svg =
+                    '<div class="parking-symbol parking-symbol--' +
+                    kind +
+                    '" title="' +
+                    (kind === 'main' ? 'Main parking lot' : 'Overflow parking') +
+                    '" aria-hidden="true">' +
+                    '<svg viewBox="0 0 32 32" width="32" height="32" xmlns="http://www.w3.org/2000/svg" focusable="false">' +
+                    '<rect class="p-sym-bg" x="1.5" y="1.5" width="29" height="29" rx="5" stroke-width="2" />' +
+                    '<text class="p-sym-letter" x="16" y="22.5" text-anchor="middle" font-family="Arial Black, Helvetica, sans-serif" font-size="16" font-weight="900">P</text>' +
+                    '</svg></div>';
+                return L.divIcon({
+                    className: 'parking-lot-marker',
+                    html: svg,
+                    iconSize: [32, 32],
+                    iconAnchor: [16, 16],
+                });
+            }
+
+            var mainRing = [
+                [38.93566947453367, -76.55859395238642],
+                [38.93633017692724, -76.55883470112452],
+                [38.93641461335925, -76.55855246634445],
+                [38.93573658432759, -76.55829198700218],
+            ];
+            var mainPopup = '<strong>Main lot</strong><br>Park here first — Woodland Center, 93 Mayo Rd.';
+            var mainLot = L.polygon(mainRing, {
+                color: '#166534',
+                weight: 2,
+                fillColor: '#4ade80',
+                fillOpacity: 0.42,
+            })
+                .addTo(map)
+                .bindPopup(mainPopup);
+
+            L.marker(ringCentroid(mainRing), {
+                icon: parkingDivIcon('main'),
+                zIndexOffset: 600,
+            })
+                .addTo(map)
+                .bindPopup(mainPopup);
+
+            var overflowRing = [
+                [38.93541938287756, -76.55882746433413],
+                [38.93558825780992, -76.5588795692166],
+                [38.9356355427189, -76.55865378139255],
+                [38.93546329039866, -76.5585987817944],
+            ];
+            var overflowPopup = '<strong>Overflow parking</strong><br>Off Whiteford Place — use if the main lot is full.';
+            var overflow = L.polygon(overflowRing, {
+                color: '#14532d',
+                weight: 2,
+                fillColor: '#a3e635',
+                fillOpacity: 0.4,
+            })
+                .addTo(map)
+                .bindPopup(overflowPopup);
+
+            L.marker(ringCentroid(overflowRing), {
+                icon: parkingDivIcon('overflow'),
+                zIndexOffset: 600,
+            })
+                .addTo(map)
+                .bindPopup(overflowPopup);
+
+            var storeLatLng = [38.936255696176296, -76.55881979204352];
+            var showAppleMaps = document.documentElement.classList.contains('show-apple-maps');
+            var storePopup =
+                '<strong>The Toy Outpost</strong><br>93 Mayo Rd, Edgewater MD 21037<br>' +
+                '<a href="https://www.google.com/maps/dir/?api=1&destination=93+Mayo+Rd%2C+Edgewater%2C+MD+21037" target="_blank" rel="noopener noreferrer">Google Maps</a>' +
+                (showAppleMaps
+                    ? ' · <a href="https://maps.apple.com/?daddr=93%20Mayo%20Rd%2C%20Edgewater%2C%20MD%2021037" target="_blank" rel="noopener noreferrer">Apple Maps</a>'
+                    : '');
+            L.marker(storeLatLng, {
+                icon: L.icon({
+                    iconUrl: 'assets/map-store-marker.png',
+                    iconSize: [36, 36],
+                    iconAnchor: [18, 36],
+                    popupAnchor: [0, -32],
+                }),
+                zIndexOffset: 900,
+                title: 'The Toy Outpost — 93 Mayo Rd',
+            })
+                .bindPopup(storePopup)
+                .addTo(map);
+
+            var bounds = L.latLngBounds(mainLot.getBounds()).extend(overflow.getBounds()).extend(storeLatLng);
+            map.fitBounds(bounds, { padding: [28, 28], maxZoom: 18 });
+        })();
+
+        const navToggle = document.querySelector('.nav-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        if (navToggle && navLinks) {
+            navToggle.addEventListener('click', () => {
+                const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+                navToggle.setAttribute('aria-expanded', String(!expanded));
+                navLinks.classList.toggle('open');
+            });
+            navLinks.querySelectorAll('a').forEach((link) => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('open');
+                    navToggle.setAttribute('aria-expanded', 'false');
+                });
+            });
+        }
+
+        const starfield = document.getElementById('starfield');
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.width = star.style.height = (Math.random() * 2 + 1) + 'px';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            starfield.appendChild(star);
+        }
+        for (let i = 0; i < 30; i++) {
+            const dust = document.createElement('div');
+            dust.className = 'dust-particle';
+            dust.style.width = dust.style.height = (Math.random() * 3 + 1) + 'px';
+            dust.style.left = Math.random() * 100 + '%';
+            dust.style.top = Math.random() * 100 + '%';
+            dust.style.animationDelay = Math.random() * 20 + 's';
+            dust.style.animationDuration = (Math.random() * 10 + 15) + 's';
+            starfield.appendChild(dust);
+        }
+    </script>
+</body>
+</html>
