@@ -286,6 +286,58 @@
             font-style: italic;
         }
 
+        .hours-table .closed a {
+            color: inherit;
+            text-decoration: underline;
+            text-underline-offset: 0.14em;
+        }
+
+        .hours-table .closed a:hover {
+            color: var(--dust);
+        }
+
+        .special-closures {
+            margin-top: 0.85rem;
+            padding-top: 0.8rem;
+            border-top: 1px solid rgba(212, 163, 115, 0.25);
+            text-align: left;
+        }
+
+        .special-closures-title {
+            display: block;
+            margin-bottom: 0.45rem;
+            font-family: 'Rustique', 'Orbitron', sans-serif;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--rust);
+        }
+
+        .special-closures-list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .special-closures-list li {
+            margin: 0.3rem 0;
+            color: #c9a882;
+            font-style: italic;
+            font-size: clamp(0.85rem, 1.8vw, 0.95rem);
+            line-height: 1.45;
+        }
+
+        .special-closures-list a {
+            color: inherit;
+            text-decoration: underline;
+            text-underline-offset: 0.14em;
+        }
+
+        .special-closures-list a:hover {
+            color: var(--dust);
+        }
+
         .visit-page-cta {
             display: inline-block;
             margin-top: 0.25rem;
@@ -1157,9 +1209,18 @@
                         </tr>
                     </tbody>
                 </table>
+                <div class="special-closures" aria-label="Special closure event dates">
+                    <span class="special-closures-title">Special closures - Events</span>
+                    <ul class="special-closures-list">
+                        <li><a href="https://www.dominiontoycon.com" target="_blank" rel="noopener noreferrer">Apr 25 - Dominion Toy Con</a></li>
+                        <li><a href="https://www.marylandtoyexpo.com" target="_blank" rel="noopener noreferrer">Jun 13 - Maryland Toy Expo</a></li>
+                        <li><a href="https://www.marylandtradingcardexpo.com" target="_blank" rel="noopener noreferrer">Jun 14 - Maryland Trading Card Expo</a></li>
+                        <li><a href="https://www.marylandtoyexpo.com" target="_blank" rel="noopener noreferrer">Nov 7 - Maryland Toy Expo</a></li>
+                        <li><a href="https://www.marylandtradingcardexpo.com" target="_blank" rel="noopener noreferrer">Nov 8 - Maryland Trading Card Expo</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
-        
         <p class="message">
             We're open — stop by during <span class="highlight">store hours</span>.
             Planning a trip? See <a href="/visit.html">directions and parking</a> for Woodland Center.
@@ -1195,6 +1256,23 @@
                 4: [[12 * 60, 20 * 60]],
                 5: [[12 * 60, 20 * 60]],
                 6: [[10 * 60, 20 * 60]],
+            };
+            var CLOSED_DATE_OVERRIDES = {
+                '2026-04-25': {
+                    event: 'Dominion Toy Con',
+                },
+                '2026-06-13': {
+                    event: 'Maryland Toy Expo',
+                },
+                '2026-06-14': {
+                    event: 'Maryland Trading Card Expo',
+                },
+                '2026-11-07': {
+                    event: 'Maryland Toy Expo',
+                },
+                '2026-11-08': {
+                    event: 'Maryland Trading Card Expo',
+                },
             };
             var WEEKDAY_TO_INDEX = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
 
@@ -1235,11 +1313,16 @@
             function isOpen(date) {
                 var ep = easternParts(date);
                 if (ep.day === undefined) return false;
+                if (CLOSED_DATE_OVERRIDES[easternDateKey(date)]) return false;
                 var ranges = DAY_SCHEDULE[ep.day] || [];
                 for (var r = 0; r < ranges.length; r++) {
                     if (ep.minutes >= ranges[r][0] && ep.minutes < ranges[r][1]) return true;
                 }
                 return false;
+            }
+
+            function closureOverride(date) {
+                return CLOSED_DATE_OVERRIDES[easternDateKey(date)] || null;
             }
 
             function formatEasternTimeOnDate(date) {
@@ -1281,7 +1364,12 @@
                     hintEl.textContent = '';
                 } else {
                     mainEl.textContent = 'Closed';
-                    hintEl.textContent = formatNextOpenLine(now) || 'See store hours below';
+                    var override = closureOverride(now);
+                    if (override && override.event) {
+                        hintEl.textContent = 'Closed for ' + override.event + ' today';
+                    } else {
+                        hintEl.textContent = formatNextOpenLine(now) || 'See store hours below';
+                    }
                 }
 
                 var label = mainEl.textContent + '. ';
