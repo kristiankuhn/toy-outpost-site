@@ -338,6 +338,56 @@
             color: var(--dust);
         }
 
+        .hours-note {
+            color: rgba(212, 163, 115, 0.88);
+            font-size: clamp(0.82rem, 1.75vw, 0.9rem);
+            line-height: 1.55;
+            font-weight: 400;
+        }
+
+        .event-promo {
+            max-width: min(440px, 94vw);
+            width: 100%;
+            margin: 0 auto 1.5rem;
+            opacity: 0;
+            animation: fadeIn 1.2s ease-out 0.36s forwards;
+        }
+
+        .event-promo-heading {
+            margin: 0 0 0.65rem;
+            font-family: 'Rustique', 'Orbitron', sans-serif;
+            font-size: clamp(0.72rem, 1.9vw, 0.82rem);
+            font-weight: 700;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--dust);
+        }
+
+        .event-promo-figure {
+            margin: 0;
+            padding: 0.85rem;
+            border: 2px solid var(--dust);
+            background: rgba(212, 163, 115, 0.08);
+            box-shadow:
+                0 0 28px rgba(212, 163, 115, 0.15),
+                inset 0 0 20px rgba(212, 163, 115, 0.05);
+            border-radius: 4px;
+        }
+
+        .event-promo-figure img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 2px;
+        }
+
+        .event-promo-caption {
+            margin: 0.75rem 0 0;
+            font-size: clamp(0.82rem, 1.85vw, 0.93rem);
+            line-height: 1.55;
+            color: var(--text-muted);
+        }
+
         .visit-page-cta {
             display: inline-block;
             margin-top: 0.25rem;
@@ -1179,6 +1229,16 @@
             <span class="highlight">Toy Outpost Co.</span> - Vintage &amp; modern toys and collectibles, new &amp; pre-loved.
             From childhood classics to today's pop culture favorites, our ever-changing inventory keeps the hunt exciting.
         </p>
+        <section class="event-promo" aria-labelledby="may4-promo-heading">
+            <h2 id="may4-promo-heading" class="event-promo-heading">Star Wars Day — May the Fourth</h2>
+            <figure class="event-promo-figure">
+                <img src="assets/may-the-4th-2026.png" width="1080" height="1080" alt="Toy Outpost Co.: Star Wars Day, May the Fourth be with you. Open May 4th noon to 8pm. 10% off all Star Wars, excluding sealed LEGO." loading="lazy" decoding="async" />
+                <figcaption class="event-promo-caption">
+                    <strong>Monday, May 4, 2026</strong> — open <strong>12pm–8pm</strong>.
+                    10% off all Star Wars merchandise; excludes sealed LEGO.
+                </figcaption>
+            </figure>
+        </section>
         <div class="visit-block">
             <div class="address-callout">
                 <span class="find-us">Find us</span>
@@ -1186,26 +1246,33 @@
                     <a href="https://www.google.com/maps/search/?api=1&query=93+Mayo+Rd+Edgewater+MD+21037" target="_blank" rel="noopener noreferrer">93 Mayo Rd, Edgewater MD 21037</a>
                 </div>
             </div>
-            <div class="hours-callout">
+            <div class="hours-callout" id="store-hours">
                 <span class="find-us">Store hours</span>
                 <table class="hours-table">
                     <caption>Store hours for The Toy Outpost</caption>
                     <tbody>
                         <tr>
-                            <th scope="row">Mon &amp; Tue</th>
-                            <td class="closed">Closed</td>
+                            <th scope="row">Monday</th>
+                            <td>
+                                Normally <span class="closed">closed</span>
+                                <span id="hours-note-wd-1" class="hours-note" hidden></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Tuesday</th>
+                            <td class="closed">Closed<span id="hours-note-wd-2" class="hours-note" hidden></span></td>
                         </tr>
                         <tr>
                             <th scope="row">Wed – Fri</th>
-                            <td>12pm – 8pm</td>
+                            <td>12pm – 8pm<span id="hours-note-wd-345" class="hours-note" hidden></span></td>
                         </tr>
                         <tr>
                             <th scope="row">Saturday</th>
-                            <td>10am – 8pm</td>
+                            <td>10am – 8pm<span id="hours-note-wd-6" class="hours-note" hidden></span></td>
                         </tr>
                         <tr>
                             <th scope="row">Sunday</th>
-                            <td>12pm – 6pm</td>
+                            <td>12pm – 6pm<span id="hours-note-wd-0" class="hours-note" hidden></span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -1245,146 +1312,8 @@
         </div>
     </div>
 
+    <script defer src="assets/store-schedule.js"></script>
     <script>
-        (function () {
-            var TZ = 'America/New_York';
-            var DAY_SCHEDULE = {
-                0: [[12 * 60, 18 * 60]],
-                1: [],
-                2: [],
-                3: [[12 * 60, 20 * 60]],
-                4: [[12 * 60, 20 * 60]],
-                5: [[12 * 60, 20 * 60]],
-                6: [[10 * 60, 20 * 60]],
-            };
-            var CLOSED_DATE_OVERRIDES = {
-                '2026-04-25': {
-                    event: 'Dominion Toy Con',
-                },
-                '2026-06-13': {
-                    event: 'Maryland Toy Expo',
-                },
-                '2026-06-14': {
-                    event: 'Maryland Trading Card Expo',
-                },
-                '2026-11-07': {
-                    event: 'Maryland Toy Expo',
-                },
-                '2026-11-08': {
-                    event: 'Maryland Trading Card Expo',
-                },
-            };
-            var WEEKDAY_TO_INDEX = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
-
-            function easternParts(date) {
-                var dtf = new Intl.DateTimeFormat('en-US', {
-                    timeZone: TZ,
-                    weekday: 'short',
-                    hour: 'numeric',
-                    minute: 'numeric',
-                    hour12: false,
-                });
-                var parts = dtf.formatToParts(date);
-                var get = function (type) {
-                    for (var i = 0; i < parts.length; i++) {
-                        if (parts[i].type === type) return parts[i].value;
-                    }
-                };
-                var weekday = get('weekday');
-                var hour = parseInt(get('hour'), 10);
-                var minute = parseInt(get('minute'), 10);
-                if (isNaN(hour)) hour = 0;
-                if (isNaN(minute)) minute = 0;
-                if (hour === 24) hour = 0;
-                var day = WEEKDAY_TO_INDEX[weekday];
-                var minutes = hour * 60 + minute;
-                return { day: day, minutes: minutes };
-            }
-
-            function easternDateKey(date) {
-                return new Intl.DateTimeFormat('en-CA', {
-                    timeZone: TZ,
-                    year: 'numeric',
-                    month: '2-digit',
-                    day: '2-digit',
-                }).format(date);
-            }
-
-            function isOpen(date) {
-                var ep = easternParts(date);
-                if (ep.day === undefined) return false;
-                if (CLOSED_DATE_OVERRIDES[easternDateKey(date)]) return false;
-                var ranges = DAY_SCHEDULE[ep.day] || [];
-                for (var r = 0; r < ranges.length; r++) {
-                    if (ep.minutes >= ranges[r][0] && ep.minutes < ranges[r][1]) return true;
-                }
-                return false;
-            }
-
-            function closureOverride(date) {
-                return CLOSED_DATE_OVERRIDES[easternDateKey(date)] || null;
-            }
-
-            function formatEasternTimeOnDate(date) {
-                return new Intl.DateTimeFormat('en-US', {
-                    timeZone: TZ,
-                    hour: 'numeric',
-                    minute: 'numeric',
-                    hour12: true,
-                }).format(date);
-            }
-
-            function formatNextOpenLine(from) {
-                var todayKey = easternDateKey(from);
-                var max = 7 * 24 * 60;
-                for (var i = 1; i <= max; i++) {
-                    var probe = new Date(from.getTime() + i * 60 * 1000);
-                    if (!isOpen(probe)) continue;
-                    var dayKey = easternDateKey(probe);
-                    var timeStr = formatEasternTimeOnDate(probe);
-                    if (dayKey === todayKey) return 'Next open · ' + timeStr + ' today';
-                    var dayStr = new Intl.DateTimeFormat('en-US', { timeZone: TZ, weekday: 'short' }).format(probe);
-                    return 'Next open · ' + dayStr + ' ' + timeStr;
-                }
-                return '';
-            }
-
-            function updateStoreStatus() {
-                var el = document.getElementById('store-status');
-                var mainEl = document.getElementById('store-status-main');
-                var hintEl = document.getElementById('store-status-hint');
-                if (!el || !mainEl || !hintEl) return;
-
-                var now = new Date();
-                var open = isOpen(now);
-                el.setAttribute('data-open', open ? 'true' : 'false');
-
-                if (open) {
-                    mainEl.textContent = 'Open now';
-                    hintEl.textContent = '';
-                } else {
-                    mainEl.textContent = 'Closed';
-                    var override = closureOverride(now);
-                    if (override && override.event) {
-                        hintEl.textContent = 'Closed for ' + override.event + ' today';
-                    } else {
-                        hintEl.textContent = formatNextOpenLine(now) || 'See store hours below';
-                    }
-                }
-
-                var label = mainEl.textContent + '. ';
-                if (hintEl.textContent) label += hintEl.textContent + '. ';
-                label += 'Hours use US Eastern time, Edgewater, Maryland.';
-                el.setAttribute('aria-label', label);
-            }
-
-            updateStoreStatus();
-            setInterval(updateStoreStatus, 60 * 1000);
-            document.addEventListener('visibilitychange', function () {
-                if (!document.hidden) updateStoreStatus();
-            });
-        })();
-
         const navToggle = document.querySelector('.nav-toggle');
         const navLinks = document.querySelector('.nav-links');
         if (navToggle && navLinks) {
