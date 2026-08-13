@@ -233,98 +233,6 @@
             cursor: pointer;
         }
 
-        .site-ops-bar {
-            border-top: 1px solid rgba(184, 92, 56, 0.4);
-            background: linear-gradient(180deg, rgba(184, 92, 56, 0.18) 0%, rgba(10, 14, 39, 0.97) 55%, rgba(10, 14, 39, 1) 100%);
-            padding: 0.55rem max(1.25rem, env(safe-area-inset-left)) 0.6rem max(1.25rem, env(safe-area-inset-right));
-        }
-        .site-ops-inner {
-            width: 100%;
-            max-width: 1100px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: center;
-        }
-        .store-status {
-            display: flex;
-            flex-direction: column;
-            align-items: stretch;
-            gap: 0.45rem;
-            width: 100%;
-            max-width: 36rem;
-            margin: 0;
-            padding: 0.55rem 1rem 0.5rem;
-            border: 1px solid rgba(212, 163, 115, 0.45);
-            background: rgba(10, 14, 39, 0.75);
-            text-align: left;
-        }
-        .store-status-primary {
-            display: flex;
-            align-items: flex-start;
-            gap: 0.75rem;
-        }
-        .store-status-dot {
-            width: 9px;
-            height: 9px;
-            border-radius: 50%;
-            margin-top: 0.32rem;
-            flex-shrink: 0;
-            background: rgba(184, 92, 56, 0.55);
-        }
-        .store-status[data-open="true"] .store-status-dot {
-            background: rgba(244, 228, 193, 0.98);
-            box-shadow: 0 0 10px rgba(244, 228, 193, 0.65);
-        }
-        .store-status-lines { min-width: 0; flex: 1; }
-        .store-status-main {
-            font-family: 'Rustique', 'Orbitron', sans-serif;
-            font-size: clamp(0.75rem, 1.9vw, 0.82rem);
-            font-weight: 700;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: #c9a882;
-            line-height: 1.35;
-        }
-        .store-status[data-open="true"] .store-status-main {
-            color: rgba(244, 228, 193, 0.95);
-        }
-        .store-status-hint {
-            font-size: clamp(0.7rem, 1.75vw, 0.78rem);
-            color: rgba(244, 228, 193, 0.72);
-            line-height: 1.4;
-            min-height: 1.4em;
-        }
-        .store-status-tz {
-            font-size: clamp(0.62rem, 1.55vw, 0.7rem);
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--text-secondary);
-            text-align: center;
-            padding-top: 0.4rem;
-            border-top: 1px solid rgba(212, 163, 115, 0.22);
-        }
-        @media (min-width: 640px) {
-            .store-status {
-                flex-direction: row;
-                align-items: center;
-                max-width: 48rem;
-                padding: 0.55rem 1.15rem;
-                gap: 0;
-            }
-            .store-status-primary { align-items: center; flex: 1; }
-            .store-status-dot { margin-top: 0; }
-            .store-status-tz {
-                flex: 0 0 auto;
-                max-width: 11rem;
-                margin-left: 1rem;
-                padding-top: 0;
-                padding-left: 1rem;
-                border-top: none;
-                border-left: 1px solid rgba(212, 163, 115, 0.25);
-                text-align: right;
-            }
-        }
-
         .hero {
             position: relative;
             min-height: min(78vh, 720px);
@@ -896,6 +804,8 @@
             .cat-card img { transition: none; }
         }
     </style>
+    <link rel="stylesheet" href="assets/store-status.css">
+
     <script>
         (function () {
             function isApplePlatform() {
