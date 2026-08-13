@@ -3,10 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>The Toy Outpost</title>
+    <title>Toy Store in Edgewater, MD | LEGO, Pokémon &amp; Collectibles | The Toy Outpost</title>
+    <meta name="description" content="The Toy Outpost in Edgewater, Maryland. LEGO, Pokémon TCG, toys, collectibles, and video games — new and pre-loved. Visit 93 Mayo Rd.">
+    <link rel="canonical" href="https://toyoutpostco.com/">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="icon" type="image/png" href="favicon.png">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="The Toy Outpost | LEGO, Pokémon &amp; Toys in Edgewater, MD">
+    <meta property="og:description" content="LEGO, Pokémon TCG, toys, collectibles, and video games in Edgewater, Maryland. Come hunt the shelves at 93 Mayo Rd.">
+    <meta property="og:url" content="https://toyoutpostco.com/">
+    <meta property="og:image" content="https://toyoutpostco.com/assets/store/hero-lego-aisle.jpg">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ToyStore",
+        "name": "The Toy Outpost",
+        "url": "https://toyoutpostco.com/",
+        "image": "https://toyoutpostco.com/assets/store/hero-lego-aisle.jpg",
+        "telephone": "+14434248697",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "93 Mayo Rd",
+            "addressLocality": "Edgewater",
+            "addressRegion": "MD",
+            "postalCode": "21037",
+            "addressCountry": "US"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 38.936255696176296,
+            "longitude": -76.55881979204352
+        },
+        "areaServed": ["Edgewater", "Annapolis", "Anne Arundel County"],
+        "openingHoursSpecification": [
+            {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Wednesday", "Thursday", "Friday"],
+                "opens": "12:00",
+                "closes": "20:00"
+            },
+            {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": "Saturday",
+                "opens": "10:00",
+                "closes": "20:00"
+            },
+            {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": "Sunday",
+                "opens": "12:00",
+                "closes": "18:00"
+            }
+        ]
+    }
+    </script>
     <style>
         * {
             margin: 0;
@@ -29,11 +80,15 @@
             --rust: #B85C38;
             --text-secondary: rgba(212, 163, 115, 0.9);
             --text-muted: rgba(244, 228, 193, 0.94);
+            --surface: #10152f;
+            --surface-2: #070a1c;
+            --line: rgba(212, 163, 115, 0.22);
         }
 
         html {
             -webkit-text-size-adjust: 100%;
             text-size-adjust: 100%;
+            scroll-behavior: smooth;
         }
 
         body {
@@ -46,7 +101,6 @@
             line-height: 1.65;
         }
 
-        /* Starfield background */
         .stars {
             position: fixed;
             top: 0;
@@ -54,6 +108,7 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
+            z-index: 0;
         }
 
         .star {
@@ -68,7 +123,6 @@
             50% { opacity: 1; }
         }
 
-        /* Dust particles */
         .dust-particle {
             position: absolute;
             background: var(--dust);
@@ -84,102 +138,637 @@
             75% { transform: translate(20px, -40px); }
         }
 
-        .container {
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .page {
             position: relative;
             z-index: 10;
-            min-height: 100vh;
-            min-height: 100dvh;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.95rem 1.7rem;
+            min-height: 48px;
+            border: 2px solid var(--rust);
+            font-family: 'Rustique', 'Orbitron', sans-serif;
+            font-size: clamp(0.82rem, 2vw, 0.95rem);
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+            transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
+        }
+
+        .btn-primary {
+            background: var(--rust);
+            color: var(--void);
+            box-shadow: 0 0 24px rgba(184, 92, 56, 0.35);
+        }
+
+        .btn-primary:hover {
+            background: #c96a42;
+            border-color: #c96a42;
+            color: var(--void);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--star);
+            border-color: var(--star);
+        }
+
+        .btn-secondary:hover {
+            background: var(--star);
+            color: var(--void);
+        }
+
+        .hero-actions,
+        .feature-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        /* Header / nav / store status */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 30;
+            backdrop-filter: blur(8px);
+            background: rgba(10, 14, 39, 0.9);
+            border-bottom: 1px solid rgba(212, 163, 115, 0.25);
+        }
+
+        .site-nav {
+            position: relative;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0.85rem 1.25rem;
+            padding-left: max(1.25rem, env(safe-area-inset-left));
+            padding-right: max(1.25rem, env(safe-area-inset-right));
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.9rem;
+        }
+
+        .nav-brand {
+            font-family: 'Rustique', 'Orbitron', sans-serif;
+            color: var(--star);
+            text-decoration: none;
+            font-size: 0.875rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.8125rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--star);
+        }
+
+        .nav-cta {
+            color: var(--void) !important;
+            background: var(--rust);
+            border: 2px solid var(--rust);
+            padding: 0.4rem 0.75rem;
+            letter-spacing: 0.1em !important;
+        }
+
+        .nav-cta:hover {
+            background: #c96a42;
+            color: var(--void) !important;
+        }
+
+        .nav-links a.nav-buy {
+            color: var(--rust);
+        }
+
+        .nav-links a.nav-buy:hover,
+        .nav-links a.nav-buy[aria-current="page"] {
+            color: #e08a62;
+        }
+
+        .nav-toggle {
+            display: none;
+            border: 1px solid rgba(212, 163, 115, 0.45);
+            background: transparent;
+            color: var(--dust);
+            padding: 0.45rem 0.65rem;
+            min-width: 44px;
+            min-height: 44px;
+            font-size: 1.15rem;
+            line-height: 1;
+            cursor: pointer;
+        }
+
+        .site-ops-bar {
+            border-top: 1px solid rgba(184, 92, 56, 0.4);
+            background: linear-gradient(
+                180deg,
+                rgba(184, 92, 56, 0.18) 0%,
+                rgba(10, 14, 39, 0.97) 55%,
+                rgba(10, 14, 39, 1) 100%
+            );
+            padding: 0.55rem max(1.25rem, env(safe-area-inset-left)) 0.6rem max(1.25rem, env(safe-area-inset-right));
+        }
+
+        .site-ops-inner {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .store-status {
             display: flex;
             flex-direction: column;
             align-items: stretch;
-            padding: 2rem 2rem 0;
-            padding-left: max(1.25rem, env(safe-area-inset-left));
-            padding-right: max(1.25rem, env(safe-area-inset-right));
-            text-align: center;
+            gap: 0.45rem;
+            width: 100%;
+            max-width: 36rem;
+            margin: 0;
+            padding: 0.55rem 1rem 0.5rem 1rem;
+            border: 1px solid rgba(212, 163, 115, 0.45);
+            background: rgba(10, 14, 39, 0.75);
+            box-shadow:
+                0 0 0 1px rgba(244, 228, 193, 0.04),
+                inset 0 0 24px rgba(212, 163, 115, 0.06);
+            text-align: left;
         }
 
-        .home-main {
-            flex: 1 1 auto;
+        .store-status-primary {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            min-width: 0;
+        }
+
+        .store-status-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            margin-top: 0.32rem;
+            flex-shrink: 0;
+            background: rgba(184, 92, 56, 0.55);
+            box-shadow: inset 0 0 8px rgba(10, 14, 39, 0.65);
+            transition: background 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        .store-status[data-open="true"] .store-status-dot {
+            background: rgba(244, 228, 193, 0.98);
+            box-shadow:
+                0 0 10px rgba(244, 228, 193, 0.65),
+                0 0 22px rgba(212, 163, 115, 0.45),
+                0 0 38px rgba(184, 92, 56, 0.25);
+            animation: statusBeacon 4.5s ease-in-out infinite;
+        }
+
+        .store-status[data-open="false"] .store-status-dot {
+            animation: none;
+        }
+
+        @keyframes statusBeacon {
+            0%, 100% {
+                opacity: 0.8;
+                transform: scale(1);
+                filter: brightness(0.95);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.14);
+                filter: brightness(1.1);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .store-status[data-open="true"] .store-status-dot {
+                animation: none;
+            }
+            html {
+                scroll-behavior: auto;
+            }
+            .cat-card img,
+            .btn {
+                transition: none;
+            }
+        }
+
+        .store-status-lines {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+            min-width: 0;
+            flex: 1;
+        }
+
+        .store-status-main {
+            font-family: 'Rustique', 'Orbitron', sans-serif;
+            font-size: clamp(0.75rem, 1.9vw, 0.82rem);
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #c9a882;
+            line-height: 1.35;
+            transition: color 0.45s ease;
+        }
+
+        .store-status[data-open="true"] .store-status-main {
+            color: rgba(244, 228, 193, 0.95);
+            text-shadow: 0 0 18px rgba(244, 228, 193, 0.2);
+        }
+
+        .store-status-hint {
+            font-family: 'Space Mono', monospace;
+            font-size: clamp(0.7rem, 1.75vw, 0.78rem);
+            letter-spacing: 0.04em;
+            color: rgba(244, 228, 193, 0.72);
+            line-height: 1.4;
+            min-height: 1.4em;
+            transition: color 0.45s ease;
+        }
+
+        .store-status[data-open="true"] .store-status-hint {
+            color: rgba(244, 228, 193, 0.62);
+        }
+
+        .store-status[data-open="false"] .store-status-hint:not(:empty) {
+            color: rgba(244, 228, 193, 0.78);
+        }
+
+        .store-status-tz {
+            font-family: 'Space Mono', monospace;
+            font-size: clamp(0.62rem, 1.55vw, 0.7rem);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            text-align: center;
+            padding-top: 0.4rem;
+            border-top: 1px solid rgba(212, 163, 115, 0.22);
+            line-height: 1.45;
+        }
+
+        @media (min-width: 640px) {
+            .store-status {
+                flex-direction: row;
+                align-items: center;
+                flex-wrap: nowrap;
+                max-width: 48rem;
+                padding: 0.55rem 1.15rem;
+                gap: 0;
+            }
+
+            .store-status-primary {
+                align-items: center;
+                flex: 1;
+                min-width: 0;
+            }
+
+            .store-status-dot {
+                margin-top: 0;
+            }
+
+            .store-status-tz {
+                flex: 0 0 auto;
+                max-width: 11rem;
+                margin-left: 1rem;
+                padding-top: 0;
+                padding-left: 1rem;
+                border-top: none;
+                border-left: 1px solid rgba(212, 163, 115, 0.25);
+                text-align: right;
+            }
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            min-height: min(88vh, 820px);
+            display: flex;
+            align-items: flex-end;
+            overflow: hidden;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .hero-media {
+            position: absolute;
+            inset: 0;
+        }
+
+        .hero-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: 55% 45%;
+        }
+
+        .hero-media::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(180deg, rgba(10, 14, 39, 0.1) 0%, rgba(10, 14, 39, 0.04) 36%, rgba(10, 14, 39, 0.62) 74%, rgba(10, 14, 39, 0.94) 100%),
+                linear-gradient(90deg, rgba(10, 14, 39, 0.4) 0%, rgba(10, 14, 39, 0.08) 42%, transparent 70%);
+        }
+
+        .hero-copy {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 3.5rem 1.5rem 3.25rem;
+            padding-left: max(1.5rem, env(safe-area-inset-left));
+            padding-right: max(1.5rem, env(safe-area-inset-right));
+        }
+
+        .hero-kicker {
+            font-family: 'Rustique', 'Orbitron', sans-serif;
+            font-size: clamp(0.82rem, 1.9vw, 0.95rem);
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--star);
+            margin-bottom: 0.55rem;
+            text-shadow:
+                0 1px 2px rgba(10, 14, 39, 1),
+                0 2px 16px rgba(10, 14, 39, 0.95),
+                0 0 28px rgba(10, 14, 39, 0.8);
+        }
+
+        .hero h1 {
+            font-family: 'Rustique', 'Orbitron', sans-serif;
+            font-size: clamp(2.1rem, 7vw, 4.4rem);
+            font-weight: 400;
+            letter-spacing: 0.06em;
+            line-height: 0.95;
+            text-transform: uppercase;
+            color: var(--star);
+            text-shadow: 0 2px 24px rgba(10, 14, 39, 0.8);
+            margin-bottom: 0.7rem;
+        }
+
+        .hero-sub {
+            font-family: 'Rustique', 'Orbitron', sans-serif;
+            font-size: clamp(0.95rem, 2.4vw, 1.35rem);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--star);
+            margin-bottom: 0.55rem;
+            max-width: 34rem;
+            text-shadow: 0 2px 16px rgba(10, 14, 39, 0.85);
+        }
+
+        .hero-place {
+            font-size: clamp(0.95rem, 2vw, 1.05rem);
+            color: var(--text-muted);
+            margin-bottom: 1.4rem;
+            max-width: 32rem;
+            text-shadow: 0 2px 14px rgba(10, 14, 39, 0.9);
+        }
+
+        /* Categories */
+        .section-pad {
+            padding: 3.25rem 1.5rem;
+            padding-left: max(1.5rem, env(safe-area-inset-left));
+            padding-right: max(1.5rem, env(safe-area-inset-right));
+        }
+
+        .section-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .categories {
+            background: var(--surface);
+            border-bottom: 1px solid var(--line);
+            scroll-margin-top: 7.5rem;
+        }
+
+        .section-label {
+            font-family: 'Rustique', 'Orbitron', sans-serif;
+            font-size: clamp(0.7rem, 1.7vw, 0.78rem);
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--dust);
+            margin-bottom: 0.45rem;
+        }
+
+        .section-heading {
+            font-family: 'Rustique', 'Orbitron', sans-serif;
+            font-size: clamp(1.55rem, 4vw, 2.35rem);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            line-height: 1.05;
+            margin-bottom: 1.5rem;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.85rem;
+        }
+
+        .cat-card {
+            position: relative;
+            display: block;
+            min-height: 240px;
+            overflow: hidden;
+            text-decoration: none;
+            color: var(--star);
+            border: 1px solid rgba(212, 163, 115, 0.28);
+            isolation: isolate;
+        }
+
+        .cat-card img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.45s ease;
+        }
+
+        .cat-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(10, 14, 39, 0.02) 0%, rgba(10, 14, 39, 0.12) 48%, rgba(10, 14, 39, 0.88) 100%);
+            z-index: 1;
+        }
+
+        .cat-card:hover img,
+        .cat-card:focus-visible img {
+            transform: scale(1.06);
+        }
+
+        .cat-card:hover,
+        .cat-card:focus-visible {
+            border-color: rgba(244, 228, 193, 0.55);
+            outline: none;
+        }
+
+        .cat-card-copy {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 2;
+            padding: 1.15rem 1.15rem 1.2rem;
+        }
+
+        .cat-card h3 {
+            font-family: 'Rustique', 'Orbitron', sans-serif;
+            font-size: clamp(1.35rem, 3.2vw, 1.85rem);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            line-height: 1;
+            margin-bottom: 0.3rem;
+        }
+
+        .cat-card p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            letter-spacing: 0.02em;
+        }
+
+        .cat-lego,
+        .cat-pokemon {
+            min-height: 300px;
+        }
+
+        .cat-lego h3,
+        .cat-pokemon h3 {
+            font-size: clamp(1.7rem, 4vw, 2.25rem);
+        }
+
+        /* Feature bands */
+        .feature-band {
+            position: relative;
+            display: grid;
+            grid-template-columns: 1fr;
+            background: var(--void);
+            border-bottom: 1px solid var(--line);
+            scroll-margin-top: 7.5rem;
+        }
+
+        .feature-band--alt {
+            background: var(--surface-2);
+        }
+
+        .feature-photo {
+            position: relative;
+            min-height: 260px;
+            overflow: hidden;
+        }
+
+        .feature-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            min-height: 260px;
+            max-height: 360px;
+        }
+
+        .feature-copy {
+            padding: 2rem 1.5rem 2.25rem;
+            padding-left: max(1.5rem, env(safe-area-inset-left));
+            padding-right: max(1.5rem, env(safe-area-inset-right));
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center;
-            width: 100%;
-            min-height: 0;
+            gap: 0.7rem;
         }
 
-        .hero-top {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            max-width: min(90vw, 720px);
-            margin-bottom: 0.85rem;
-        }
-
-        .hero-top .logo {
-            margin-bottom: 0.55rem;
-        }
-
-        .logo {
-            margin-bottom: 1rem;
-            animation: fadeInDown 1.2s ease-out;
-        }
-
-        .logo img {
-            display: block;
-            max-width: min(90vw, 720px);
-            height: auto;
-            /* Glow in site palette: star (cream), dust (tan), hint of rust */
-            filter: drop-shadow(0 0 12px rgba(244, 228, 193, 0.6))
-                    drop-shadow(0 0 28px rgba(212, 163, 115, 0.35))
-                    drop-shadow(0 0 48px rgba(184, 92, 56, 0.2))
-                    sepia(0.06) saturate(1.08);
-        }
-
-        .tagline {
-            font-size: clamp(0.95rem, 2.1vw, 1.15rem);
-            color: #e0bc8c;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            margin-bottom: 0.6rem;
-            opacity: 0;
-            animation: fadeIn 1.2s ease-out 0.3s forwards;
-        
+        .feature-copy h2 {
             font-family: 'Rustique', 'Orbitron', sans-serif;
+            font-size: clamp(1.7rem, 4.6vw, 2.8rem);
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            line-height: 1.02;
         }
 
-        .brand-intro {
-            max-width: 760px;
-            text-align: center;
-            font-size: clamp(0.95rem, 2.1vw, 1.05rem);
-            line-height: 1.75;
+        .feature-copy p {
+            font-size: clamp(0.98rem, 2vw, 1.08rem);
             color: var(--text-muted);
-            margin-bottom: 1.5rem;
-            opacity: 0;
-            animation: fadeIn 1.2s ease-out 0.35s forwards;
+            max-width: 34rem;
         }
 
-        .brand-intro .highlight {
-            color: var(--dust);
-            font-weight: 700;
+        /* Inventory trio */
+        .inventory-trio {
+            background: var(--surface);
+            border-bottom: 1px solid var(--line);
         }
 
+        .trio-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.85rem;
+        }
 
-        .visit-block {
-            margin-bottom: 3rem;
-            opacity: 0;
-            animation: fadeIn 1.2s ease-out 0.4s forwards;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        .trio-card {
+            min-height: 280px;
+        }
+
+        .trio-card h3 {
+            font-size: clamp(1.25rem, 3vw, 1.55rem);
+        }
+
+        /* Visit / hours */
+        .visit-section {
+            background: var(--void);
+            border-bottom: 1px solid var(--line);
+            scroll-margin-top: 7.5rem;
+        }
+
+        .visit-layout {
+            display: grid;
+            grid-template-columns: 1fr;
             gap: 1.25rem;
-            max-width: 520px;
-            width: 100%;
         }
 
-        .address-callout {
-            display: inline-block;
+        .visit-photo {
+            overflow: hidden;
+            border: 1px solid var(--line);
+            min-height: 220px;
+        }
+
+        .visit-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            min-height: 220px;
+            max-height: 320px;
+        }
+
+        .address-callout,
+        .hours-callout {
+            width: 100%;
             padding: 1rem 1.5rem;
             background: rgba(212, 163, 115, 0.12);
             border: 2px solid var(--dust);
@@ -187,7 +776,11 @@
                         inset 0 0 20px rgba(212, 163, 115, 0.06);
         }
 
-        .address-callout .find-us {
+        .address-callout {
+            margin-bottom: 1rem;
+        }
+
+        .find-us {
             font-family: 'Rustique', 'Orbitron', sans-serif;
             font-size: 0.72rem;
             font-weight: 700;
@@ -198,43 +791,24 @@
             display: block;
         }
 
-        .visit-block .address {
-            margin-bottom: 0;
-            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+        .address {
+            font-family: 'Space Mono', monospace;
+            font-size: clamp(1.05rem, 2.4vw, 1.3rem);
+            font-weight: 700;
+            color: var(--star);
             letter-spacing: 0.08em;
             text-shadow: 0 0 20px rgba(244, 228, 193, 0.5),
                          0 0 8px rgba(244, 228, 193, 0.4);
         }
 
-        .visit-block .address a {
-            display: inline-block;
-            transition: transform 0.2s ease, text-shadow 0.2s ease;
+        .address a {
+            color: inherit;
+            text-decoration: none;
         }
 
-        .visit-block .address a:hover {
-            transform: scale(1.02);
-            text-shadow: 0 0 24px rgba(244, 228, 193, 0.7),
-                         0 0 12px rgba(244, 228, 193, 0.5);
-        }
-
-        .hours-callout {
-            width: 100%;
-            padding: 1rem 1.5rem;
-            background: rgba(212, 163, 115, 0.12);
-            border: 2px solid var(--dust);
-            box-shadow: 0 0 28px rgba(212, 163, 115, 0.2),
-                        inset 0 0 20px rgba(212, 163, 115, 0.06);
-        }
-
-        .hours-callout .find-us {
-            font-family: 'Rustique', 'Orbitron', sans-serif;
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 0.3em;
-            color: var(--rust);
-            text-transform: uppercase;
-            margin-bottom: 0.65rem;
-            display: block;
+        .address a:hover {
+            text-decoration: underline;
+            color: var(--star);
         }
 
         .hours-table {
@@ -345,466 +919,158 @@
             font-weight: 400;
         }
 
-        .event-promo {
-            max-width: min(440px, 94vw);
-            width: 100%;
-            margin: 0 auto 1.5rem;
-            opacity: 0;
-            animation: fadeIn 1.2s ease-out 0.36s forwards;
+        .visit-actions {
+            margin-top: 1rem;
         }
 
-        .event-promo-heading {
-            margin: 0 0 0.65rem;
-            font-family: 'Rustique', 'Orbitron', sans-serif;
-            font-size: clamp(0.72rem, 1.9vw, 0.82rem);
-            font-weight: 700;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            color: var(--dust);
-        }
-
-        .event-promo-figure {
-            margin: 0;
-            padding: 0.85rem;
-            border: 2px solid var(--dust);
-            background: rgba(212, 163, 115, 0.08);
-            box-shadow:
-                0 0 28px rgba(212, 163, 115, 0.15),
-                inset 0 0 20px rgba(212, 163, 115, 0.05);
-            border-radius: 4px;
-        }
-
-        .event-promo-figure img {
-            display: block;
-            width: 100%;
-            height: auto;
-            border-radius: 2px;
-        }
-
-        .event-promo-caption {
-            margin: 0.75rem 0 0;
-            font-size: clamp(0.82rem, 1.85vw, 0.93rem);
-            line-height: 1.55;
+        .google-proof {
+            margin-top: 0.85rem;
+            font-size: 0.9rem;
             color: var(--text-muted);
         }
 
-        .visit-page-cta {
-            display: inline-block;
-            margin-top: 0.25rem;
-            padding: 1rem 1.75rem;
-            border: 2px solid var(--rust);
-            color: var(--rust);
-            text-decoration: none;
+        .google-proof a {
+            color: var(--dust);
+            text-underline-offset: 0.14em;
+        }
+
+        .google-proof a:hover {
+            color: var(--star);
+        }
+
+        .reviews {
+            margin-top: 2rem;
+        }
+
+        .reviews-heading {
             font-family: 'Rustique', 'Orbitron', sans-serif;
-            letter-spacing: 0.12em;
+            font-size: clamp(1.25rem, 3vw, 1.7rem);
+            letter-spacing: 0.08em;
             text-transform: uppercase;
-            font-size: clamp(0.85rem, 2vw, 0.95rem);
-            font-weight: 700;
-            transition: all 0.3s ease;
-            text-align: center;
+            margin-bottom: 1rem;
         }
 
-        .hero-top .visit-page-cta {
-            margin-top: 0;
-            opacity: 0;
-            animation: fadeIn 1s ease-out 0.18s forwards;
+        .review-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.85rem;
         }
 
-        .visit-page-cta:hover {
-            color: var(--void);
-            background: var(--rust);
+        .review-card {
+            margin: 0;
+            padding: 1.15rem 1.2rem 1.2rem;
+            border: 1px solid var(--line);
+            background: rgba(212, 163, 115, 0.08);
         }
 
-        .site-ops-bar {
-            border-top: 1px solid rgba(184, 92, 56, 0.4);
-            background: linear-gradient(
-                180deg,
-                rgba(184, 92, 56, 0.18) 0%,
-                rgba(10, 14, 39, 0.97) 55%,
-                rgba(10, 14, 39, 1) 100%
-            );
-            padding: 0.55rem max(1.25rem, env(safe-area-inset-left)) 0.6rem max(1.25rem, env(safe-area-inset-right));
+        .review-card p {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            line-height: 1.65;
         }
 
-        .site-ops-inner {
-            width: 100%;
-            max-width: 980px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: center;
+        .review-card footer {
+            margin-top: 0.9rem;
+            font-family: 'Rustique', 'Orbitron', sans-serif;
+            font-size: 0.68rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--rust);
+        }
+
+        .hunt-section,
+        .just-in,
+        .shelves-now,
+        .event-slot {
+            background: var(--surface-2);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .hunt-section .section-lead,
+        .just-in .section-lead,
+        .shelves-now .section-lead {
+            max-width: 38rem;
+            margin: -0.75rem 0 1.35rem;
+            color: var(--text-muted);
+        }
+
+        .just-in-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
             align-items: center;
         }
 
-        .store-status {
-            display: flex;
-            flex-direction: column;
-            align-items: stretch;
-            gap: 0.45rem;
-            width: 100%;
-            max-width: 36rem;
-            margin: 0;
-            padding: 0.55rem 1rem 0.5rem 1rem;
-            border: 1px solid rgba(212, 163, 115, 0.45);
-            background: rgba(10, 14, 39, 0.75);
-            box-shadow:
-                0 0 0 1px rgba(244, 228, 193, 0.04),
-                inset 0 0 24px rgba(212, 163, 115, 0.06);
-            text-align: left;
-        }
-
-        .store-status-primary {
-            display: flex;
-            align-items: flex-start;
-            gap: 0.75rem;
-            min-width: 0;
-        }
-
-        .store-status-dot {
-            width: 9px;
-            height: 9px;
-            border-radius: 50%;
-            margin-top: 0.32rem;
-            flex-shrink: 0;
-            background: rgba(184, 92, 56, 0.55);
-            box-shadow: inset 0 0 8px rgba(10, 14, 39, 0.65);
-            transition: background 0.5s ease, box-shadow 0.5s ease;
-        }
-
-        .store-status[data-open="true"] .store-status-dot {
-            background: rgba(244, 228, 193, 0.98);
-            box-shadow:
-                0 0 10px rgba(244, 228, 193, 0.65),
-                0 0 22px rgba(212, 163, 115, 0.45),
-                0 0 38px rgba(184, 92, 56, 0.25);
-            animation: statusBeacon 4.5s ease-in-out infinite;
-        }
-
-        .store-status[data-open="false"] .store-status-dot {
-            animation: none;
-        }
-
-        @keyframes statusBeacon {
-            0%, 100% {
-                opacity: 0.8;
-                transform: scale(1);
-                filter: brightness(0.95);
-            }
-            50% {
-                opacity: 1;
-                transform: scale(1.14);
-                filter: brightness(1.1);
-            }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            .store-status[data-open="true"] .store-status-dot {
-                animation: none;
-            }
-        }
-
-        .store-status-lines {
-            display: flex;
-            flex-direction: column;
-            gap: 0.2rem;
-            min-width: 0;
-            flex: 1;
-        }
-
-        .store-status-main {
-            font-family: 'Rustique', 'Orbitron', sans-serif;
-            font-size: clamp(0.75rem, 1.9vw, 0.82rem);
-            font-weight: 700;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: #c9a882;
-            line-height: 1.35;
-            transition: color 0.45s ease;
-        }
-
-        .store-status[data-open="true"] .store-status-main {
-            color: rgba(244, 228, 193, 0.95);
-            text-shadow: 0 0 18px rgba(244, 228, 193, 0.2);
-        }
-
-        .store-status-hint {
-            font-family: 'Space Mono', monospace;
-            font-size: clamp(0.7rem, 1.75vw, 0.78rem);
-            letter-spacing: 0.04em;
-            color: rgba(244, 228, 193, 0.72);
-            line-height: 1.4;
-            min-height: 1.4em;
-            transition: color 0.45s ease;
-        }
-
-        .store-status[data-open="true"] .store-status-hint {
-            color: rgba(244, 228, 193, 0.62);
-        }
-
-        .store-status[data-open="false"] .store-status-hint:not(:empty) {
-            color: rgba(244, 228, 193, 0.78);
-        }
-
-        .store-status-tz {
-            font-family: 'Space Mono', monospace;
-            font-size: clamp(0.62rem, 1.55vw, 0.7rem);
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--text-secondary);
-            text-align: center;
-            padding-top: 0.4rem;
-            border-top: 1px solid rgba(212, 163, 115, 0.22);
-            line-height: 1.45;
-        }
-
-        @media (min-width: 640px) {
-            .store-status {
-                flex-direction: row;
-                align-items: center;
-                flex-wrap: nowrap;
-                max-width: 48rem;
-                padding: 0.55rem 1.15rem;
-                gap: 0;
-            }
-
-            .store-status-primary {
-                align-items: center;
-                flex: 1;
-                min-width: 0;
-            }
-
-            .store-status-dot {
-                margin-top: 0;
-            }
-
-            .store-status-tz {
-                flex: 0 0 auto;
-                max-width: 11rem;
-                margin-left: 1rem;
-                padding-top: 0;
-                padding-left: 1rem;
-                border-top: none;
-                border-left: 1px solid rgba(212, 163, 115, 0.25);
-                text-align: right;
-            }
-        }
-
-        .message {
-            max-width: 600px;
-            font-size: clamp(1.0625rem, 2.6vw, 1.35rem);
-            line-height: 1.78;
-            color: var(--star);
-            margin-bottom: 4rem;
-            opacity: 0;
-            animation: fadeIn 1.2s ease-out 0.6s forwards;
-        }
-
-        .message .highlight {
-            color: var(--rust);
-            font-weight: 700;
-        }
-
-        .message a {
-            color: var(--rust);
-            font-weight: 700;
-            text-decoration: underline;
-            text-underline-offset: 0.15em;
-        }
-
-        .message a:hover {
-            color: var(--dust);
-        }
-
-        .email-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            max-width: 500px;
-            width: 100%;
-            opacity: 0;
-            animation: fadeInUp 1.2s ease-out 0.9s forwards;
-        }
-
-        .input-wrapper {
-            position: relative;
-        }
-
-        .email-label {
-            font-size: 0.875rem;
-            color: #e0bc8c;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            margin-bottom: 0.35rem;
-            text-align: center;
-        }
-
-        .email-label .optional {
-            font-weight: 400;
-            color: rgba(212, 163, 115, 0.7);
-            text-transform: none;
-            letter-spacing: 0.05em;
-        }
-
-        .email-input {
-            width: 100%;
-            padding: 1.2rem 1.5rem;
-            background: rgba(212, 163, 115, 0.1);
-            border: 2px solid var(--dust);
-            border-radius: 0;
-            font-family: 'Space Mono', monospace;
-            font-size: 1rem;
-            color: var(--star);
-            text-align: center;
-            transition: all 0.3s ease;
-            outline: none;
-        }
-
-        .email-input::placeholder {
-            color: rgba(244, 228, 193, 0.5);
-            letter-spacing: 0.1em;
-        }
-
-        .email-input:focus {
-            border-color: var(--star);
-            background: rgba(212, 163, 115, 0.15);
-            box-shadow: 
-                0 0 20px rgba(244, 228, 193, 0.2),
-                inset 0 0 20px rgba(244, 228, 193, 0.1);
-        }
-
-        .sms-consent {
-            display: flex;
-            gap: 0.75rem;
-            align-items: flex-start;
-            text-align: left;
-        }
-
-        .sms-consent input[type="checkbox"] {
-            flex-shrink: 0;
-            width: 1.1rem;
-            height: 1.1rem;
-            margin-top: 0.2rem;
-            accent-color: var(--rust);
-            cursor: pointer;
-        }
-
-        .sms-consent-label {
-            font-size: 0.8125rem;
-            line-height: 1.55;
-            color: var(--text-muted);
-            letter-spacing: 0.02em;
-        }
-
-        .sms-consent-label a {
-            color: var(--dust);
-            text-decoration: underline;
-        }
-
-        .sms-consent-label a:hover {
-            color: var(--star);
-        }
-
-        .submit-btn {
-            padding: 1.2rem 2.5rem;
-            background: transparent;
-            border: 2px solid var(--rust);
-            color: var(--rust);
-            font-family: 'Rustique', 'Orbitron', sans-serif;
-            font-size: 1rem;
-            font-weight: 700;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
+        .just-in-photo {
             overflow: hidden;
+            border: 1px solid var(--line);
+            min-height: 220px;
         }
 
-        .submit-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
+        .just-in-photo img {
             width: 100%;
             height: 100%;
-            background: var(--rust);
-            transition: left 0.3s ease;
-            z-index: -1;
+            object-fit: cover;
+            display: block;
+            min-height: 220px;
+            max-height: 360px;
         }
 
-        .submit-btn:hover {
-            color: var(--void);
-            border-color: var(--rust);
+        .just-in-copy {
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
         }
 
-        .submit-btn:hover::before {
-            left: 0;
-        }
-
-        .submit-btn:active {
-            transform: scale(0.98);
-        }
-
-        .contact-cta {
-            margin-bottom: 0;
-        }
-
-        .contact-cta .prompt {
-            max-width: 520px;
-            margin: 0 auto 0.85rem;
-            font-size: clamp(1rem, 2.4vw, 1.125rem);
-            line-height: 1.72;
-            color: var(--text-muted);
-        }
-
-        .contact-btn {
-            display: inline-block;
-            padding: 1rem 2rem;
-            border: 2px solid var(--rust);
-            color: var(--rust);
-            text-decoration: none;
+        .just-in-copy h2 {
             font-family: 'Rustique', 'Orbitron', sans-serif;
-            font-size: clamp(0.9rem, 2.2vw, 1rem);
-            letter-spacing: 0.12em;
+            font-size: clamp(1.7rem, 4.6vw, 2.8rem);
+            letter-spacing: 0.07em;
             text-transform: uppercase;
-            transition: all 0.3s ease;
+            line-height: 1.02;
         }
 
-        .contact-btn:hover {
-            color: var(--void);
-            background: var(--rust);
+        .just-in-copy p {
+            color: var(--text-muted);
+            max-width: 34rem;
+        }
+
+        .event-slot-inner {
+            border: 1px solid var(--line);
+            background: rgba(184, 92, 56, 0.12);
+            padding: 1.25rem 1.35rem;
+        }
+
+        .event-slot[hidden] {
+            display: none !important;
+        }
+
+        .shelves-now {
+            text-align: left;
+        }
+
+        .shelves-now .feature-actions {
+            margin-top: 0.35rem;
+        }
+
+        /* Contact + footer */
+        .contact-section {
+            background: var(--surface);
+            border-bottom: 1px solid var(--line);
+            text-align: center;
+        }
+
+        .contact-section .prompt {
+            max-width: 520px;
+            margin: 0 auto 1rem;
+            font-size: clamp(0.98rem, 2.2vw, 1.08rem);
+            color: var(--text-muted);
         }
 
         .footer-info {
-            position: relative;
-            flex-shrink: 0;
-            width: 100%;
-            margin-top: 0;
-            padding-top: 1.75rem;
-            padding-bottom: max(1.25rem, env(safe-area-inset-bottom));
+            background: var(--void);
+            padding: 1.75rem 1.5rem max(1.5rem, env(safe-area-inset-bottom));
             text-align: center;
-            opacity: 0;
-            animation: fadeIn 1.2s ease-out 1.2s forwards;
-        }
-
-        .address {
-            font-family: 'Space Mono', monospace;
-            font-size: clamp(0.95rem, 2vw, 1.1rem);
-            font-weight: 700;
-            color: var(--star);
-            letter-spacing: 0.12em;
-            margin-bottom: 0.75rem;
-            text-shadow: 0 0 12px rgba(244, 228, 193, 0.3);
-        }
-
-        .address a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        .address a:hover {
-            text-decoration: underline;
-            color: var(--star);
-            text-shadow: 0 0 16px rgba(244, 228, 193, 0.5);
         }
 
         .coordinates {
@@ -814,46 +1080,21 @@
             letter-spacing: 0.16em;
         }
 
-        .footer-link {
-            display: inline-block;
-            margin-top: 0.75rem;
-            font-size: 0.8125rem;
-            color: var(--text-secondary);
-            letter-spacing: 0.15em;
-            text-decoration: none;
-            transition: color 0.2s ease;
-        }
-
-        .footer-link:hover {
-            color: var(--dust);
-        }
-
-        .footer-contact-link {
-            display: inline-block;
-            margin-top: 0.6rem;
-            font-size: 0.8125rem;
-            color: var(--text-secondary);
-            letter-spacing: 0.15em;
-            text-decoration: none;
-            text-transform: uppercase;
-            transition: color 0.2s ease;
-        }
-
-        .footer-contact-link:hover {
-            color: var(--dust);
-        }
-
+        .footer-link,
+        .footer-contact-link,
         .secondary-link {
             display: inline-block;
-            margin-top: 0.6rem;
+            margin-top: 0.65rem;
             font-size: 0.8125rem;
             color: var(--text-secondary);
             letter-spacing: 0.15em;
             text-decoration: none;
-            transition: color 0.2s ease;
             text-transform: uppercase;
+            transition: color 0.2s ease;
         }
 
+        .footer-link:hover,
+        .footer-contact-link:hover,
         .secondary-link:hover {
             color: var(--dust);
         }
@@ -879,274 +1120,9 @@
             color: var(--dust);
         }
 
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        /* Tablet and below */
-        @media (max-width: 768px) {
-            .container {
-                padding-top: 1.5rem;
-                padding-bottom: 0;
-                padding-left: max(1.5rem, env(safe-area-inset-left));
-                padding-right: max(1.5rem, env(safe-area-inset-right));
-            }
-
-            .footer-info {
-                padding-top: 2rem;
-                padding-bottom: max(1.25rem, env(safe-area-inset-bottom));
-            }
-
-            .logo img {
-                max-width: 85vw;
-            }
-
-            .tagline {
-                font-size: 0.875rem;
-                letter-spacing: 0.18em;
-            }
-
-            .brand-intro {
-                font-size: 1rem;
-                margin-bottom: 1.25rem;
-            }
-
-            .visit-block {
-                margin-bottom: 2.5rem;
-            }
-
-            .address-callout {
-                padding: 0.85rem 1.25rem;
-            }
-
-            .hours-callout {
-                padding: 0.85rem 1.25rem;
-            }
-
-            .address-callout .find-us,
-            .hours-callout .find-us {
-                font-size: 0.7rem;
-                letter-spacing: 0.22em;
-            }
-
-            .visit-block .address {
-                font-size: 1.1rem;
-            }
-
-            .message {
-                font-size: 1.0625rem;
-                margin-bottom: 3rem;
-            }
-
-            .hours-table {
-                font-size: 0.95rem;
-            }
-
-            .email-input,
-            .submit-btn {
-                padding: 1rem 1.2rem;
-                font-size: 0.9rem;
-            }
-        }
-
-        /* Phone (e.g. iPhone 17 ~402px) – tighter padding, touch-friendly, no zoom on focus */
-        @media (max-width: 430px) {
-            .container {
-                padding-top: 1.25rem;
-                padding-bottom: 0;
-                padding-left: max(1.25rem, env(safe-area-inset-left));
-                padding-right: max(1.25rem, env(safe-area-inset-right));
-            }
-
-            .footer-info {
-                padding-top: 2.25rem;
-            }
-
-            .logo img {
-                max-width: 88vw;
-            }
-
-            .tagline {
-                font-size: 0.8125rem;
-                letter-spacing: 0.14em;
-                margin-bottom: 1rem;
-            }
-
-            .brand-intro {
-                font-size: 1.0625rem;
-                line-height: 1.72;
-                margin-bottom: 1rem;
-            }
-
-            .message {
-                font-size: 1.125rem;
-                line-height: 1.72;
-                margin-bottom: 2.5rem;
-            }
-
-            .email-form {
-                gap: 0.75rem;
-            }
-
-            .email-input {
-                font-size: 1rem;
-                padding: 1rem 1rem;
-                min-height: 48px;
-            }
-
-            .submit-btn {
-                font-size: 0.875rem;
-                padding: 1rem 1.5rem;
-                min-height: 48px;
-                letter-spacing: 0.15em;
-            }
-
-            .visit-block {
-                margin-bottom: 2rem;
-            }
-
-            .address-callout,
-            .hours-callout {
-                padding: 0.75rem 1rem;
-            }
-
-            .address-callout .find-us,
-            .hours-callout .find-us {
-                font-size: 0.68rem;
-                letter-spacing: 0.18em;
-            }
-
-            .visit-block .address {
-                font-size: 1.0625rem;
-            }
-
-            .hours-table {
-                font-size: 1rem;
-            }
-
-            .visit-page-cta {
-                padding: 0.9rem 1.35rem;
-                letter-spacing: 0.1em;
-                font-size: 0.875rem;
-            }
-
-            .store-status-main {
-                letter-spacing: 0.16em;
-            }
-
-            .store-status-hint {
-                font-size: 0.7rem;
-            }
-
-            .store-status-tz {
-                font-size: 0.65rem;
-            }
-
-            .contact-cta .prompt {
-                font-size: 1.0625rem;
-            }
-
-            .coordinates {
-                font-size: 0.75rem;
-                letter-spacing: 0.12em;
-            }
-
-            .footer-link,
-            .footer-contact-link,
-            .secondary-link,
-            .social-links a {
-                font-size: 0.8125rem;
-            }
-        }
-
-
-        .site-header {
-            position: sticky;
-            top: 0;
-            z-index: 30;
-            backdrop-filter: blur(8px);
-            background: rgba(10, 14, 39, 0.82);
-            border-bottom: 1px solid rgba(212, 163, 115, 0.25);
-        }
-
-        .site-nav {
-            position: relative;
-            max-width: 980px;
-            margin: 0 auto;
-            padding: 0.85rem 1.25rem;
-            padding-left: max(1.25rem, env(safe-area-inset-left));
-            padding-right: max(1.25rem, env(safe-area-inset-right));
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 0.9rem;
-        }
-
-        .nav-brand {
-            font-family: 'Rustique', 'Orbitron', sans-serif;
-            color: var(--star);
-            text-decoration: none;
-            font-size: 0.875rem;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            white-space: nowrap;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.8125rem;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            transition: color 0.2s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--star);
-        }
-
-        .nav-toggle {
+        /* Sticky mobile directions */
+        .sticky-directions {
             display: none;
-            border: 1px solid rgba(212, 163, 115, 0.45);
-            background: transparent;
-            color: var(--dust);
-            padding: 0.35rem 0.55rem;
-            font-size: 1rem;
-            line-height: 1;
-            cursor: pointer;
         }
 
         @media (max-width: 768px) {
@@ -1180,8 +1156,184 @@
                 font-size: 0.875rem;
                 padding: 0.2rem 0;
             }
+
+            .nav-cta {
+                width: auto;
+                text-align: center;
+            }
+
+            .hero {
+                min-height: min(78dvh, 680px);
+            }
+
+            .hero-copy {
+                padding-top: 2.5rem;
+                padding-bottom: 2rem;
+            }
+
+            .sticky-directions {
+                display: flex;
+                position: fixed;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 50;
+                gap: 0.65rem;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0.7rem 1rem max(0.7rem, env(safe-area-inset-bottom));
+                background: rgba(10, 14, 39, 0.96);
+                border-top: 1px solid rgba(212, 163, 115, 0.35);
+                backdrop-filter: blur(10px);
+            }
+
+            .sticky-directions .btn {
+                flex: 1 1 auto;
+                padding: 0.85rem 1rem;
+            }
+
+            .sticky-hours {
+                flex: 0 0 auto;
+                color: var(--star);
+                font-family: 'Rustique', 'Orbitron', sans-serif;
+                font-size: 0.75rem;
+                letter-spacing: 0.14em;
+                text-transform: uppercase;
+                text-decoration: none;
+                padding: 0.75rem 0.7rem;
+                border: 1px solid rgba(244, 228, 193, 0.4);
+            }
+
+            .sticky-hours:hover {
+                color: var(--star);
+            }
+
+            .footer-info {
+                padding-bottom: max(5.5rem, calc(4.25rem + env(safe-area-inset-bottom)));
+            }
+
+            .section-pad {
+                padding-top: 2.35rem;
+                padding-bottom: 2.35rem;
+            }
+
+            .feature-copy {
+                padding-top: 1.5rem;
+                padding-bottom: 1.75rem;
+            }
         }
 
+        @media (min-width: 769px) {
+            .category-grid {
+                grid-template-columns: repeat(6, 1fr);
+                gap: 1rem;
+            }
+
+            .cat-lego,
+            .cat-pokemon {
+                grid-column: span 3;
+                min-height: 380px;
+            }
+
+            .cat-hw,
+            .cat-af,
+            .cat-vg {
+                grid-column: span 2;
+                min-height: 250px;
+            }
+
+            .feature-band {
+                grid-template-columns: 1.45fr 0.55fr;
+                min-height: 580px;
+            }
+
+            .feature-band--reverse {
+                grid-template-columns: 0.55fr 1.45fr;
+            }
+
+            .feature-band--reverse .feature-photo {
+                order: 2;
+            }
+
+            .feature-photo,
+            .feature-photo img {
+                min-height: 580px;
+                max-height: none;
+                height: 100%;
+            }
+
+            .feature-copy {
+                padding: 3rem 2.5rem;
+            }
+
+            .trio-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .trio-card {
+                min-height: 360px;
+            }
+
+            .visit-layout {
+                grid-template-columns: 0.95fr 1.05fr;
+                align-items: start;
+                gap: 1.75rem;
+            }
+
+            .review-grid {
+                grid-template-columns: repeat(3, 1fr);
+                align-items: start;
+            }
+
+            .visit-photo,
+            .visit-photo img {
+                min-height: 100%;
+                max-height: none;
+            }
+
+            .just-in-layout {
+                grid-template-columns: 1.05fr 0.95fr;
+                gap: 1.75rem;
+            }
+
+            .just-in-photo,
+            .just-in-photo img {
+                min-height: 100%;
+                max-height: none;
+            }
+        }
+
+        @media (max-width: 430px) {
+            .hero h1 {
+                font-size: clamp(1.85rem, 11vw, 2.4rem);
+            }
+
+            .hero-sub {
+                font-size: 0.95rem;
+                letter-spacing: 0.05em;
+            }
+
+            .cat-card {
+                min-height: 220px;
+            }
+
+            .cat-lego,
+            .cat-pokemon {
+                min-height: 270px;
+            }
+
+            .store-status-main {
+                letter-spacing: 0.16em;
+            }
+
+            .store-status-hint {
+                font-size: 0.7rem;
+            }
+
+            .store-status-tz {
+                font-size: 0.65rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1191,11 +1343,15 @@
             <a href="/" class="nav-brand">The Toy Outpost</a>
             <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav-links" aria-label="Toggle navigation">&#9776;</button>
             <div class="nav-links" id="main-nav-links">
-                <a href="/">Home</a>
+                <a href="/" aria-current="page">Home</a>
+                <a href="/lego.html">LEGO</a>
+                <a href="/pokemon.html">Pokémon</a>
+                <a href="/collectibles.html">Collectibles</a>
                 <a href="/visit.html">Visit</a>
-                <a href="/sell-your-toys.html">Sell Your Toys</a>
+                <a class="nav-buy" href="/sell-your-toys.html">We Buy</a>
                 <a href="/contact.html">Contact</a>
                 <a href="/privacy-and-terms.html">Privacy &amp; Terms</a>
+                <a class="nav-cta" href="/visit.html">Get Directions</a>
             </div>
         </nav>
         <div class="site-ops-bar" role="region" aria-label="Store open status">
@@ -1213,103 +1369,303 @@
             </div>
         </div>
     </header>
-    <!-- Starfield -->
     <div class="stars" id="starfield"></div>
 
-    <div class="container">
-        <div class="home-main">
-        <div class="hero-top">
-            <h1 class="logo">
-                <img src="assets/logo-horizontal.png" alt="The Toy Outpost" />
-            </h1>
-            <a href="/visit.html" class="visit-page-cta">Directions &amp; parking</a>
-        </div>
-        <div class="tagline">Where Legends Never Fade</div>
-        <p class="brand-intro">
-            <span class="highlight">Toy Outpost Co.</span> - Vintage &amp; modern toys and collectibles, new &amp; pre-loved.
-            From childhood classics to today's pop culture favorites, our ever-changing inventory keeps the hunt exciting.
-        </p>
-        <section class="event-promo" aria-labelledby="may4-promo-heading">
-            <h2 id="may4-promo-heading" class="event-promo-heading">Star Wars Day — May the Fourth</h2>
-            <figure class="event-promo-figure">
-                <img src="assets/may-the-4th-2026.png" width="1080" height="1080" alt="Toy Outpost Co.: Star Wars Day, May the Fourth be with you. Open May 4th noon to 8pm. 10% off all Star Wars, excluding sealed LEGO." loading="lazy" decoding="async" />
-                <figcaption class="event-promo-caption">
-                    <strong>Monday, May 4, 2026</strong> — open <strong>12pm–8pm</strong>.
-                    10% off all Star Wars merchandise; excludes sealed LEGO.
-                </figcaption>
-            </figure>
+    <main class="page">
+        <section class="hero" aria-labelledby="hero-heading">
+            <div class="hero-media">
+                <img src="assets/store/hero-lego-aisle.jpg" width="1024" height="683" alt="A long aisle of LEGO sets filling the shelves at The Toy Outpost in Edgewater, Maryland." fetchpriority="high" decoding="async">
+            </div>
+            <div class="hero-copy">
+                <p class="hero-kicker">Edgewater, Maryland</p>
+                <h1 id="hero-heading">The Toy Outpost</h1>
+                <p class="hero-sub">LEGO, Pokémon, Toys, Collectibles &amp; Video Games</p>
+                <p class="hero-place">New &amp; pre-loved favorites in Edgewater, Maryland.</p>
+                <div class="hero-actions">
+                    <a class="btn btn-primary" href="/visit.html">Get Directions</a>
+                    <a class="btn btn-secondary" href="#categories">Explore the Store</a>
+                </div>
+            </div>
         </section>
-        <div class="visit-block">
-            <div class="address-callout">
-                <span class="find-us">Find us</span>
-                <div class="address">
-                    <a href="https://www.google.com/maps/search/?api=1&query=93+Mayo+Rd+Edgewater+MD+21037" target="_blank" rel="noopener noreferrer">93 Mayo Rd, Edgewater MD 21037</a>
+
+        <section class="categories section-pad" id="categories" aria-labelledby="categories-heading">
+            <div class="section-inner">
+                <p class="section-label">On the floor</p>
+                <h2 class="section-heading" id="categories-heading">Featured categories</h2>
+                <div class="category-grid">
+                    <a class="cat-card cat-lego" href="/lego.html">
+                        <img src="assets/store/lego-minifigs.jpg" width="1024" height="683" alt="Tiered display of LEGO minifigures at The Toy Outpost." loading="lazy" decoding="async">
+                        <div class="cat-card-copy">
+                            <h3>LEGO</h3>
+                            <p>Sets for kids, collectors &amp; builders</p>
+                        </div>
+                    </a>
+                    <a class="cat-card cat-pokemon" href="/pokemon.html">
+                        <img src="assets/store/pokemon-singles.jpg" width="1024" height="683" alt="Pokémon TCG singles and sealed packs in a glass case." loading="lazy" decoding="async">
+                        <div class="cat-card-copy">
+                            <h3>Pokémon</h3>
+                            <p>Singles + sealed products</p>
+                        </div>
+                    </a>
+                    <a class="cat-card cat-hw" href="/collectibles.html#hot-wheels">
+                        <img src="assets/store/hot-wheels.jpg" width="1024" height="683" alt="A pegboard wall packed with Hot Wheels cars." loading="lazy" decoding="async">
+                        <div class="cat-card-copy">
+                            <h3>Hot Wheels</h3>
+                            <p>Die-cast wall, always rotating</p>
+                        </div>
+                    </a>
+                    <a class="cat-card cat-af" href="/collectibles.html#action-figures">
+                        <img src="assets/store/action-figures.jpg" width="1024" height="1536" alt="Shelves of Marvel, DC, G.I. Joe, and bagged action figures." loading="lazy" decoding="async">
+                        <div class="cat-card-copy">
+                            <h3>Action Figures</h3>
+                            <p>Modern + vintage collectibles</p>
+                        </div>
+                    </a>
+                    <a class="cat-card cat-vg" id="video-games" href="/collectibles.html#video-games">
+                        <img src="assets/store/video-games.jpg" width="1024" height="683" alt="A free-play Super Pac-Man machine on the shop floor at The Toy Outpost." loading="lazy" decoding="async">
+                        <div class="cat-card-copy">
+                            <h3>Video Games</h3>
+                            <p>Vintage + modern. Come see what’s in.</p>
+                        </div>
+                    </a>
                 </div>
             </div>
-            <div class="hours-callout" id="store-hours">
-                <span class="find-us">Store hours</span>
-                <table class="hours-table">
-                    <caption>Store hours for The Toy Outpost</caption>
-                    <tbody>
-                        <tr>
-                            <th scope="row">Monday</th>
-                            <td>
-                                Normally <span class="closed">closed</span>
-                                <span id="hours-note-wd-1" class="hours-note" hidden></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Tuesday</th>
-                            <td class="closed">Closed<span id="hours-note-wd-2" class="hours-note" hidden></span></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Wed – Fri</th>
-                            <td>12pm – 8pm<span id="hours-note-wd-345" class="hours-note" hidden></span></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Saturday</th>
-                            <td>10am – 8pm<span id="hours-note-wd-6" class="hours-note" hidden></span></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Sunday</th>
-                            <td>12pm – 6pm<span id="hours-note-wd-0" class="hours-note" hidden></span></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="special-closures" aria-label="Special closure event dates">
-                    <span class="special-closures-title">Special closures - Events</span>
-                    <ul class="special-closures-list">
-                        <li><a href="https://www.dominiontoycon.com" target="_blank" rel="noopener noreferrer">Apr 25 - Dominion Toy Con</a></li>
-                        <li><a href="https://www.marylandtoyexpo.com" target="_blank" rel="noopener noreferrer">Jun 13 - Maryland Toy Expo</a></li>
-                        <li><a href="https://www.marylandtradingcardexpo.com" target="_blank" rel="noopener noreferrer">Jun 14 - Maryland Trading Card Expo</a></li>
-                        <li><a href="https://www.marylandtoyexpo.com" target="_blank" rel="noopener noreferrer">Nov 7 - Maryland Toy Expo</a></li>
-                        <li><a href="https://www.marylandtradingcardexpo.com" target="_blank" rel="noopener noreferrer">Nov 8 - Maryland Trading Card Expo</a></li>
-                    </ul>
+        </section>
+
+        <section class="feature-band" id="lego" aria-labelledby="lego-heading">
+            <div class="feature-photo">
+                <img src="assets/store/lego-wall.jpg" width="1024" height="683" alt="Floor-to-ceiling LEGO wall with Star Wars, Speed Champions, Technic, and more." loading="lazy" decoding="async">
+            </div>
+            <div class="feature-copy">
+                <p class="section-label">Signature section</p>
+                <h2 id="lego-heading">Huge LEGO Selection</h2>
+                <p>Find sets for kids, collectors, gifts, and serious builders.</p>
+                <div class="feature-actions">
+                    <a class="btn btn-primary" href="/lego.html">Explore LEGO</a>
+                    <a class="btn btn-secondary" href="/visit.html">Get Directions</a>
                 </div>
             </div>
-        </div>
-        <p class="message">
-            We're open — stop by during <span class="highlight">store hours</span>.
-            Planning a trip? See <a href="/visit.html">directions and parking</a> for Woodland Center.
-        </p>
+        </section>
 
-        <div class="contact-cta">
-            <p class="prompt">Want updates from the outpost? Head to our contact page to sign up for email and optional SMS alerts.</p>
-            <a href="/contact.html" class="contact-btn">Go to Contact Form</a>
-        </div>
-        </div>
+        <section class="feature-band feature-band--alt feature-band--reverse" id="pokemon" aria-labelledby="pokemon-heading">
+            <div class="feature-photo">
+                <img src="assets/store/pokemon-sealed.jpg" width="1024" height="683" alt="Sealed Pokémon TCG boxes, tins, and blister packs in a display case." loading="lazy" decoding="async">
+            </div>
+            <div class="feature-copy">
+                <p class="section-label">Pokémon TCG</p>
+                <h2 id="pokemon-heading">Pokémon Singles + Sealed</h2>
+                <p>Singles + sealed products. Come hunt the case.</p>
+                <div class="feature-actions">
+                    <a class="btn btn-primary" href="/pokemon.html">Explore Pokémon</a>
+                    <a class="btn btn-secondary" href="/visit.html">Get Directions</a>
+                </div>
+            </div>
+        </section>
 
-        <div class="footer-info">
-            <div class="coordinates">SECTOR 7-G // STATUS: INBOUND</div>
-            <nav class="social-links" aria-label="Social media">
-                <a href="https://www.facebook.com/toyoutpostco" target="_blank" rel="noopener noreferrer">Facebook</a>
-                <a href="https://www.instagram.com/toyoutpostco" target="_blank" rel="noopener noreferrer">Instagram</a>
-            </nav>
-            <a href="/sell-your-toys.html" class="secondary-link">Sell Your Toys</a>
-            <a href="/visit.html" class="secondary-link">Visit</a>
-            <a href="/contact.html" class="footer-contact-link">Contact</a>
-            <a href="/privacy-and-terms.html" class="footer-link">Privacy &amp; Terms</a>
-        </div>
+        <section class="inventory-trio section-pad" aria-label="More on the floor">
+            <div class="section-inner">
+                <div class="trio-grid">
+                    <a class="cat-card trio-card" href="/collectibles.html#funko">
+                        <img src="assets/store/funko-aisle.jpg" width="1024" height="683" alt="An aisle of boxed Funko Pops at The Toy Outpost." loading="lazy" decoding="async">
+                        <div class="cat-card-copy">
+                            <h3>Funko</h3>
+                            <p>Pops packed down the aisle. Come hunt the boxes.</p>
+                        </div>
+                    </a>
+                    <a class="cat-card trio-card" id="hot-wheels" href="/collectibles.html#hot-wheels">
+                        <img src="assets/store/hot-wheels-wall.jpg" width="1024" height="1536" alt="Floor-to-ceiling Hot Wheels peg wall at The Toy Outpost." loading="lazy" decoding="async">
+                        <div class="cat-card-copy">
+                            <h3>Hot Wheels</h3>
+                            <p>A wall of die-cast. Come pick your next car.</p>
+                        </div>
+                    </a>
+                    <a class="cat-card trio-card" id="action-figures" href="/collectibles.html#action-figures">
+                        <img src="assets/store/action-figures.jpg" width="1024" height="1536" alt="Shelves of Marvel, DC, G.I. Joe, and bagged action figures." loading="lazy" decoding="async">
+                        <div class="cat-card-copy">
+                            <h3>Action Figures</h3>
+                            <p>Modern lines plus the vintage hunt.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="hunt-section section-pad" id="the-hunt" aria-labelledby="hunt-heading">
+            <div class="section-inner">
+                <p class="section-label">Pre-loved + vintage</p>
+                <h2 class="section-heading" id="hunt-heading">The hunt</h2>
+                <p class="section-lead">Come in. Inventory moves. This is the independent-shop stuff you will not find at Target.</p>
+                <div class="trio-grid">
+                    <a class="cat-card trio-card" href="/collectibles.html#the-hunt">
+                        <img src="assets/store/hunt-vintage.jpg" width="1024" height="683" alt="Vintage Masters of the Universe and Transformers on the shelf at The Toy Outpost." loading="lazy" decoding="async">
+                        <div class="cat-card-copy">
+                            <h3>Vintage</h3>
+                            <p>MOTU, Transformers, and the deep cuts.</p>
+                        </div>
+                    </a>
+                    <a class="cat-card trio-card" href="/collectibles.html#action-figures">
+                        <img src="assets/store/action-figures-wall.jpg" width="1024" height="683" alt="A glass case of loose action figures and collectibles." loading="lazy" decoding="async">
+                        <div class="cat-card-copy">
+                            <h3>The case</h3>
+                            <p>Loose figures ready to hunt.</p>
+                        </div>
+                    </a>
+                    <a class="cat-card trio-card" href="/collectibles.html#the-hunt">
+                        <img src="assets/store/hunt-gijoe.jpg" width="1024" height="683" alt="Vintage G.I. Joe figures and vehicles on the shelf." loading="lazy" decoding="async">
+                        <div class="cat-card-copy">
+                            <h3>G.I. Joe</h3>
+                            <p>Classics on the floor when we have them.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="just-in section-pad" id="just-in" aria-labelledby="just-in-heading">
+            <div class="section-inner just-in-layout">
+                <div class="just-in-photo">
+                    <!-- Swap assets/store/just-in.jpg to refresh this block. No CMS needed. -->
+                    <img src="assets/store/just-in.jpg" width="1024" height="683" alt="Recent inventory on the floor at The Toy Outpost." loading="lazy" decoding="async">
+                </div>
+                <div class="just-in-copy">
+                    <p class="section-label">On the floor now</p>
+                    <h2 id="just-in-heading">Just in</h2>
+                    <p>Inventory moves. This photo is a snapshot of what’s been hitting the shelves — come hunt the rest in person.</p>
+                    <div class="feature-actions">
+                        <a class="btn btn-primary" href="/visit.html">Get Directions</a>
+                        <a class="btn btn-secondary" href="https://www.instagram.com/toyoutpostco" target="_blank" rel="noopener noreferrer">See today’s shelves</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EVENT SLOT: remove the hidden attribute to announce an in-store day or extra closure. Keep hours overrides in assets/store-schedule.js. -->
+        <section class="event-slot section-pad" id="event-slot" hidden>
+            <div class="section-inner">
+                <div class="event-slot-inner">
+                    <p class="section-label">This week</p>
+                    <h2 class="section-heading">Event title</h2>
+                    <p>Short details for shoppers. Replace this copy, then delete the hidden attribute on the section.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="visit-section section-pad" id="store-hours" aria-labelledby="visit-heading">
+            <div class="section-inner">
+                <p class="section-label">Find us</p>
+                <h2 class="section-heading" id="visit-heading">Visit the store</h2>
+                <div class="visit-layout">
+                    <div class="visit-photo">
+                        <img src="assets/store/store-aisle.jpg" width="1024" height="683" alt="A store aisle packed with Funko Pops and LEGO at The Toy Outpost." loading="lazy" decoding="async">
+                    </div>
+                    <div class="visit-details">
+                        <div class="address-callout">
+                            <span class="find-us">Find us</span>
+                            <div class="address">
+                                <a href="https://www.google.com/maps/search/?api=1&query=93+Mayo+Rd+Edgewater+MD+21037" target="_blank" rel="noopener noreferrer">93 Mayo Rd, Edgewater MD 21037</a>
+                            </div>
+                        </div>
+                        <div class="hours-callout">
+                            <span class="find-us">Store hours</span>
+                            <table class="hours-table">
+                                <caption>Store hours for The Toy Outpost</caption>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">Monday</th>
+                                        <td class="closed">Closed<span id="hours-note-wd-1" class="hours-note" hidden></span></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Tuesday</th>
+                                        <td class="closed">Closed<span id="hours-note-wd-2" class="hours-note" hidden></span></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Wed – Fri</th>
+                                        <td>12pm – 8pm<span id="hours-note-wd-345" class="hours-note" hidden></span></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Saturday</th>
+                                        <td>10am – 8pm<span id="hours-note-wd-6" class="hours-note" hidden></span></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Sunday</th>
+                                        <td>12pm – 6pm<span id="hours-note-wd-0" class="hours-note" hidden></span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="special-closures" aria-label="Special closure event dates">
+                                <span class="special-closures-title">Special closures - Events</span>
+                                <ul class="special-closures-list">
+                                    <li><a href="https://www.dominiontoycon.com" target="_blank" rel="noopener noreferrer">Apr 25 - Dominion Toy Con</a></li>
+                                    <li><a href="https://www.marylandtoyexpo.com" target="_blank" rel="noopener noreferrer">Jun 13 - Maryland Toy Expo</a></li>
+                                    <li><a href="https://www.marylandtradingcardexpo.com" target="_blank" rel="noopener noreferrer">Jun 14 - Maryland Trading Card Expo</a></li>
+                                    <li><a href="https://www.marylandtoyexpo.com" target="_blank" rel="noopener noreferrer">Nov 7 - Maryland Toy Expo</a></li>
+                                    <li><a href="https://www.marylandtradingcardexpo.com" target="_blank" rel="noopener noreferrer">Nov 8 - Maryland Trading Card Expo</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="visit-actions feature-actions">
+                            <a class="btn btn-primary" href="/visit.html">Get Directions</a>
+                            <a class="btn btn-secondary" href="/visit.html">Parking &amp; Map</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="reviews" aria-labelledby="reviews-heading">
+                    <p class="section-label">From Google</p>
+                    <h3 class="reviews-heading" id="reviews-heading">What shoppers say</h3>
+                    <div class="review-grid">
+                        <blockquote class="review-card">
+                            <p>This place is AMAZING!!! Organized, clean, staff that go above and beyond, and will even help you track down items you’re on the hunt for! I’ve been looking for a vintage Fisher Price McDonald’s drive thru play set for years. A few weeks after they opened I stopped in and they offered to keep an eye out for me. Today I picked up this beauty, myself and my kids are having a blast playing with a toy I loved as a kid! Thank you guys so very much!!!! We will be back often!!!</p>
+                            <footer>Christina Keiser · 5 stars · Google</footer>
+                        </blockquote>
+                        <blockquote class="review-card">
+                            <p>This place is amazing and very helpful. If you are looking for some great toys or a few vintage items to complete your collection, this is the place for you!!</p>
+                            <footer>Stephen Lunsford · 5 stars · Google</footer>
+                        </blockquote>
+                        <blockquote class="review-card">
+                            <p>This store is awesome. I have a 5 year old son that comes in weekly and they are so great to him. This past Saturday we brought in a box of his figures that he didn’t play with anymore. He’s in to dinosaurs now and of course he wanted the most expensive one. They heard him over and over talking about that toy while they were estimating what they’d give for the toys we brought in. At the end the owner says, we’ll give you enough for an even trade. I was blown away. Maybe they gave us the normal amount, but I’m inclined to think they were generous with their estimate and wanted to make my kids day. He hasn’t put it down since getting it. I’m not sure if they know it but they gave him something that he’ll remember forever.</p>
+                            <footer>William Selby · 5 stars · Google</footer>
+                        </blockquote>
+                    </div>
+                    <p class="google-proof">
+                        <a href="https://www.google.com/maps/search/?api=1&amp;query=The+Toy+Outpost+93+Mayo+Rd+Edgewater+MD+21037" target="_blank" rel="noopener noreferrer">Read more on Google</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="shelves-now section-pad" aria-labelledby="shelves-heading">
+            <div class="section-inner">
+                <p class="section-label">See today’s shelves</p>
+                <h2 class="section-heading" id="shelves-heading">What’s in right now</h2>
+                <p class="section-lead">The website is a snapshot. Instagram and Facebook show what hit the floor this week.</p>
+                <div class="feature-actions">
+                    <a class="btn btn-primary" href="https://www.instagram.com/toyoutpostco" target="_blank" rel="noopener noreferrer">Instagram</a>
+                    <a class="btn btn-secondary" href="https://www.facebook.com/toyoutpostco" target="_blank" rel="noopener noreferrer">Facebook</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-section section-pad">
+            <p class="prompt">Want updates from the outpost? Sign up for email and optional SMS alerts.</p>
+            <a href="/contact.html" class="btn btn-secondary">Go to Contact Form</a>
+        </section>
+    </main>
+
+    <div class="footer-info">
+        <div class="coordinates">SECTOR 7-G // STATUS: INBOUND</div>
+        <nav class="social-links" aria-label="Social media">
+            <a href="https://www.facebook.com/toyoutpostco" target="_blank" rel="noopener noreferrer">Facebook</a>
+            <a href="https://www.instagram.com/toyoutpostco" target="_blank" rel="noopener noreferrer">Instagram</a>
+        </nav>
+        <a href="/sell-your-toys.html" class="secondary-link">We Buy</a>
+        <a href="/visit.html" class="secondary-link">Visit</a>
+        <a href="/contact.html" class="footer-contact-link">Contact</a>
+        <a href="/privacy-and-terms.html" class="footer-link">Privacy &amp; Terms</a>
+    </div>
+
+    <div class="sticky-directions">
+        <a class="btn btn-primary" href="/visit.html">Get Directions</a>
+        <a class="sticky-hours" href="#store-hours">Hours</a>
     </div>
 
     <script defer src="assets/store-schedule.js"></script>
@@ -1330,9 +1686,8 @@
             });
         }
 
-        // Create starfield
         const starfield = document.getElementById('starfield');
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < 55; i++) {
             const star = document.createElement('div');
             star.className = 'star';
             star.style.width = Math.random() * 2 + 1 + 'px';
@@ -1343,8 +1698,7 @@
             starfield.appendChild(star);
         }
 
-        // Create dust particles
-        for (let i = 0; i < 30; i++) {
+        for (let i = 0; i < 16; i++) {
             const dust = document.createElement('div');
             dust.className = 'dust-particle';
             dust.style.width = Math.random() * 3 + 1 + 'px';

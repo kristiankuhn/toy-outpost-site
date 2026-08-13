@@ -41,11 +41,7 @@
      * date passes, the UI moves on to the following week automatically. Open/closed logic
      * below still consults this map for any calendar day.
      */
-    var OPEN_DATE_OVERRIDES = {
-        '2026-05-04': {
-            description: 'Star Wars Day',
-        },
-    };
+    var OPEN_DATE_OVERRIDES = {};
 
     var WEEKDAY_TO_INDEX = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
 
@@ -321,6 +317,7 @@
     function updateVisitHoursTeaser() {
         var visitEl = document.getElementById('visit-hours-teaser');
         if (!visitEl) return;
+        var hasHoursTable = !!document.querySelector('.hours-table');
         var prefix =
             '<a href="/#store-hours">Store hours</a> on the home page — regular weekly schedule as listed there.';
         var now = new Date();
@@ -339,7 +336,18 @@
             );
         }
         if (!lines.length) {
+            if (hasHoursTable) {
+                visitEl.innerHTML = '';
+                visitEl.hidden = true;
+                return;
+            }
+            visitEl.hidden = false;
             visitEl.innerHTML = prefix + '.';
+            return;
+        }
+        visitEl.hidden = false;
+        if (hasHoursTable) {
+            visitEl.innerHTML = 'Upcoming exceptions: ' + lines.join(' ');
             return;
         }
         visitEl.innerHTML = prefix + ' Upcoming exceptions: ' + lines.join(' ');

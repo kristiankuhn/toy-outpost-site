@@ -3,24 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Visit Us — Location &amp; Parking - The Toy Outpost</title>
-    <meta name="description" content="Visit The Toy Outpost in Edgewater, Maryland. LEGO, Pokémon, Hot Wheels, action figures, and video games at 93 Mayo Rd, Woodland Center. Directions, parking, and hours.">
-    <link rel="canonical" href="https://toyoutpostco.com/visit.html">
+    <title>Pokémon TCG in Edgewater, MD | The Toy Outpost</title>
+    <meta name="description" content="Pokémon TCG singles and sealed products in Edgewater, Maryland. Boosters, boxes, and the hunt at The Toy Outpost, 93 Mayo Rd.">
+    <link rel="canonical" href="https://toyoutpostco.com/pokemon.html">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="icon" type="image/png" href="favicon.png">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Visit The Toy Outpost | Edgewater, MD">
-    <meta property="og:description" content="Directions, parking, and hours for The Toy Outpost at 93 Mayo Rd, Edgewater, Maryland.">
-    <meta property="og:url" content="https://toyoutpostco.com/visit.html">
-    <meta property="og:image" content="https://toyoutpostco.com/assets/store/store-aisle.jpg">
+    <meta property="og:title" content="Pokémon Singles + Sealed | The Toy Outpost">
+    <meta property="og:description" content="Pokémon TCG singles and sealed products in Edgewater, Maryland. Come hunt the case.">
+    <meta property="og:url" content="https://toyoutpostco.com/pokemon.html">
+    <meta property="og:image" content="https://toyoutpostco.com/assets/store/pokemon-sealed.jpg">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "ToyStore",
         "name": "The Toy Outpost",
-        "url": "https://toyoutpostco.com/visit.html",
-        "image": "https://toyoutpostco.com/assets/store/store-aisle.jpg",
+        "url": "https://toyoutpostco.com/pokemon.html",
+        "image": "https://toyoutpostco.com/assets/store/pokemon-sealed.jpg",
         "telephone": "+14434248697",
         "address": {
             "@type": "PostalAddress",
@@ -29,11 +29,6 @@
             "addressRegion": "MD",
             "postalCode": "21037",
             "addressCountry": "US"
-        },
-        "geo": {
-            "@type": "GeoCoordinates",
-            "latitude": 38.936255696176296,
-            "longitude": -76.55881979204352
         },
         "areaServed": ["Edgewater", "Annapolis", "Anne Arundel County"],
         "openingHoursSpecification": [
@@ -58,7 +53,6 @@
         ]
     }
     </script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -159,8 +153,6 @@
             flex-wrap: wrap;
             gap: 0.75rem;
         }
-        .btn.directions-cta--apple { display: none; }
-        html.show-apple-maps .btn.directions-cta--apple { display: inline-flex; }
 
         .site-header {
             position: sticky;
@@ -205,7 +197,9 @@
             transition: color 0.2s ease;
         }
         .nav-links a:hover,
-        .nav-links a[aria-current="page"] { color: var(--star); }
+        .nav-links a[aria-current="page"] {
+            color: var(--star);
+        }
         .nav-cta {
             color: var(--void) !important;
             background: var(--rust);
@@ -327,7 +321,7 @@
 
         .hero {
             position: relative;
-            min-height: min(78vh, 720px);
+            min-height: min(82vh, 760px);
             display: flex;
             align-items: flex-end;
             overflow: hidden;
@@ -338,7 +332,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: 50% 40%;
+            object-position: 55% 45%;
         }
         .hero-media::after {
             content: '';
@@ -346,7 +340,7 @@
             inset: 0;
             background:
                 linear-gradient(180deg, rgba(10, 14, 39, 0.1) 0%, rgba(10, 14, 39, 0.04) 36%, rgba(10, 14, 39, 0.62) 74%, rgba(10, 14, 39, 0.94) 100%),
-                linear-gradient(90deg, rgba(10, 14, 39, 0.4) 0%, rgba(10, 14, 39, 0.08) 42%, transparent 70%);
+                linear-gradient(90deg, rgba(10, 14, 39, 0.4) 0%, rgba(10, 14, 39, 0.08) 42%, transparent 72%);
         }
         .hero-copy {
             position: relative;
@@ -365,7 +359,10 @@
             text-transform: uppercase;
             color: var(--star);
             margin-bottom: 0.5rem;
-            text-shadow: 0 1px 2px rgba(10, 14, 39, 1), 0 2px 16px rgba(10, 14, 39, 0.95);
+            text-shadow:
+                0 1px 2px rgba(10, 14, 39, 1),
+                0 2px 16px rgba(10, 14, 39, 0.95),
+                0 0 28px rgba(10, 14, 39, 0.8);
         }
         .hero h1 {
             font-family: 'Rustique', 'Orbitron', sans-serif;
@@ -423,12 +420,110 @@
             margin-bottom: 1.5rem;
         }
 
-        .find-section {
+        .proof {
             background: var(--surface);
+            border-bottom: 1px solid var(--line);
+        }
+        .proof-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.85rem;
+        }
+        .proof-card {
+            position: relative;
+            min-height: 240px;
+            overflow: hidden;
+            border: 1px solid rgba(212, 163, 115, 0.28);
+        }
+        .proof-card img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .proof-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(10, 14, 39, 0.02) 0%, rgba(10, 14, 39, 0.12) 48%, rgba(10, 14, 39, 0.9) 100%);
+        }
+        .proof-card-copy {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1;
+            padding: 1.15rem;
+        }
+        .proof-card h3 {
+            font-family: 'Rustique', 'Orbitron', sans-serif;
+            font-size: clamp(1.25rem, 3vw, 1.6rem);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            line-height: 1;
+            margin-bottom: 0.3rem;
+        }
+        .proof-card p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+        }
+
+        .feature-band {
+            display: grid;
+            grid-template-columns: 1fr;
+            background: var(--void);
+            border-bottom: 1px solid var(--line);
+        }
+        .feature-photo { overflow: hidden; }
+        .feature-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            min-height: 260px;
+            max-height: 360px;
+        }
+        .feature-copy {
+            padding: 2rem 1.5rem 2.25rem;
+            padding-left: max(1.5rem, env(safe-area-inset-left));
+            padding-right: max(1.5rem, env(safe-area-inset-right));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 0.7rem;
+        }
+        .feature-copy h2 {
+            font-family: 'Rustique', 'Orbitron', sans-serif;
+            font-size: clamp(1.7rem, 4.6vw, 2.7rem);
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            line-height: 1.02;
+        }
+        .feature-copy p {
+            color: var(--text-muted);
+            max-width: 34rem;
+        }
+        .theme-list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: grid;
+            gap: 0.35rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        .theme-list li::before {
+            content: '▸ ';
+            color: var(--dust);
+        }
+
+        .visit-section {
+            background: var(--surface-2);
             border-bottom: 1px solid var(--line);
             scroll-margin-top: 7.5rem;
         }
-        .find-layout {
+        .visit-layout {
             display: grid;
             grid-template-columns: 1fr;
             gap: 1.25rem;
@@ -441,6 +536,7 @@
             border: 2px solid var(--dust);
             box-shadow: 0 0 28px rgba(212, 163, 115, 0.2), inset 0 0 20px rgba(212, 163, 115, 0.06);
         }
+        .address-callout { margin-bottom: 1rem; }
         .find-us {
             font-family: 'Rustique', 'Orbitron', sans-serif;
             font-size: 0.72rem;
@@ -469,50 +565,6 @@
             text-decoration: none;
         }
         .phone-line a:hover { color: var(--star); }
-        .find-actions { margin-top: 1rem; }
-        .google-proof {
-            margin-top: 0.85rem;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-        .google-proof a {
-            color: var(--dust);
-            text-underline-offset: 0.14em;
-        }
-        .google-proof a:hover { color: var(--star); }
-
-        .reviews { margin-top: 2rem; }
-        .reviews-heading {
-            font-family: 'Rustique', 'Orbitron', sans-serif;
-            font-size: clamp(1.25rem, 3vw, 1.7rem);
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            margin-bottom: 1rem;
-        }
-        .review-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 0.85rem;
-        }
-        .review-card {
-            margin: 0;
-            padding: 1.15rem 1.2rem 1.2rem;
-            border: 1px solid var(--line);
-            background: rgba(212, 163, 115, 0.08);
-        }
-        .review-card p {
-            color: var(--text-muted);
-            font-size: 0.92rem;
-            line-height: 1.65;
-        }
-        .review-card footer {
-            margin-top: 0.9rem;
-            font-family: 'Rustique', 'Orbitron', sans-serif;
-            font-size: 0.68rem;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: var(--rust);
-        }
 
         .hours-table {
             width: 100%;
@@ -547,212 +599,63 @@
             color: rgba(212, 163, 115, 0.88);
             font-size: clamp(0.82rem, 1.75vw, 0.9rem);
         }
-        .special-closures {
-            margin-top: 0.85rem;
-            padding-top: 0.8rem;
-            border-top: 1px solid rgba(212, 163, 115, 0.25);
-        }
-        .special-closures-title {
-            display: block;
-            margin-bottom: 0.45rem;
-            font-family: 'Rustique', 'Orbitron', sans-serif;
-            font-size: 0.68rem;
-            font-weight: 700;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--rust);
-        }
-        .special-closures-list { list-style: none; }
-        .special-closures-list li {
-            margin: 0.3rem 0;
-            color: #c9a882;
-            font-style: italic;
-            font-size: clamp(0.85rem, 1.8vw, 0.95rem);
-        }
-        .special-closures-list a {
-            color: inherit;
-            text-decoration: underline;
-            text-underline-offset: 0.14em;
-        }
-        .special-closures-list a:hover { color: var(--dust); }
-        .visit-hours-teaser {
-            margin-top: 0.85rem;
-            font-size: clamp(0.86rem, 1.85vw, 0.96rem);
-            color: var(--text-muted);
-        }
-        .visit-hours-teaser a { color: var(--dust); }
+        .visit-actions { margin-top: 1rem; }
 
-        .inventory {
-            background: var(--void);
-            border-bottom: 1px solid var(--line);
-        }
-        .category-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 0.85rem;
-        }
-        .cat-card {
-            position: relative;
-            display: block;
-            min-height: 220px;
-            overflow: hidden;
-            text-decoration: none;
-            color: var(--star);
-            border: 1px solid rgba(212, 163, 115, 0.28);
-            isolation: isolate;
-        }
-        .cat-card img {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.45s ease;
-        }
-        .cat-card::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, rgba(10, 14, 39, 0.02) 0%, rgba(10, 14, 39, 0.12) 48%, rgba(10, 14, 39, 0.88) 100%);
-            z-index: 1;
-        }
-        .cat-card:hover img,
-        .cat-card:focus-visible img { transform: scale(1.06); }
-        .cat-card:hover,
-        .cat-card:focus-visible {
-            border-color: rgba(244, 228, 193, 0.55);
-            outline: none;
-        }
-        .cat-card-copy {
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 2;
-            padding: 1.15rem;
-        }
-        .cat-card h3 {
+        .reviews { margin-top: 2rem; }
+        .reviews-heading {
             font-family: 'Rustique', 'Orbitron', sans-serif;
             font-size: clamp(1.25rem, 3vw, 1.7rem);
             letter-spacing: 0.08em;
             text-transform: uppercase;
-            line-height: 1;
-            margin-bottom: 0.3rem;
+            margin-bottom: 1rem;
         }
-        .cat-card p {
-            font-size: 0.88rem;
+        .review-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.85rem;
+        }
+        .review-card {
+            margin: 0;
+            padding: 1.15rem 1.2rem 1.2rem;
+            border: 1px solid var(--line);
+            background: rgba(212, 163, 115, 0.08);
+        }
+        .review-card p {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            line-height: 1.65;
+        }
+        .review-card footer {
+            margin-top: 0.9rem;
+            font-family: 'Rustique', 'Orbitron', sans-serif;
+            font-size: 0.68rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--rust);
+        }
+        .google-proof {
+            margin-top: 0.85rem;
+            font-size: 0.9rem;
             color: var(--text-muted);
         }
-        .cat-lego,
-        .cat-pokemon { min-height: 280px; }
-
-        .hours-section {
-            background: var(--surface-2);
-            border-bottom: 1px solid var(--line);
-            scroll-margin-top: 7.5rem;
+        .google-proof a {
+            color: var(--dust);
+            text-underline-offset: 0.14em;
         }
+        .google-proof a:hover { color: var(--star); }
 
-        .parking-section {
+        .more-store {
             background: var(--surface);
             border-bottom: 1px solid var(--line);
-            scroll-margin-top: 7.5rem;
+            text-align: center;
         }
-        .parking-copy {
-            font-size: clamp(0.9rem, 1.9vw, 1rem);
-            line-height: 1.7;
+        .more-store p {
             color: var(--text-muted);
             margin-bottom: 1rem;
         }
-        .parking-copy strong { color: var(--dust); }
-        .parking-list {
-            list-style: none;
-            margin: 0 0 1.25rem;
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 0.75rem;
+        .more-store .feature-actions {
+            justify-content: center;
         }
-        .parking-list li {
-            font-size: clamp(0.88rem, 1.75vw, 0.98rem);
-            line-height: 1.65;
-            color: var(--text-muted);
-            padding: 0.85rem 1rem;
-            border: 1px solid var(--line);
-            background: rgba(10, 14, 39, 0.45);
-        }
-        .parking-list li strong {
-            color: var(--dust);
-            display: block;
-            font-family: 'Rustique', 'Orbitron', sans-serif;
-            font-size: 0.78rem;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            margin-bottom: 0.25rem;
-        }
-        .parking-map-wrap {
-            position: relative;
-            z-index: 11;
-            border: 1px solid rgba(212, 163, 115, 0.45);
-            background: rgba(10, 14, 39, 0.5);
-            margin-bottom: 0.65rem;
-        }
-        .parking-map {
-            width: 100%;
-            height: min(58vw, 420px);
-            min-height: 240px;
-        }
-        .parking-map-note {
-            font-size: 0.78rem;
-            line-height: 1.55;
-            color: var(--text-secondary);
-            margin: 0;
-        }
-        .parking-directions-wrap { margin: 0 0 1rem; }
-        .parking-legend {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem 1.25rem;
-            margin-bottom: 0.75rem;
-            font-size: 0.72rem;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: var(--text-muted);
-        }
-        .parking-legend span {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.35rem;
-        }
-        .parking-legend i {
-            display: inline-block;
-            width: 0.65rem;
-            height: 0.65rem;
-            border-radius: 50%;
-            flex-shrink: 0;
-        }
-        .parking-legend .leg-main i {
-            background: #4ade80;
-            box-shadow: 0 0 8px rgba(22, 101, 52, 0.55);
-            outline: 1px solid #166534;
-        }
-        .parking-legend .leg-overflow i {
-            background: #a3e635;
-            box-shadow: 0 0 8px rgba(20, 83, 45, 0.5);
-            outline: 1px solid #14532d;
-        }
-        .parking-lot-marker {
-            background: transparent !important;
-            border: none !important;
-        }
-        .parking-symbol {
-            width: 32px;
-            height: 32px;
-            filter: drop-shadow(0 2px 6px rgba(10, 14, 39, 0.65));
-            pointer-events: auto;
-        }
-        .parking-symbol svg { display: block; }
-        .parking-symbol--main .p-sym-bg { fill: var(--void); stroke: #166534; }
-        .parking-symbol--overflow .p-sym-bg { fill: var(--void); stroke: #14532d; }
-        .parking-symbol .p-sym-letter { fill: var(--star); }
 
         .footer-info {
             background: var(--void);
@@ -765,8 +668,7 @@
             letter-spacing: 0.16em;
         }
         .footer-link,
-        .secondary-link,
-        .footer-contact-link {
+        .secondary-link {
             display: inline-block;
             margin-top: 0.65rem;
             font-size: 0.8125rem;
@@ -776,8 +678,7 @@
             text-transform: uppercase;
         }
         .footer-link:hover,
-        .secondary-link:hover,
-        .footer-contact-link:hover { color: var(--dust); }
+        .secondary-link:hover { color: var(--dust); }
         .social-links {
             margin-top: 0.5rem;
             display: flex;
@@ -822,7 +723,7 @@
                 font-size: 0.875rem;
                 padding: 0.2rem 0;
             }
-            .hero { min-height: min(70dvh, 620px); }
+            .hero { min-height: min(72dvh, 640px); }
             .hero-copy { padding-top: 2.25rem; padding-bottom: 1.75rem; }
             .sticky-directions {
                 display: flex;
@@ -857,7 +758,19 @@
         }
 
         @media (min-width: 769px) {
-            .find-layout {
+            .proof-grid { grid-template-columns: repeat(3, 1fr); }
+            .proof-grid--two { grid-template-columns: 1fr 1fr; }
+            .proof-card { min-height: 320px; }
+            .feature-band {
+                grid-template-columns: 1.45fr 0.55fr;
+                min-height: 560px;
+            }
+            .feature-photo img {
+                min-height: 560px;
+                max-height: none;
+            }
+            .feature-copy { padding: 3rem 2.5rem; }
+            .visit-layout {
                 grid-template-columns: 1fr 1fr;
                 gap: 1.75rem;
                 align-items: start;
@@ -866,49 +779,18 @@
                 grid-template-columns: repeat(3, 1fr);
                 align-items: start;
             }
-            .category-grid {
-                grid-template-columns: repeat(6, 1fr);
-                gap: 1rem;
-            }
-            .cat-lego,
-            .cat-pokemon {
-                grid-column: span 3;
-                min-height: 340px;
-            }
-            .cat-hw,
-            .cat-af,
-            .cat-vg {
-                grid-column: span 2;
-                min-height: 230px;
-            }
-            .parking-list { grid-template-columns: repeat(3, 1fr); }
         }
 
         @media (max-width: 430px) {
             .hero h1 { font-size: clamp(1.75rem, 10.5vw, 2.25rem); }
-            .parking-copy,
-            .parking-list li { font-size: 0.95rem; }
+            .proof-card { min-height: 220px; }
         }
 
         @media (prefers-reduced-motion: reduce) {
             html { scroll-behavior: auto; }
             .star { animation: none; }
-            .cat-card img { transition: none; }
         }
     </style>
-    <script>
-        (function () {
-            function isApplePlatform() {
-                var ua = navigator.userAgent || '';
-                if (/iPhone|iPod/i.test(ua)) return true;
-                if (/iPad/i.test(ua)) return true;
-                if (typeof navigator.maxTouchPoints === 'number' && navigator.maxTouchPoints > 1 && /Macintosh/i.test(ua)) return true;
-                if (/Macintosh|Mac OS X/i.test(ua)) return true;
-                return false;
-            }
-            if (isApplePlatform()) document.documentElement.classList.add('show-apple-maps');
-        })();
-    </script>
 </head>
 <body>
     <header class="site-header">
@@ -918,13 +800,13 @@
             <div class="nav-links" id="main-nav-links">
                 <a href="/">Home</a>
                 <a href="/lego.html">LEGO</a>
-                <a href="/pokemon.html">Pokémon</a>
+                <a href="/pokemon.html" aria-current="page">Pokémon</a>
                 <a href="/collectibles.html">Collectibles</a>
-                <a href="/visit.html" aria-current="page">Visit</a>
+                <a href="/visit.html">Visit</a>
                 <a class="nav-buy" href="/sell-your-toys.html">We Buy</a>
                 <a href="/contact.html">Contact</a>
                 <a href="/privacy-and-terms.html">Privacy &amp; Terms</a>
-                <a class="nav-cta" href="https://www.google.com/maps/dir/?api=1&amp;destination=93+Mayo+Rd%2C+Edgewater%2C+MD+21037" target="_blank" rel="noopener noreferrer">Get Directions</a>
+                <a class="nav-cta" href="/visit.html">Get Directions</a>
             </div>
         </nav>
         <div class="site-ops-bar" role="region" aria-label="Store open status">
@@ -947,40 +829,86 @@
     <main class="page">
         <section class="hero" aria-labelledby="hero-heading">
             <div class="hero-media">
-                <img src="assets/store/store-aisle.jpg" width="1024" height="683" alt="A store aisle packed with collectibles and LEGO at The Toy Outpost in Edgewater, Maryland." fetchpriority="high" decoding="async">
+                <img src="assets/store/pokemon-sealed.jpg" width="1024" height="683" alt="Sealed Pokémon TCG boxes, tins, and blister packs at The Toy Outpost in Edgewater, Maryland." fetchpriority="high" decoding="async">
             </div>
             <div class="hero-copy">
-                <p class="hero-kicker">Woodland Center · Edgewater, MD</p>
-                <h1 id="hero-heading">Visit the Store</h1>
-                <p class="hero-sub">LEGO, Pokémon, Hot Wheels, Action Figures &amp; Video Games</p>
-                <p class="hero-place">New &amp; pre-loved favorites at 93 Mayo Rd. Get directions, then scroll for parking.</p>
+                <p class="hero-kicker">The Toy Outpost · Edgewater, MD</p>
+                <h1 id="hero-heading">Pokémon TCG</h1>
+                <p class="hero-sub">Singles + Sealed Products</p>
+                <p class="hero-place">Boosters, boxes, and singles in the case. Inventory moves — come hunt it in Edgewater, Maryland.</p>
                 <div class="hero-actions">
-                    <a class="btn btn-primary" href="https://www.google.com/maps/dir/?api=1&amp;destination=93+Mayo+Rd%2C+Edgewater%2C+MD+21037" target="_blank" rel="noopener noreferrer">Google Maps</a>
-                    <a class="btn btn-secondary directions-cta--apple" href="https://maps.apple.com/?daddr=93%20Mayo%20Rd%2C%20Edgewater%2C%20MD%2021037" target="_blank" rel="noopener noreferrer">Apple Maps</a>
-                    <a class="btn btn-secondary" href="#parking">Parking</a>
+                    <a class="btn btn-primary" href="/visit.html">Get Directions</a>
+                    <a class="btn btn-secondary" href="#store-hours">Store Hours</a>
                 </div>
             </div>
         </section>
 
-        <section class="find-section section-pad" id="find-us" aria-labelledby="find-heading">
+        <section class="proof section-pad" aria-labelledby="on-the-wall">
             <div class="section-inner">
-                <p class="section-label">Find us</p>
-                <h2 class="section-heading" id="find-heading">93 Mayo Rd, Edgewater</h2>
-                <div class="find-layout">
+                <p class="section-label">In the case</p>
+                <h2 class="section-heading" id="on-the-wall">See it in the store</h2>
+                <p class="section-lead">This is the actual Pokémon case — not stock photos. What’s in today is part of the hunt.</p>
+                <div class="proof-grid proof-grid--two">
+                    <article class="proof-card">
+                        <img src="assets/store/pokemon-singles.jpg" width="1024" height="683" alt="Pokémon TCG singles in toploaders at The Toy Outpost." loading="lazy" decoding="async">
+                        <div class="proof-card-copy">
+                            <h3>Singles</h3>
+                            <p>Cards in the case, ready to hunt</p>
+                        </div>
+                    </article>
+                    <article class="proof-card">
+                        <img src="assets/store/pokemon-sealed.jpg" width="1024" height="683" alt="Sealed Pokémon TCG boxes and blister packs." loading="lazy" decoding="async">
+                        <div class="proof-card-copy">
+                            <h3>Sealed</h3>
+                            <p>Boosters, boxes, tins, and blisters</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="feature-band" aria-labelledby="selection-heading">
+            <div class="feature-photo">
+                <img src="assets/store/pokemon-singles.jpg" width="1024" height="683" alt="Pokémon TCG singles and sealed packs in a glass display case." loading="lazy" decoding="async">
+            </div>
+            <div class="feature-copy">
+                <p class="section-label">Pokémon TCG</p>
+                <h2 id="selection-heading">Singles + sealed</h2>
+                <p>Come walk up to the case. What you see is what’s in.</p>
+                <ul class="theme-list">
+                    <li>Singles in the case</li>
+                    <li>Booster packs</li>
+                    <li>Sealed boxes &amp; tins</li>
+                    <li>Blister packs</li>
+                    <li>Inventory rotates</li>
+                </ul>
+                <div class="feature-actions">
+                    <a class="btn btn-primary" href="/visit.html">Visit the Store</a>
+                    <a class="btn btn-secondary" href="tel:+14434248697">Call 443-424-8697</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="visit-section section-pad" id="store-hours" aria-labelledby="visit-heading">
+            <div class="section-inner">
+                <p class="section-label">Come hunt the case</p>
+                <h2 class="section-heading" id="visit-heading">Pokémon in Edgewater, Maryland</h2>
+                <p class="section-lead">Woodland Center · 93 Mayo Rd. Easy trip from Annapolis and southern Anne Arundel County.</p>
+                <div class="visit-layout">
                     <div>
                         <div class="address-callout">
-                            <span class="find-us">The Toy Outpost</span>
+                            <span class="find-us">Find us</span>
                             <div class="address">
                                 <a href="https://www.google.com/maps/search/?api=1&query=93+Mayo+Rd+Edgewater+MD+21037" target="_blank" rel="noopener noreferrer">93 Mayo Rd, Edgewater MD 21037</a>
                             </div>
                             <p class="phone-line">Call <a href="tel:+14434248697">443-424-8697</a></p>
                         </div>
-                        <div class="find-actions feature-actions">
-                            <a class="btn btn-primary" href="https://www.google.com/maps/dir/?api=1&amp;destination=93+Mayo+Rd%2C+Edgewater%2C+MD+21037" target="_blank" rel="noopener noreferrer">Google Maps</a>
-                            <a class="btn btn-secondary directions-cta--apple" href="https://maps.apple.com/?daddr=93%20Mayo%20Rd%2C%20Edgewater%2C%20MD%2021037" target="_blank" rel="noopener noreferrer">Apple Maps</a>
+                        <div class="visit-actions feature-actions">
+                            <a class="btn btn-primary" href="/visit.html">Get Directions</a>
+                            <a class="btn btn-secondary" href="/visit.html">Parking &amp; Map</a>
                         </div>
                     </div>
-                    <div class="hours-callout" id="store-hours">
+                    <div class="hours-callout">
                         <span class="find-us">Store hours</span>
                         <table class="hours-table">
                             <caption>Store hours for The Toy Outpost</caption>
@@ -1007,17 +935,6 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <div class="special-closures" aria-label="Special closure event dates">
-                            <span class="special-closures-title">Special closures - Events</span>
-                            <ul class="special-closures-list">
-                                <li><a href="https://www.dominiontoycon.com" target="_blank" rel="noopener noreferrer">Apr 25 - Dominion Toy Con</a></li>
-                                <li><a href="https://www.marylandtoyexpo.com" target="_blank" rel="noopener noreferrer">Jun 13 - Maryland Toy Expo</a></li>
-                                <li><a href="https://www.marylandtradingcardexpo.com" target="_blank" rel="noopener noreferrer">Jun 14 - Maryland Trading Card Expo</a></li>
-                                <li><a href="https://www.marylandtoyexpo.com" target="_blank" rel="noopener noreferrer">Nov 7 - Maryland Toy Expo</a></li>
-                                <li><a href="https://www.marylandtradingcardexpo.com" target="_blank" rel="noopener noreferrer">Nov 8 - Maryland Trading Card Expo</a></li>
-                            </ul>
-                        </div>
-                        <p id="visit-hours-teaser" class="visit-hours-teaser"></p>
                     </div>
                 </div>
                 <div class="reviews" aria-labelledby="reviews-heading">
@@ -1044,88 +961,11 @@
             </div>
         </section>
 
-        <section class="inventory section-pad" aria-labelledby="inventory-heading">
-            <div class="section-inner">
-                <p class="section-label">On the floor</p>
-                <h2 class="section-heading" id="inventory-heading">What you’ll find</h2>
-                <p class="section-lead">Walk in for LEGO, Pokémon, Hot Wheels, action figures, and video games — new and pre-loved, always rotating.</p>
-                <div class="category-grid">
-                    <a class="cat-card cat-lego" href="/lego.html">
-                        <img src="assets/store/lego-minifigs.jpg" width="1024" height="683" alt="Tiered display of LEGO minifigures at The Toy Outpost." loading="lazy" decoding="async">
-                        <div class="cat-card-copy">
-                            <h3>LEGO</h3>
-                            <p>Sets for kids, collectors &amp; builders</p>
-                        </div>
-                    </a>
-                    <a class="cat-card cat-pokemon" href="/pokemon.html">
-                        <img src="assets/store/pokemon-singles.jpg" width="1024" height="683" alt="Pokémon TCG singles and sealed packs in a glass case." loading="lazy" decoding="async">
-                        <div class="cat-card-copy">
-                            <h3>Pokémon</h3>
-                            <p>Singles + sealed products</p>
-                        </div>
-                    </a>
-                    <a class="cat-card cat-hw" href="/collectibles.html#hot-wheels">
-                        <img src="assets/store/hot-wheels.jpg" width="1024" height="683" alt="A pegboard wall packed with Hot Wheels cars." loading="lazy" decoding="async">
-                        <div class="cat-card-copy">
-                            <h3>Hot Wheels</h3>
-                            <p>Die-cast wall, always rotating</p>
-                        </div>
-                    </a>
-                    <a class="cat-card cat-af" href="/collectibles.html#action-figures">
-                        <img src="assets/store/action-figures.jpg" width="1024" height="1536" alt="Shelves of Marvel, DC, G.I. Joe, and bagged action figures." loading="lazy" decoding="async">
-                        <div class="cat-card-copy">
-                            <h3>Action Figures</h3>
-                            <p>Modern + vintage collectibles</p>
-                        </div>
-                    </a>
-                    <a class="cat-card cat-vg" href="/collectibles.html#video-games">
-                        <img src="assets/store/video-games.jpg" width="1024" height="683" alt="A free-play Super Pac-Man machine on the shop floor at The Toy Outpost." loading="lazy" decoding="async">
-                        <div class="cat-card-copy">
-                            <h3>Video Games</h3>
-                            <p>Vintage + modern. One free-play machine on the floor.</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <section class="parking-section section-pad" id="parking" aria-labelledby="parking-heading">
-            <div class="section-inner">
-                <p class="section-label">Woodland Center</p>
-                <h2 class="section-heading" id="parking-heading">Parking</h2>
-                <p class="parking-copy">
-                    Please use the <strong>main parking lot</strong> in front of the shopping center first.
-                    If the main lot is full, additional parking is available in the <strong>overflow lot off Whiteford Place</strong>.
-                    <strong>On-street parking</strong> is also permitted in the <strong>residential streets behind the shopping center</strong>; be respectful of driveways and neighbors.
-                </p>
-                <ul class="parking-list">
-                    <li>
-                        <strong>Main lot</strong>
-                        Primary lot at the center — closest to The Toy Outpost.
-                    </li>
-                    <li>
-                        <strong>Overflow (Whiteford Place)</strong>
-                        If the main lot is full, follow signage or use the lot accessible from Whiteford Place.
-                    </li>
-                    <li>
-                        <strong>Residential street parking</strong>
-                        Streets behind the center allow parking where posted; watch for signs and leave driveways clear.
-                    </li>
-                </ul>
-                <div class="parking-directions-wrap feature-actions">
-                    <a class="btn btn-primary" href="https://www.google.com/maps/dir/?api=1&amp;destination=93+Mayo+Rd%2C+Edgewater%2C+MD+21037" target="_blank" rel="noopener noreferrer">Google Maps</a>
-                    <a class="btn btn-secondary directions-cta--apple" href="https://maps.apple.com/?daddr=93%20Mayo%20Rd%2C%20Edgewater%2C%20MD%2021037" target="_blank" rel="noopener noreferrer">Apple Maps</a>
-                </div>
-                <div class="parking-legend" aria-hidden="true">
-                    <span class="leg-main"><i></i> Main lot (approx.)</span>
-                    <span class="leg-overflow"><i></i> Overflow · Whiteford Pl (approx.)</span>
-                </div>
-                <div class="parking-map-wrap">
-                    <div id="parking-map" class="parking-map" role="application" aria-label="Interactive map: store location at 93 Mayo Rd, main and overflow parking"></div>
-                </div>
-                <p class="parking-map-note">
-                    The <strong>robot cowboy</strong> marks <strong>The Toy Outpost</strong> at 93 Mayo Rd. <strong>P</strong> marks the center of each parking area. Shaded regions are approximate. Map data © OpenStreetMap contributors.
-                </p>
+        <section class="more-store section-pad">
+            <p>LEGO, Hot Wheels, action figures, and video games are in the same shop.</p>
+            <div class="feature-actions">
+                <a class="btn btn-secondary" href="/lego.html">Explore LEGO</a>
+                <a class="btn btn-secondary" href="/collectibles.html">Explore Collectibles</a>
             </div>
         </section>
     </main>
@@ -1136,138 +976,18 @@
             <a href="https://www.facebook.com/toyoutpostco" target="_blank" rel="noopener noreferrer">Facebook</a>
             <a href="https://www.instagram.com/toyoutpostco" target="_blank" rel="noopener noreferrer">Instagram</a>
         </nav>
-        <a href="/" class="secondary-link">Home</a>
-        <a href="/lego.html" class="secondary-link">LEGO</a>
-        <a href="/pokemon.html" class="secondary-link">Pokémon</a>
-        <a href="/collectibles.html" class="secondary-link">Collectibles</a>
-        <a href="/sell-your-toys.html" class="secondary-link">We Buy</a>
-        <a href="/contact.html" class="footer-contact-link">Contact</a>
+        <a href="/visit.html" class="secondary-link">Visit</a>
+        <a href="/contact.html" class="secondary-link">Contact</a>
         <a href="/privacy-and-terms.html" class="footer-link">Privacy &amp; Terms</a>
     </div>
 
     <div class="sticky-directions">
-        <a class="btn btn-primary" href="https://www.google.com/maps/dir/?api=1&amp;destination=93+Mayo+Rd%2C+Edgewater%2C+MD+21037" target="_blank" rel="noopener noreferrer">Get Directions</a>
+        <a class="btn btn-primary" href="/visit.html">Get Directions</a>
         <a class="sticky-hours" href="#store-hours">Hours</a>
     </div>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
     <script defer src="assets/store-schedule.js"></script>
     <script>
-        (function () {
-            var el = document.getElementById('parking-map');
-            if (!el || typeof L === 'undefined') return;
-
-            var map = L.map(el, {
-                scrollWheelZoom: false,
-                attributionControl: true,
-            }).setView([38.93603753746244, -76.55856827671439], 17);
-
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-                maxZoom: 19,
-            }).addTo(map);
-
-            function ringCentroid(ring) {
-                var sLat = 0;
-                var sLng = 0;
-                for (var i = 0; i < ring.length; i++) {
-                    sLat += ring[i][0];
-                    sLng += ring[i][1];
-                }
-                var n = ring.length;
-                return [sLat / n, sLng / n];
-            }
-
-            function parkingDivIcon(kind) {
-                var svg =
-                    '<div class="parking-symbol parking-symbol--' +
-                    kind +
-                    '" title="' +
-                    (kind === 'main' ? 'Main parking lot' : 'Overflow parking') +
-                    '" aria-hidden="true">' +
-                    '<svg viewBox="0 0 32 32" width="32" height="32" xmlns="http://www.w3.org/2000/svg" focusable="false">' +
-                    '<rect class="p-sym-bg" x="1.5" y="1.5" width="29" height="29" rx="5" stroke-width="2" />' +
-                    '<text class="p-sym-letter" x="16" y="22.5" text-anchor="middle" font-family="Arial Black, Helvetica, sans-serif" font-size="16" font-weight="900">P</text>' +
-                    '</svg></div>';
-                return L.divIcon({
-                    className: 'parking-lot-marker',
-                    html: svg,
-                    iconSize: [32, 32],
-                    iconAnchor: [16, 16],
-                });
-            }
-
-            var mainRing = [
-                [38.93566947453367, -76.55859395238642],
-                [38.93633017692724, -76.55883470112452],
-                [38.93641461335925, -76.55855246634445],
-                [38.93573658432759, -76.55829198700218],
-            ];
-            var mainPopup = '<strong>Main lot</strong><br>Park here first — Woodland Center, 93 Mayo Rd.';
-            var mainLot = L.polygon(mainRing, {
-                color: '#166534',
-                weight: 2,
-                fillColor: '#4ade80',
-                fillOpacity: 0.42,
-            })
-                .addTo(map)
-                .bindPopup(mainPopup);
-
-            L.marker(ringCentroid(mainRing), {
-                icon: parkingDivIcon('main'),
-                zIndexOffset: 600,
-            })
-                .addTo(map)
-                .bindPopup(mainPopup);
-
-            var overflowRing = [
-                [38.93541938287756, -76.55882746433413],
-                [38.93558825780992, -76.5588795692166],
-                [38.9356355427189, -76.55865378139255],
-                [38.93546329039866, -76.5585987817944],
-            ];
-            var overflowPopup = '<strong>Overflow parking</strong><br>Off Whiteford Place — use if the main lot is full.';
-            var overflow = L.polygon(overflowRing, {
-                color: '#14532d',
-                weight: 2,
-                fillColor: '#a3e635',
-                fillOpacity: 0.4,
-            })
-                .addTo(map)
-                .bindPopup(overflowPopup);
-
-            L.marker(ringCentroid(overflowRing), {
-                icon: parkingDivIcon('overflow'),
-                zIndexOffset: 600,
-            })
-                .addTo(map)
-                .bindPopup(overflowPopup);
-
-            var storeLatLng = [38.936255696176296, -76.55881979204352];
-            var showAppleMaps = document.documentElement.classList.contains('show-apple-maps');
-            var storePopup =
-                '<strong>The Toy Outpost</strong><br>93 Mayo Rd, Edgewater MD 21037<br>' +
-                '<a href="https://www.google.com/maps/dir/?api=1&destination=93+Mayo+Rd%2C+Edgewater%2C+MD+21037" target="_blank" rel="noopener noreferrer">Google Maps</a>' +
-                (showAppleMaps
-                    ? ' · <a href="https://maps.apple.com/?daddr=93%20Mayo%20Rd%2C%20Edgewater%2C%20MD%2021037" target="_blank" rel="noopener noreferrer">Apple Maps</a>'
-                    : '');
-            L.marker(storeLatLng, {
-                icon: L.icon({
-                    iconUrl: 'assets/map-store-marker.png',
-                    iconSize: [36, 36],
-                    iconAnchor: [18, 36],
-                    popupAnchor: [0, -32],
-                }),
-                zIndexOffset: 900,
-                title: 'The Toy Outpost — 93 Mayo Rd',
-            })
-                .bindPopup(storePopup)
-                .addTo(map);
-
-            var bounds = L.latLngBounds(mainLot.getBounds()).extend(overflow.getBounds()).extend(storeLatLng);
-            map.fitBounds(bounds, { padding: [28, 28], maxZoom: 18 });
-        })();
-
         const navToggle = document.querySelector('.nav-toggle');
         const navLinks = document.querySelector('.nav-links');
         if (navToggle && navLinks) {
@@ -1288,7 +1008,8 @@
         for (let i = 0; i < 40; i++) {
             const star = document.createElement('div');
             star.className = 'star';
-            star.style.width = star.style.height = (Math.random() * 2 + 1) + 'px';
+            star.style.width = Math.random() * 2 + 1 + 'px';
+            star.style.height = star.style.width;
             star.style.left = Math.random() * 100 + '%';
             star.style.top = Math.random() * 100 + '%';
             star.style.animationDelay = Math.random() * 3 + 's';

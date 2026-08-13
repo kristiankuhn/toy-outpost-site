@@ -83,7 +83,7 @@
             min-height: 100dvh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
             padding: 2rem;
             padding-left: max(1.25rem, env(safe-area-inset-left));
@@ -347,6 +347,136 @@
             color: var(--star);
         }
 
+        .nav-cta {
+            color: var(--void) !important;
+            background: var(--rust);
+            border: 2px solid var(--rust);
+            padding: 0.4rem 0.75rem;
+            letter-spacing: 0.1em !important;
+        }
+        .nav-cta:hover {
+            background: #c96a42;
+            color: var(--void) !important;
+        }
+        .nav-links a.nav-buy { color: var(--rust); }
+        .nav-links a.nav-buy:hover,
+        .nav-links a.nav-buy[aria-current="page"] { color: #e08a62; }
+        .site-ops-bar {
+            border-top: 1px solid rgba(184, 92, 56, 0.4);
+            background: linear-gradient(180deg, rgba(184, 92, 56, 0.18) 0%, rgba(10, 14, 39, 0.97) 55%, rgba(10, 14, 39, 1) 100%);
+            padding: 0.55rem max(1.25rem, env(safe-area-inset-left)) 0.6rem max(1.25rem, env(safe-area-inset-right));
+        }
+        .site-ops-inner {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+        }
+        .store-status {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+            width: 100%;
+            max-width: 36rem;
+            margin: 0;
+            padding: 0.5rem 1rem;
+            border: 1px solid rgba(212, 163, 115, 0.45);
+            background: rgba(10, 14, 39, 0.75);
+            text-align: left;
+        }
+        .store-status-primary { display: flex; align-items: flex-start; gap: 0.75rem; }
+        .store-status-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            margin-top: 0.32rem;
+            flex-shrink: 0;
+            background: rgba(184, 92, 56, 0.55);
+        }
+        .store-status[data-open="true"] .store-status-dot {
+            background: rgba(244, 228, 193, 0.98);
+            box-shadow: 0 0 10px rgba(244, 228, 193, 0.65);
+        }
+        .store-status-lines { display: flex; flex-direction: column; gap: 0.15rem; flex: 1; min-width: 0; }
+        .store-status-main {
+            font-family: 'Rustique', 'Orbitron', sans-serif;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+        .store-status-hint { font-size: 0.75rem; color: var(--text-muted); }
+        .store-status-tz { font-size: 0.65rem; color: var(--text-secondary); letter-spacing: 0.08em; }
+
+        .page-banner {
+            width: 100%;
+            max-width: 620px;
+            margin: 0 auto 1.35rem;
+            overflow: hidden;
+            border: 1px solid rgba(212, 163, 115, 0.28);
+        }
+        .page-banner img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+        .hours-strip {
+            width: 100%;
+            max-width: 480px;
+            margin: 0 auto 1.25rem;
+            padding: 1rem 1.25rem;
+            border: 2px solid var(--dust);
+            background: rgba(212, 163, 115, 0.12);
+            text-align: left;
+        }
+        .hours-strip .find-us {
+            font-family: 'Rustique', 'Orbitron', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.3em;
+            color: var(--rust);
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 0.45rem;
+        }
+        .hours-table { width: 100%; border-collapse: collapse; }
+        .hours-table th { text-align: left; padding: 0.25rem 0; font-weight: 400; color: var(--text-secondary); }
+        .hours-table td { text-align: right; padding: 0.25rem 0; }
+        .hours-table .closed { color: #c9a882; font-style: italic; }
+        .hours-note { color: rgba(212, 163, 115, 0.88); font-size: 0.82rem; }
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        .page-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+            margin: 0 0 1.5rem;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.85rem 1.4rem;
+            min-height: 48px;
+            border: 2px solid var(--rust);
+            font-family: 'Rustique', 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            text-decoration: none;
+        }
+        .btn-primary { background: var(--rust); color: var(--void); }
+        .btn-secondary { background: transparent; color: var(--star); border-color: var(--star); }
+        .sticky-directions { display: none; }
+
         .nav-toggle {
             display: none;
             border: 1px solid rgba(212, 163, 115, 0.45);
@@ -389,6 +519,30 @@
                 font-size: 0.875rem;
                 padding: 0.2rem 0;
             }
+
+            .nav-cta {
+                width: auto;
+                text-align: center;
+            }
+
+            .sticky-directions {
+                display: flex;
+                position: fixed;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 50;
+                gap: 0.65rem;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0.7rem 1rem max(0.7rem, env(safe-area-inset-bottom));
+                background: rgba(10, 14, 39, 0.96);
+                border-top: 1px solid rgba(212, 163, 115, 0.35);
+            }
+
+            .container {
+                padding-bottom: max(6rem, calc(4.5rem + env(safe-area-inset-bottom)));
+            }
         }
 
         @media (max-width: 430px) {
@@ -416,37 +570,69 @@
             <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav-links" aria-label="Toggle navigation">&#9776;</button>
             <div class="nav-links" id="main-nav-links">
                 <a href="/">Home</a>
+                <a href="/lego.html">LEGO</a>
+                <a href="/pokemon.html">Pokémon</a>
+                <a href="/collectibles.html">Collectibles</a>
                 <a href="/visit.html">Visit</a>
-                <a href="/sell-your-toys.html">Sell Your Toys</a>
+                <a class="nav-buy" href="/sell-your-toys.html">We Buy</a>
                 <a href="/contact.html">Contact</a>
                 <a href="/privacy-and-terms.html">Privacy &amp; Terms</a>
+                <a class="nav-cta" href="/visit.html">Get Directions</a>
             </div>
         </nav>
+        <div class="site-ops-bar" role="region" aria-label="Store open status">
+            <div class="site-ops-inner">
+                <p class="store-status" id="store-status" data-open="false" role="status" aria-live="polite" aria-atomic="true">
+                    <span class="store-status-primary">
+                        <span class="store-status-dot" aria-hidden="true"></span>
+                        <span class="store-status-lines">
+                            <span class="store-status-main" id="store-status-main">…</span>
+                            <span class="store-status-hint" id="store-status-hint"></span>
+                        </span>
+                    </span>
+                    <span class="store-status-tz">Shop clock · US Eastern (Edgewater, MD)</span>
+                </p>
+            </div>
+        </div>
     </header>
     <div class="stars" id="starfield"></div>
 
     <div class="container">
-        <a href="/" class="logo">
-            <img src="assets/logo-horizontal.png" alt="The Toy Outpost" />
-        </a>
-        <div class="tagline">Where Legends Never Fade</div>
-        <p class="brand-intro">
-            <span class="highlight">Toy Outpost Co.</span> - Vintage &amp; modern toys and collectibles, new &amp; pre-loved.
-            From childhood classics to today's pop culture favorites, our ever-changing inventory keeps the hunt exciting.
-        </p>
-
-        <h2 class="thank-you-title">Transmission received</h2>
+        <div class="page-banner">
+            <img src="assets/store/hero-lego-aisle.jpg" width="1024" height="683" alt="The LEGO aisle at The Toy Outpost in Edgewater, Maryland.">
+        </div>
+        <h1 class="thank-you-title">Transmission received</h1>
         <p class="thank-you-message">
-            You're on the list. We'll send updates as we get closer to launch.
+            You’re on the list. We’ll send store updates, drops, and hours changes.
         </p>
 
         <div class="visit-invite">
-            <div class="when">Opening Spring 2026</div>
-            <p class="copy">Visit our <span class="highlight">physical store</span> at the outpost—we'd love to see you there.</p>
+            <div class="when">We’re open now</div>
+            <p class="copy">Come hunt LEGO, Pokémon, and the rest of the floor at the physical store.</p>
         </div>
 
         <div class="thank-you-address">
             <a href="https://www.google.com/maps/search/?api=1&query=93+Mayo+Rd+Edgewater+MD+21037" target="_blank" rel="noopener noreferrer">93 Mayo Rd, Edgewater MD 21037</a>
+        </div>
+
+        <div class="hours-strip" id="store-hours">
+            <span class="find-us">Store hours</span>
+            <table class="hours-table">
+                <caption class="visually-hidden">Store hours for The Toy Outpost</caption>
+                <tbody>
+                    <tr><th scope="row">Monday</th><td class="closed">Closed<span id="hours-note-wd-1" class="hours-note" hidden></span></td></tr>
+                    <tr><th scope="row">Tuesday</th><td class="closed">Closed<span id="hours-note-wd-2" class="hours-note" hidden></span></td></tr>
+                    <tr><th scope="row">Wed – Fri</th><td>12pm – 8pm<span id="hours-note-wd-345" class="hours-note" hidden></span></td></tr>
+                    <tr><th scope="row">Saturday</th><td>10am – 8pm<span id="hours-note-wd-6" class="hours-note" hidden></span></td></tr>
+                    <tr><th scope="row">Sunday</th><td>12pm – 6pm<span id="hours-note-wd-0" class="hours-note" hidden></span></td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="page-actions">
+            <a class="btn btn-primary" href="/visit.html">Get Directions</a>
+            <a class="btn btn-secondary" href="/lego.html">Explore LEGO</a>
+            <a class="btn btn-secondary" href="/pokemon.html">Explore Pokémon</a>
+            <a class="btn btn-secondary" href="/collectibles.html">Explore Collectibles</a>
         </div>
 
         <a href="/" class="back-link">Back to home</a>
@@ -456,12 +642,18 @@
                 <a href="https://www.facebook.com/toyoutpostco" target="_blank" rel="noopener noreferrer">Facebook</a>
                 <a href="https://www.instagram.com/toyoutpostco" target="_blank" rel="noopener noreferrer">Instagram</a>
             </nav>
-            <a href="/sell-your-toys.html" class="secondary-link">Sell Your Toys</a>
+            <a href="/sell-your-toys.html" class="secondary-link">We Buy</a>
             <a href="/contact.html" class="footer-contact-link">Contact</a>
             <a href="/privacy-and-terms.html" class="footer-link">Privacy &amp; Terms</a>
         </div>
     </div>
 
+    <div class="sticky-directions">
+        <a class="btn btn-primary" href="/visit.html">Get Directions</a>
+        <a class="btn btn-secondary" href="#store-hours">Hours</a>
+    </div>
+
+    <script defer src="assets/store-schedule.js"></script>
     <script>
 
         const navToggle = document.querySelector('.nav-toggle');
