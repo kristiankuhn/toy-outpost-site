@@ -238,16 +238,17 @@
 
         if (open) {
             mainEl.textContent = 'Open now';
+            var epOpen = easternParts(now);
             var openOv = openDateOverride(now);
+            var ranges = openOv ? openOv.ranges : DAY_SCHEDULE[epOpen.day] || [];
+            var until = currentRangeEndMinutes(epOpen, ranges);
+            var untilLine = until != null ? 'Open until ' + formatScheduleMinutes12h(until) : '';
             if (openOv && openOv.description) {
-                var epOpen = easternParts(now);
-                var until = currentRangeEndMinutes(epOpen, openOv.ranges);
-                hintEl.textContent =
-                    until != null
-                        ? openOv.description + ' · Open until ' + formatScheduleMinutes12h(until)
-                        : openOv.description;
+                hintEl.textContent = untilLine
+                    ? openOv.description + ' · ' + untilLine
+                    : openOv.description;
             } else {
-                hintEl.textContent = '';
+                hintEl.textContent = untilLine;
             }
         } else {
             mainEl.textContent = 'Closed';
